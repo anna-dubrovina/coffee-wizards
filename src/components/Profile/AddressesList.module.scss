@@ -1,0 +1,72 @@
+@import '../../styles/variables';
+
+.listItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border: 1px solid $main-coffee-color;
+  padding: 15px;
+  margin: 15px auto;
+  background-color: $semilight-coffee-color;
+  div {
+    margin: 0 10px;
+    h4 {
+      padding: 5px 0;
+      text-align: left;
+      text-transform: capitalize;
+    }
+    p {
+      text-transform: capitalize;
+    }
+    span {
+      grid-area: span1;
+      display: block;
+      font-size: 85%;
+      font-weight: 600;
+      width: 100%;
+      padding: 4px;
+    }
+    img {
+      width: 35px;
+      height: 35px;
+      padding: 5px;
+      cursor: pointer;
+      margin: 0 auto;
+      transition: 0.5s all ease-in-out;
+      border: 1px solid transparent;
+      &:hover {
+        opacity: 0.5;
+      }
+      &:first-of-type {
+        grid-area: img1;
+      }
+      &:last-of-type {
+        grid-area: img2;
+      }
+    }
+    &:last-child {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      text-align: center;
+      row-gap: 15px;
+      grid-template-areas:
+        'span1 span1'
+        'img1 img2';
+      width: 110px;
+      height: 100%;
+    }
+  }
+}
+
+.main {
+  color: $main-coffee-color;
+  font-weight: 800;
+}
+
+.setMain {
+  cursor: pointer;
+  transition: 0.5s all ease-in-out;
+  &:hover {
+    color: $main-coffee-color;
+  }
+}

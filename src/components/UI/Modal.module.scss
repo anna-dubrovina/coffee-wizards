@@ -1,0 +1,72 @@
+@import '../../styles/variables';
+
+.modal {
+  z-index: 40;
+  position: fixed;
+  width: 90%;
+  left: 5%;
+  top: 10%;
+  transition: all 0.5s ease-out;
+  background: $light-coffee-color;
+  box-shadow: 1px 1px 2px $semidark-coffee-color;
+  div {
+    margin: 0;
+    position: relative;
+  }
+}
+
+.errorModal {
+  top: 20%;
+  background: $light-coffee-color;
+}
+
+.closeBtn {
+  width: 40px;
+  position: absolute;
+  top: 20px;
+  padding: 10px;
+  right: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.5s ease-in-out;
+  z-index: 40;
+  &:hover {
+    background: $semilight-coffee-color;
+  }
+}
+.backdrop {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 30;
+  left: 0;
+  top: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+@media (min-width: 900px) {
+  .modal {
+    width: 800px;
+    left: calc(50% - 400px);
+  }
+}
+
+@media (max-width: 600px) {
+  .modal {
+    width: 100%;
+    left: 0;
+    top: 0;
+  }
+  .errorModal {
+    top: 20%;
+  }
+}
+
+@media (max-height: 600px) and (orientation: landscape) {
+  .modal {
+    top: 5%;
+  }
+  .errorModal {
+    top: 20%;
+  }
+}

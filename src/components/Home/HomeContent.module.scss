@@ -1,0 +1,50 @@
+@import '../../styles/variables';
+
+.topProducts {
+  @include flex-column;
+  padding: 30px;
+}
+
+.whyUs {
+  @include flex-column;
+  padding: 30px 10px;
+
+  ul {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    justify-content: center;
+    column-gap: 20px;
+    padding: 20px;
+    li {
+      @include flex-row;
+      justify-content: flex-start;
+      width: 80%;
+      padding: 10px 20px;
+      margin: 5px auto;
+
+      img {
+        height: 50px;
+        margin-right: 20px;
+      }
+    }
+  }
+}
+
+@media (max-width: 1000px) {
+  .whyUs ul li {
+    width: 100%;
+  }
+}
+
+@media (max-width: 750px) {
+  .whyUs ul {
+    grid-template-columns: 1fr;
+    li {
+      border-top: 1px solid $semilight-coffee-color;
+      &:first-child {
+        border: none;
+      }
+    }
+  }
+}

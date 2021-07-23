@@ -1,0 +1,16 @@
+@import '../../styles/variables';
+
+.sidebarItem {
+  width: 100%;
+  margin: 5px;
+  a {
+    padding: 13px 20px;
+    background: $light-coffee-color;
+    border: 1px solid $main-coffee-color;
+    display: block;
+    width: 100%;
+    &:hover {
+      background: $semilight-coffee-color;
+    }
+  }
+}

@@ -1,0 +1,187 @@
+@import './variables';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: $primary-font;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: $semilight-coffee-color;
+  color: $dark-coffee-color;
+  &::-webkit-scrollbar {
+    width: 8px;
+    background: $semilight-coffee-color;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: $dark-coffee-color;
+  }
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: $secondary-font;
+  text-align: center;
+  padding: 10px 0;
+}
+
+h1 {
+  padding: 20px;
+  margin: 0 auto;
+  width: 90%;
+  font-size: 32px;
+  border-bottom: 2px solid $main-coffee-color;
+}
+h2 {
+  padding: 15px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  font-size: inherit;
+  transition: all 0.5s ease-in-out;
+}
+
+li {
+  list-style: none;
+  font-size: 18px;
+  transition: all 0.5s ease-in-out;
+}
+
+p {
+  font-size: 18px;
+  font-weight: 300;
+  padding: 10px 0;
+}
+
+span {
+  font-size: inherit;
+}
+
+#root {
+  overflow: hidden;
+  width: 100%;
+}
+
+.lead {
+  font-size: 20px;
+  line-height: 1.5;
+}
+
+.selected {
+  color: $main-coffee-color;
+  font-weight: 600;
+}
+
+.errorDiv {
+  color: $error-color;
+  padding: 10px;
+  h3 {
+    margin-top: 20px;
+  }
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.bg-light {
+  background-color: $light-coffee-color;
+}
+.bg-semilight {
+  background-color: $semilight-coffee-color;
+}
+
+.page-with-aside {
+  display: grid;
+  grid-template-columns: 250px auto;
+}
+
+@media (min-width: 2000px) {
+  .container {
+    width: 80%;
+  }
+  p,
+  li {
+    font-size: 22px;
+  }
+  .lead {
+    font-size: 24px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .container {
+    width: 90%;
+    max-width: none;
+  }
+}
+
+@media (max-width: 850px) {
+  h1 {
+    font-size: 30px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+  h3 {
+    font-size: 17px;
+  }
+  h4 {
+    font-size: 15px;
+  }
+
+  p,
+  li,
+  a {
+    font-size: 16px;
+  }
+  .lead {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 600px) {
+  p,
+  li,
+  a {
+    font-size: 14px;
+  }
+  h1 {
+    font-size: 26px;
+    padding: 15px;
+  }
+  .lead {
+    font-size: 16px;
+  }
+  .page-with-aside {
+    display: block;
+  }
+}
+@media (max-width: 400px) {
+  h1 {
+    font-size: 24px;
+  }
+  h2 {
+    font-size: 18px;
+  }
+  h3 {
+    font-size: 15px;
+  }
+  h4 {
+    font-size: 13px;
+  }
+  p,
+  li,
+  a {
+    font-size: 12px;
+  }
+}

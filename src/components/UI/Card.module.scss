@@ -1,0 +1,19 @@
+@import '../../styles/variables';
+
+.card {
+  background-color: #e4d4c8ab;
+  border: 1px solid $main-coffee-color;
+  padding: 30px;
+  margin: 30px auto;
+}
+
+.cardDark {
+  background-color: #d0b49f96;
+  
+}
+
+@media (max-width: 700px) {
+  .card {
+    padding: 15px;
+  }
+}

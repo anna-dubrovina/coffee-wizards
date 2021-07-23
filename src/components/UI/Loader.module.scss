@@ -1,0 +1,169 @@
+@import '../../styles/variables';
+
+.loader {
+  @include flex-column;
+  padding: 10px;
+  width: 100%;
+  margin: 30px auto 0;
+
+}
+
+.coffeeLoader {
+  margin: 0 auto;
+  width: 100px;
+  position: relative;
+  transform: scale(0.8);
+}
+
+.smallLoader {
+  @include flex-row;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  margin: 0 auto 15px;
+  h3 {
+    align-self: flex-start;
+  }
+}
+
+.smallCoffeeLoader {
+  width: fit-content;
+  transform: scale(0.3);
+  position: relative;
+}
+
+.cup {
+  height: 60px;
+  width: 90px;
+  border: 2px solid $semilight-coffee-color;
+  border-radius: 5px 5px 35px 35px;
+  position: relative;
+  margin: 5px auto;
+  background: url('../../assets/img/waves.png') repeat-x;
+  background-position: center center;
+  background-size: cover;
+  box-shadow: 0 0 0 5px $semidark-coffee-color;
+  animation: wave 4s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
+}
+
+.handle {
+  height: 30px;
+  width: 20px;
+  background: transparent;
+  border: 5px solid $semidark-coffee-color;
+  position: absolute;
+  left: 91px;
+  border-radius: 1px 20px 40px 1px;
+}
+
+.plate {
+  background: $semidark-coffee-color;
+  width: 100px;
+  height: 6px;
+  border-radius: 3px;
+  margin: 5px auto;
+}
+
+.bottom {
+  background: $semidark-coffee-color;
+  width: 60px;
+  height: 6px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  margin: 5px auto;
+}
+
+.steam {
+  width: 50px;
+  height: 50px;
+  margin: 10px auto;
+}
+
+.smoke1 {
+  width: 6px;
+  height: 40px;
+  float: left;
+  margin-right: 6px;
+  margin-left: 4px;
+  border-radius: 3px;
+  &::before,
+  &::after {
+    content: '';
+    background: $main-coffee-color;
+    position: absolute;
+    animation: load 0.9s infinite reverse ease-in-out;
+    border-radius: 3px;
+  }
+}
+.smoke2 {
+  width: 6px;
+  height: 20px;
+  float: left;
+  margin-right: 6px;
+  margin-left: 4px;
+  border-radius: 3px;
+
+  &::before,
+  &::after {
+    content: '';
+    background: $main-coffee-color;
+    position: absolute;
+    animation: load 0.6s infinite reverse ease-in-out;
+    border-radius: 3px;
+    margin-top: 5px;
+  }
+}
+.smoke3 {
+  width: 6px;
+  height: 40px;
+  float: left;
+  margin-right: 6px;
+  margin-left: 4px;
+  border-radius: 3px;
+  &::before,
+  &::after {
+    content: '';
+    background: $main-coffee-color;
+    position: absolute;
+    animation: load 0.9s infinite 0.5s reverse ease-in-out;
+    border-radius: 3px;
+  }
+}
+
+@keyframes load {
+  0% {
+    top: 0;
+    height: 30px;
+    width: 6px;
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    top: 29px;
+    height: 15px;
+    width: 6px;
+    opacity: 0;
+  }
+}
+
+@keyframes wave {
+  0% {
+    background-position-x: 100%;
+  }
+  25% {
+    background-position-x: 50%;
+  }
+
+  50% {
+    background-position-x: 0%;
+  }
+  75% {
+    background-position-x: -50%;
+  }
+
+  100% {
+    background-position-x: -100%;
+  }
+}

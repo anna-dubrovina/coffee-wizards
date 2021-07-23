@@ -1,0 +1,66 @@
+@import '../../styles/variables';
+
+.selectWrapper {
+  margin: 10px auto;
+  width: 100%;
+  min-height: 50px;
+}
+
+.selectInput {
+  position: relative;
+  border: 2px solid $main-coffee-color;
+  background: $light-coffee-color;
+  color: $dark-coffee-color;
+  line-height: 1.5;
+  font-size: 14px;
+  font-family: inherit;
+  margin: 8px auto 0;
+  padding: 8px 16px;
+  width: 95%;
+  transition: all 0.5s ease-in-out;
+  text-align: left;
+  div {
+    @include flex-row;
+    justify-content: space-between;
+    width: 100%;
+    text-transform: capitalize;
+
+    img {
+      width: 15px;
+      margin: 0 8px;
+      cursor: pointer;
+    }
+  }
+}
+
+.options {
+  position: absolute;
+  top: 37px;
+  left: -2px;
+  background: $light-coffee-color;
+  border: 2px solid $main-coffee-color;
+  border-top: none;
+  color: $dark-coffee-color;
+  box-sizing: content-box;
+  width: 100%;
+  cursor: pointer;
+  z-index: 30;
+  li {
+    width: 95%;
+    margin: 0 auto;
+    line-height: 1.5;
+    font-size: 14px;
+    padding: 8px 12px;
+    border-top: 1px solid $semilight-coffee-color;
+    text-transform: capitalize;
+    &:hover {
+      background: $semilight-coffee-color;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .selectInput {
+    width: 100%;
+  }
+}

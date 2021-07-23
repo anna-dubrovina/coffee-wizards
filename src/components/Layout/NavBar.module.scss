@@ -1,0 +1,25 @@
+@import '../../styles/variables';
+
+.nav {
+  border-top: solid 2px $main-coffee-color;
+  grid-area: nav;
+  display: block;
+
+  ul {
+    @include flex-row;
+  }
+}
+
+@media (max-width: 600px) {
+  .nav {
+    border-top: 2px solid $main-coffee-color;
+    width: 100%;
+    padding: 10px 0;
+    ul {
+      @include flex-column;
+    }
+  }
+  .navHidden {
+    display: none;
+  }
+}

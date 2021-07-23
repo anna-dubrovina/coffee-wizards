@@ -1,0 +1,73 @@
+@import '../../styles/variables';
+
+.iconWrapper {
+  width: 55px;
+  height: 55px;
+  min-width: 30px;
+  background-color: transparent;
+  border-radius: 50%;
+  transition: background-color 1s ease-in-out;
+  position: relative;
+
+  &:hover {
+    background-color: $semilight-coffee-color;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    padding: 12px;
+  }
+}
+
+.total {
+  position: absolute;
+  background-color: $semidark-coffee-color;
+  color: $light-coffee-color;
+  font-weight: 600;
+  border-radius: 50%;
+  font-size: 14px;
+  top: 0px;
+  left: 40px;
+  width: 25px;
+  height: 25px;
+  padding: 4px;
+}
+
+@media (min-width: 2000px) {
+  .iconWrapper {
+    width: 80px;
+    height: 80px;
+    img {
+      padding: 20px;
+    }
+
+  }
+  .total {
+      left: 60px;
+  width: 40px;
+  height: 40px;
+  padding: 7px;
+  }
+}
+
+@media (max-width: 650px) {
+  .iconWrapper {
+    width: 40px;
+    height: 40px;
+    img {
+      padding: 8px;
+    }
+  }
+  .iconText {
+    display: none;
+  }
+
+  .total {
+    left: 25px;
+    width: 18px;
+    height: 18px;
+    padding: 3px;
+    font-size: 10px;
+  }
+}

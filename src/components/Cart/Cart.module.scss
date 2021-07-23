@@ -1,0 +1,34 @@
+@import '../../styles/variables';
+.cartContent {
+  @include flex-column;
+  h1 {
+    width: 95%;
+  }
+  h2 {
+    width: 90%;
+    text-align: right;
+  }
+}
+.btnWrapper {
+  @include flex-row;
+  width: 100%;
+  margin-top: 20px;
+  button {
+    width: 35%;
+    min-width: 180px;
+  }
+}
+
+@media (max-width: 600px) {
+  .cartContent {
+    height: 100%;
+    ul {
+      height: 55vh;
+      padding: 10px 0;
+    }
+  }
+  .btnWrapper {
+    @include flex-column;
+    flex-direction: column-reverse;
+  }
+}

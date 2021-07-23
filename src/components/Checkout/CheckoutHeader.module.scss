@@ -1,0 +1,50 @@
+@import '../../styles/variables';
+
+.checkoutHeader {
+  @include flex-row;
+  padding: 10px 30px;
+  height: fit-content;
+  justify-content: space-between;
+  border-bottom: 2px solid $main-coffee-color;
+  h1 {
+    border: none;
+    width: fit-content;
+  }
+
+  div {
+    width: 400px;
+    ul {
+      width: 100%;
+      padding-right: 10px;
+      li {
+        font-size: 14px;
+        font-family: $secondary-font;
+        text-align: right;
+      }
+    }
+    button {
+      margin-right: 10px;
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .checkoutHeader {
+    padding: 10px;
+    flex-direction: row-reverse;
+    div {
+      width: 300px;
+      &:last-child {
+        display: none;
+      }
+    }
+  }
+}
+
+@media (max-width: 450px) {
+   .checkoutHeader {
+    padding: 10px;
+    flex-direction: column;
+  
+  }
+}

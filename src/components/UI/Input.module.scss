@@ -1,0 +1,79 @@
+@import '../../styles/variables';
+
+.control {
+  width: 100%;
+  margin: 10px auto;
+  textarea {
+    height: 150px;
+    resize: none;
+  }
+  input,
+  textarea {
+    -webkit-appearance: none;
+    display: block;
+    outline: none;
+    border: 2px solid $main-coffee-color;
+    background: $light-coffee-color;
+    color: $dark-coffee-color;
+    line-height: 1.5;
+    font-size: 14px;
+    font-family: inherit;
+    margin: 8px auto 0;
+    padding: 8px 16px;
+    width: 95%;
+    transition: all 0.5s ease-in-out;
+
+    &::placeholder {
+      font-family: $secondary-font;
+      font-size: 12px;
+      color: $semidark-coffee-color;
+    }
+    &:focus {
+      background-color: $semilight-coffee-color;
+    }
+    &:focus::placeholder {
+      color: $main-coffee-color;
+    }
+    &:disabled {
+      background-color: $semilight-coffee-color;
+    }
+    &:disabled::placeholder {
+      color: $semilight-coffee-color;
+    }
+  }
+  label {
+    font-size: 90%;
+    color: $semidark-coffee-color;
+    font-weight: 500;
+    padding: 8px 16px;
+  }
+  option {
+    background: $light-coffee-color;
+    outline: none;
+    padding: 5px;
+  }
+  span {
+    color: $error-color;
+    font-size: 80%;
+    padding: 5px 10px;
+    width: 100%;
+    display: inline-block;
+  }
+}
+
+@media (max-width: 600px) {
+  .control {
+    input,
+    textarea {
+      width: 100%;
+    }
+  }
+}
+
+.invalid input {
+  border: 2px solid $error-color;
+
+  &::placeholder {
+    color: $error-color;
+  }
+}

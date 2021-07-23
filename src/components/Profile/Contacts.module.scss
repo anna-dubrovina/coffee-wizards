@@ -1,0 +1,47 @@
+@import '../../styles/variables';
+
+.contacts {
+  padding: 0 20px 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    'title title'
+    'error error'
+    'data password';
+  column-gap: 15px;
+  h1 {
+    grid-area: title;
+    width: 100%;
+  }
+  h3 {
+    padding: 20px;
+  }
+  div form {
+    width: 90%;
+    margin: 0 auto;
+  }
+}
+
+.personalDataForm {
+  padding: 10px;
+  grid-area: data;
+  width: 100%;
+}
+
+.passwordForm {
+  padding: 10px;
+  grid-area: password;
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .contacts{
+    display: block;
+  }
+}
+
+@media (max-width: 600px) {
+  .contacts{
+    padding: 5px 10px;
+  }
+}

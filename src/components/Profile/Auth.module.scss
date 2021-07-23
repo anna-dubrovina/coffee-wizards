@@ -1,0 +1,35 @@
+@import '../../styles/variables';
+.auth {
+  @include flex-column;
+  width: 90%;
+  max-width: 350px;
+  height: 420px;
+  line-height: 1.5;
+  margin: 40px auto;
+
+  h3 {
+    padding: 10px 30px;
+  }
+
+  form {
+    width: 100%;
+    button {
+      margin-bottom: 15px;
+    }
+    p {
+      text-align: center;
+      span {
+        font-weight: bold;
+        display: block;
+        cursor: pointer;
+        color: $main-coffee-color;
+      }
+    }
+  }
+}
+
+.errorMsg {
+  margin-top: 10px;
+  text-transform: capitalize;
+  color: rgb(231, 47, 47);
+}

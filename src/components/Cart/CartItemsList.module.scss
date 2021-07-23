@@ -1,0 +1,16 @@
+@import '../../styles/variables';
+
+.cartItemsList {
+  width: 100%;
+  padding: 10px;
+  height: fit-content;
+  max-height: 50vh;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 6px;
+    background: $semilight-coffee-color;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: $dark-coffee-color;
+  }
+}

@@ -1,0 +1,97 @@
+@import '../../styles/variables';
+
+.cartItem {
+  margin: 20px;
+  div:first-child {
+    display: grid;
+    grid-template-areas: 'img summary price';
+    grid-template-columns: 2fr 4fr 1fr;
+    padding: 10px;
+    height: fit-content;
+
+    img:first-child {
+      width: 80%;
+      grid-area: img;
+      justify-self: center;
+      align-self: center;
+    }
+  }
+  p {
+    text-align: center;
+    grid-area: price;
+    font-weight: 500;
+  }
+}
+.itemSummary {
+  @include flex-column;
+  grid-area: summary;
+  p {
+    font-size: 15px;
+    padding: 5px;
+    text-transform: capitalize;
+    color: $main-coffee-color;
+    font-weight: 300;
+  }
+}
+
+.cartControls {
+  @include flex-row;
+  width: 95%;
+  max-width: 200px;
+
+  button {
+    width: 35px;
+    height: 35px;
+    font-weight: 800;
+    font-size: 20px;
+    padding: 0;
+  }
+  img {
+    width: 35px;
+    height: 35px;
+    padding: 8px;
+    cursor: pointer;
+    transition: 0.5s all ease-in-out;
+    &:hover {
+      background: $semilight-coffee-color;
+    }
+  }
+  span {
+    display: inline-block;
+    width: 35px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 750px) {
+  .cartItem {
+    div:first-child img:first-child {
+      width: 90%;
+    }
+  }
+  .itemSummary {
+    h3 {
+      font-size: 16px;
+    }
+    p {
+      font-size: 12px;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .cartItem div:first-child {
+    grid-template-areas:
+      'img summary'
+      'price summary';
+    grid-template-columns: 1fr 1.5fr;
+  }
+  .itemSummary {
+    h3 {
+      font-size: 14px;
+    }
+    p {
+      font-size: 10px;
+    }
+  }
+}

@@ -1,0 +1,117 @@
+@import '../../styles/variables';
+
+.footer {
+  background-color: $dark-coffee-color;
+  color: $light-coffee-color;
+  text-align: center;
+  padding: 10px;
+}
+
+.footerContent {
+  display: grid;
+  grid-template-areas:
+    'subscribe info contacts'
+    'logo logo logo';
+  grid-template-columns: 2fr 1fr 1fr;
+  column-gap: 10px;
+}
+
+.subscribe {
+  grid-area: subscribe;
+  form {
+    @include flex-row;
+    width: 95%;
+    margin: 0 auto;
+    padding: 15px 10px;
+    div {
+      width: 80%;
+      position: relative;
+      input {
+        width: 100%;
+        margin: 0;
+      }
+      span {
+        position: absolute;
+        top: 40px;
+        left: 0;
+      }
+    }
+    button {
+      width: 20%;
+      height: 40px;
+      margin: 0;
+    }
+  }
+  div {
+    @include flex-row;
+    justify-content: center;
+    ul {
+      @include flex-row;
+      justify-content: center;
+      li div:hover {
+        background: $semidark-coffee-color;
+      }
+      li p {
+        display: none;
+      }
+    }
+  }
+}
+
+.info {
+  grid-area: info;
+  border-left: 1px $semidark-coffee-color solid;
+  border-right: 1px $semidark-coffee-color solid;
+
+  ul {
+    @include flex-column;
+    li {
+      padding: 5px;
+      a:hover {
+        color: $main-coffee-color;
+      }
+    }
+  }
+}
+
+.contacts {
+  grid-area: contacts;
+  @include flex-column;
+  padding-bottom: 10px;
+  li {
+    padding: 5px;
+  }
+}
+
+.logo {
+  @include flex-column;
+  grid-area: logo;
+  border-top: 1px $semidark-coffee-color solid;
+  padding-top: 10px;
+  span {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 700px) {
+  .footerContent {
+    font-size: 80%;
+    grid-template-areas:
+      'subscribe subscribe'
+      'info contacts'
+      'logo logo';
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .subscribe {
+    padding-bottom: 10px;
+    border-bottom: 1px solid $semidark-coffee-color;
+  }
+
+  .subscribe form {
+    width: 90%;
+  }
+  .info {
+    border-left: none;
+  }
+}

@@ -1,0 +1,93 @@
+@import '../../styles/variables';
+
+.toolbar {
+  height: 100%;
+  padding: 0 20px;
+  background: $light-coffee-color;
+  text-align: center;
+  position: relative;
+  z-index: 20;
+}
+
+.toolbarContent {
+  display: grid;
+  grid-template-areas:
+    'contacts logo profile'
+    'nav nav nav';
+  grid-template-columns: 1fr 3fr 1fr;
+  justify-content: center;
+  align-items: center;
+}
+
+.contacts {
+  grid-area: contacts;
+  min-width: 142px;
+  @include flex-column;
+  li {
+    font-size: 13px;
+    font-family: $secondary-font;
+    color: $dark-coffee-color;
+    padding: 4px;
+  }
+}
+
+.profileBar {
+  width: 90%;
+  grid-area: profile;
+  @include flex-row;
+  font-family: $secondary-font;
+  p {
+    font-size: 12px;
+    font-weight: 600;
+  }
+}
+
+.navBtn {
+  display: none;
+}
+
+@media (min-width: 2000px) {
+  .contacts li,
+  .profileBar p {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 750px) {
+  .toolbar {
+    padding: 0 5px;
+  }
+  .profileBar p {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .toolbarContent {
+    grid-template-areas:
+      'logo logo'
+      'navbtn profile'
+      'nav nav';
+    grid-template-columns: 3fr 1fr;
+  }
+  .contacts {
+    display: none;
+  }
+  .profileBar {
+    align-self: flex-start;
+    padding: 10px 0;
+  }
+
+  .navBtn {
+    grid-area: navbtn;
+    justify-self: flex-start;
+    display: block;
+    margin-left: 20px;
+    padding: 10px;
+    img {
+      width: 10px;
+      height: 10px;
+      margin-right: 10px;
+    }
+  }
+}

@@ -1,0 +1,51 @@
+@import '../../styles/variables';
+
+.myAddresses {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    'title title'
+    'list form';
+  column-gap: 15px;
+  h1 {
+    grid-area: title;
+    width: 100%;
+  }
+  h3 {
+    padding: 20px;
+  }
+  div form {
+    width: 90%;
+    margin: 0 auto;
+  }
+}
+
+.addressList {
+  grid-area: list;
+  width: 100%;
+}
+
+.addressForm {
+  grid-area: form;
+  width: 100%;
+}
+
+.btnWrapper {
+  @include flex-row;
+  button {
+    margin: 8px 10px;
+  }
+}
+
+@media (max-width: 900px) {
+  .myAddresses {
+    display: block;
+  }
+}
+
+@media (max-width: 600px) {
+  .myAddresses {
+    padding: 5px 10px;
+  }
+}

@@ -1,0 +1,141 @@
+@import '../../styles/variables';
+.header {
+  position: relative;
+  height: 80vh;
+  &::after {
+    z-index: 1;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+  }
+}
+
+.headerContent {
+  position: relative;
+  z-index: 10;
+  @include flex-column;
+  height: 100%;
+  text-align: center;
+  div {
+    width: 55vw;
+    align-self: flex-end;
+    line-height: 1.5;
+  }
+}
+
+.headerHome {
+  background: url('../../assets/img/home-cover.jpg') no-repeat center/cover;
+  &::after {
+    background: rgba(0, 0, 0, 0.2);
+  }
+  div div {
+    align-self: flex-end;
+  }
+}
+
+.headerCoffee {
+  background: url('../../assets/img/coffee-cover.jpg') no-repeat center/cover;
+  div div {
+    align-self: flex-end;
+  }
+}
+
+.headerEquipment {
+  background: url('../../assets/img/equipment-cover.jpg') no-repeat center/cover;
+  div div {
+    align-self: flex-start;
+  }
+}
+.headerAccessorize {
+  background: url('../../assets/img/accessorize-cover.jpg') no-repeat
+    center/cover;
+  div div {
+    align-self: flex-end;
+  }
+}
+
+.headerAbout {
+  background: url('../../assets/img/about-cover.jpg') no-repeat center/cover;
+  div div {
+    align-self: flex-start;
+  }
+}
+.headerProduct {
+  background: url('../../assets/img/product-cover.jpg') no-repeat center
+    bottom/cover;
+}
+
+.headerNarrow {
+  height: 100%;
+  div div {
+    align-self: flex-start;
+    margin: 20px 30px;
+    padding: 0;
+    width: fit-content;
+    h4 {
+      @include flex-row;
+      justify-content: flex-start;
+      margin: 0 20px;
+      a {
+        text-transform: capitalize;
+        padding: 0 10px;
+        font-size: inherit;
+        &:hover {
+          color: $main-coffee-color;
+        }
+      }
+      img {
+        width: 20px;
+        margin: 0 20px;
+      }
+      span {
+        text-transform: capitalize;
+      }
+    }
+    p {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 750px) {
+  .headerContent div {
+    width: 80vw;
+    align-self: center;
+  }
+
+  .headerNarrow div div h3 {
+    margin: 0 10px;
+    img {
+      width: 20px;
+      margin: 0 8px;
+    }
+  }
+}
+@media (max-width: 550px) {
+  .headerNarrow div div {
+    margin: 20px 5px;
+   h4 {
+    margin: 0 10px;
+    a {
+      padding: 0 5px;
+    }
+    img {
+      width: 10px;
+      margin: 0 5px;
+    }
+  }
+}
+}
+
+@media (min-width: 1500px) {
+  .headerContent div {
+    max-width: fit-content;
+    width: 40vw;
+    margin: 5%;
+  }
+}
