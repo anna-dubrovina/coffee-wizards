@@ -1,17 +1,20 @@
 import deleteIcon from '../../assets/icons/trash.svg';
 import editIcon from '../../assets/icons/edit.svg';
 import { httpRequest } from '../../shared/httpRequest';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserData } from '../../store/profile-actions';
 import { getFirebaseKey } from '../../shared/getFirebaseKey';
 import styles from './AddressesList.module.scss';
+import Loader from '../UI/Loader';
 
 const AddressesList = (props) => {
+  const { isLoading } = useSelector((state) => state.ui);
   const dispatch = useDispatch();
   const updatedAddresses = [];
   props.addresses.forEach((item) => updatedAddresses.push({ ...item }));
 
   const deleteAddress = (id, key) => {
+    props.changeLoaderPlace('underForm');
     const index = updatedAddresses.findIndex((item) => item.id === id);
     if ((index === 0) & (updatedAddresses.length > 1)) {
       updatedAddresses[1].isMain = true;
@@ -31,6 +34,7 @@ const AddressesList = (props) => {
   };
 
   const setMain = (id, key) => {
+    props.changeLoaderPlace('underForm');
     updatedAddresses.forEach(
       (item) => (item.isMain = item.id === id ? true : false)
     );
@@ -103,7 +107,14 @@ const AddressesList = (props) => {
   return props.addresses.length === 0 ? (
     <h4>You don't have any saved addresses</h4>
   ) : (
-    <ul>{addressesList} </ul>
+    <>
+      <ul>{addressesList} </ul>
+      {isLoading & (props.loaderPlace === 'underForm') ? (
+        <Loader small />
+      ) : (
+        <div />
+      )}
+    </>
   );
 };
 export default AddressesList;

@@ -8,11 +8,13 @@ import { login } from '../../store/profile-actions';
 import { checkoutActions } from '../../store/checkout-slice';
 import { cartActions } from '../../store/cart-slice';
 import { httpRequest } from '../../shared/httpRequest';
+import { useHistory } from 'react-router-dom';
 
 const CheckoutForm = (props) => {
   const [checkoutStep, setCheckoutStep] = useState(1);
   const { formValues, formIsValid } = useSelector((state) => state.checkout);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const checkoutStepHandler = (step) => {
     if (step === checkoutStep) {
@@ -28,6 +30,20 @@ const CheckoutForm = (props) => {
     }
   };
 
+  const getOrderId = (name) => {
+    const charArray = name
+      .replaceAll(/[0-9]/g, '')
+      .substring(1, 7)
+      .toLowerCase()
+      .split('');
+
+    const digitArray = charArray.map((letter) => {
+      return letter.charCodeAt(0) - 97;
+    });
+    const orderId = digitArray.join('').substring(0, 6);
+    return orderId;
+  };
+
   const sendDataHandler = (e) => {
     e.preventDefault();
     if (!formIsValid) {
@@ -38,8 +54,10 @@ const CheckoutForm = (props) => {
         'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=';
       dispatch(login(url, formValues.email, formValues.password));
     }
-
-    const deliveryInfo = { ...formValues };
+    const deliveryInfo = {
+      ...formValues,
+      date: new Date().toLocaleDateString(),
+    };
     delete deliveryInfo.password;
 
     httpRequest(
@@ -47,14 +65,27 @@ const CheckoutForm = (props) => {
         url: '/orders.json',
         method: 'POST',
         body: {
-          order: props.items,
+          amount: props.amount,
+          products: props.items,
           userId: props.userId,
           deliveryInfo,
         },
       },
-      () => {
+      (resData) => {
         dispatch(checkoutActions.clearForm());
         dispatch(cartActions.clearCart());
+        const orderId = getOrderId(resData.name);
+
+        httpRequest(
+          {
+            url: `/orders/${resData.name}.json`,
+            method: 'PATCH',
+            body: { orderId },
+          },
+          () => {
+            history.push('/');
+          }
+        );
       }
     );
   };

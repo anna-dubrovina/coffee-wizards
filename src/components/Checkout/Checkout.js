@@ -9,7 +9,7 @@ import Card from '../UI/Card';
 import styles from './Checkout.module.scss';
 
 const Checkout = () => {
-  const { items } = useSelector((state) => state.cart);
+  const { items, totalAmount } = useSelector((state) => state.cart);
   const { isAuth, userId } = useSelector((state) => state.profile);
   const [checkoutType, setCheckoutType] = useState('new');
   const history = useHistory();
@@ -43,7 +43,7 @@ const Checkout = () => {
         {checkoutType === 'login' ? (
           <Auth />
         ) : (
-          <CheckoutForm items={items} userId={userId} />
+          <CheckoutForm items={items} userId={userId} amount={totalAmount} />
         )}
       </Card>
       <Card className={styles.cartSummary}>

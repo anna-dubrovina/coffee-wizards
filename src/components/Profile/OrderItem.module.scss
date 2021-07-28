@@ -1,0 +1,136 @@
+@import '../../styles/variables';
+
+.orderItem {
+  padding: 5px 15px;
+  margin: 15px auto;
+  button {
+    margin: 20px auto;
+    max-width: 400px;
+  }
+}
+.orderHeader {
+  @include flex-row;
+  justify-content: space-between;
+  min-height: 85px;
+  height: fit-content;
+  h3 {
+    padding: 1%;
+    min-width: 150px;
+    grid-area: title;
+  }
+  p {
+    text-align: center;
+    font-size: 90%;
+    padding: 1%;
+    min-width: 125px;
+    @include flex-column;
+    grid-area: amount;
+    span {
+      font-weight: 600;
+    }
+  }
+  img {
+    width: 30px;
+    padding: 5px;
+    margin: 0 1%;
+    grid-area: arrow;
+  }
+}
+
+.orderProducts {
+  @include flex-row;
+  justify-content: space-between;
+  width: 300px;
+  grid-area: prods;
+  img {
+    width: 80px;
+    margin: 0 5px;
+    padding: 0;
+    grid-area: none;
+  }
+}
+
+.orderDetail {
+  h4 {
+    width: 100%;
+    border-top: 1px solid $main-coffee-color;
+    padding: 20px 20px 10px;
+  }
+  ul {
+    margin: 0 auto 30px;
+    width: fit-content;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 20px;
+
+    &:first-of-type {
+      padding: 0px 20px;
+
+      li {
+        min-width: 320px;
+        font-size: 95%;
+        padding: 5px 20px;
+        margin: 2px auto;
+        width: 100%;
+        font-weight: 300;
+        background: $light-coffee-color;
+        text-transform: capitalize;
+        &:nth-child(2) {
+          text-transform: lowercase;
+        }
+      }
+    }
+  }
+}
+
+.orderProdItem {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  column-gap: 10px;
+  padding: 5px 2%;
+  margin: 10px auto;
+  height: 160px;
+  div {
+    padding: 20px 5px 10px 15px;
+    h5 {
+      font-size: 105%;
+      transition: 0.5s all ease-in-out;
+      &:hover {
+        color: $main-coffee-color;
+      }
+    }
+    span {
+      display: block;
+      font-weight: 300;
+      font-size: 90%;
+      text-transform: capitalize;
+    }
+  }
+  img {
+    width: 140px;
+    margin: 5px auto;
+  }
+}
+
+@media (max-width: 1000px) {
+  .orderHeader {
+    padding: 10px 20px;
+  }
+  .orderProducts {
+    display: none;
+  }
+  .orderDetail ul {
+    display: block;
+    width: 90%;
+    &:first-of-type li {
+      min-width: none;
+    }
+  }
+}
+
+
+@media (max-width: 500px) {
+  .orderDetail ul {
+    width: 100%;
+  }
+}

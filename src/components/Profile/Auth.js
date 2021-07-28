@@ -5,6 +5,7 @@ import useInput from '../../hooks/useInput';
 import Input from '../UI/Input';
 import Card from '../UI/Card';
 import Button from '../UI/Button';
+import Loader from '../UI/Loader';
 import styles from './Auth.module.scss';
 
 const Auth = () => {
@@ -53,7 +54,9 @@ const Auth = () => {
       </p>
     );
   }
-  return (
+  return isLoading ? (
+    <Loader />
+  ) : (
     <Card className={styles.auth}>
       <h3>Enter Your Log In Information</h3>
       <form onSubmit={loginHandler}>

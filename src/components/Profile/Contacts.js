@@ -106,13 +106,37 @@ const Contacts = () => {
     );
   };
 
+  const checkFormValidity = () => {
+    if (
+      invalidName ||
+      enteredName.trim() === '' ||
+      invalidLastname ||
+      enteredLastname.trim() === '' ||
+      invalidPhone ||
+      enteredPhone.trim() === '' ||
+      invalidEmail ||
+      enteredEmail.trim() === ''
+    ) {
+      return false;
+    }
+    return true;
+  };
+
   const updateContacts = (key) => {
     setLoaderPlace('contactsForm');
+    const formIsValid = checkFormValidity();
+
+    if (!formIsValid) {
+      dispatch(
+        uiActions.setError('please fill all inputs with correct information')
+      );
+      return;
+    }
     const upddatedContacts = {
-      name: enteredName.trim() === '' ? name : enteredName,
-      lastName: enteredLastname.trim() === '' ? lastName : enteredLastname,
-      email: enteredEmail.trim() === '' ? email : enteredEmail,
-      phone: enteredPhone.trim() === '' ? phone : enteredPhone,
+      name: enteredName,
+      lastName: enteredLastname,
+      email: enteredEmail,
+      phone: enteredPhone,
     };
     httpRequest(
       {

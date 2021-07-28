@@ -6,8 +6,8 @@ import styles from './Cart.module.scss';
 import CartItemsList from './CartItemsList';
 
 const Cart = () => {
-  const { items } = useSelector((state) => state.cart);
-  
+  const { items, totalAmount } = useSelector((state) => state.cart);
+
   const history = useHistory();
   const dispatch = useDispatch();
   const closeCartHanlder = () => dispatch(uiActions.close());
@@ -15,7 +15,6 @@ const Cart = () => {
   const submitCartHandler = () => {
     history.push('/checkout');
     dispatch(uiActions.modalClose());
-  
   };
 
   return (
@@ -23,7 +22,7 @@ const Cart = () => {
       <h1>You Cart</h1>
 
       {items.length === 0 && <p className="lead">Your cart is empty</p>}
-      {items.length > 0 && <CartItemsList items={items} />}
+      {items.length > 0 && <CartItemsList items={items} amount={totalAmount} />}
 
       <div className={styles.btnWrapper}>
         <Button clicked={closeCartHanlder}>Continue Shopping</Button>

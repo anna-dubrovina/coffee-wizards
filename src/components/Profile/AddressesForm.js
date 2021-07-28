@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import useInput from '../../hooks/useInput';
 import { getFirebaseKey } from '../../shared/getFirebaseKey';
 import { httpRequest } from '../../shared/httpRequest';
 import { fetchUserData } from '../../store/profile-actions';
+import { uiActions } from '../../store/ui-slice';
+import useInput from '../../hooks/useInput';
 import Button from '../UI/Button';
 import Input from '../UI/Input';
 import Select from '../UI/Select';
@@ -55,59 +56,91 @@ const AddressesForm = (props) => {
     resetPostalCode();
   };
 
-  const addAddressHandler = (key) => {
-    const newAddress = {
-      deliveryMethod,
-      city: enteredCity,
-      address: enteredAddress,
-      postalCode: enteredPostalCode,
-    };
-    if (updatedAddresses.length === 0) {
-      newAddress.id = 'address0';
-      newAddress.isMain = true;
-    } else {
-      for (let i = 1; i <= updatedAddresses.length; i++) {
-        newAddress.id = `address${i}`;
-      }
-      newAddress.isMain = false;
-    }
-    updatedAddresses.push(newAddress);
-
-    httpRequest(
-      {
-        url: `/users/${key}/addresses.json`,
-        method: 'PUT',
-        body: updatedAddresses,
-      },
-      () => {
-        dispatch(fetchUserData(props.userId, 'addresses'));
-        resetInputs();
-      }
-    );
-  };
-
   const cancelEditMode = () => {
     props.changeMode('add');
     resetInputs();
   };
 
-  const editAddress = (id, key) => {
-    const index = updatedAddresses.findIndex((item) => item.id === id);
-    const updatedAddress = {
-      id,
-      isMain: props.editData.isMain,
-      deliveryMethod,
-      city: enteredCity,
-      address: enteredAddress,
-      postalCode: enteredPostalCode,
-    };
-    updatedAddresses.splice(index, 1, updatedAddress);
+  const checkFormValidity = () => {
+    if (
+      invalidCity ||
+      enteredCity.trim() === '' ||
+      invalidAddress ||
+      enteredAddress.trim() === '' ||
+      invalidPostalCode ||
+      enteredPostalCode.trim() === ''
+    ) {
+      return false;
+    }
+    return true;
+  };
+
+  const transfromData = () => {
+    switch (props.mode) {
+      case 'add':
+        const newAddress = {
+          deliveryMethod,
+          city: enteredCity,
+          address: enteredAddress,
+          postalCode: enteredPostalCode,
+        };
+        if (updatedAddresses.length === 0) {
+          newAddress.id = 'address0';
+          newAddress.isMain = true;
+        } else {
+          for (let i = 1; i <= updatedAddresses.length; i++) {
+            newAddress.id = `address${i}`;
+          }
+          newAddress.isMain = false;
+        }
+        updatedAddresses.push(newAddress);
+
+        break;
+      case 'edit':
+        const index = updatedAddresses.findIndex(
+          (item) => item.id === props.editData.id
+        );
+        const updatedAddress = {
+          id: props.editData.id,
+          isMain: props.editData.isMain,
+          deliveryMethod,
+          city: enteredCity,
+          address: enteredAddress,
+          postalCode: enteredPostalCode,
+        };
+        updatedAddresses.splice(index, 1, updatedAddress);
+        break;
+
+      default:
+        break;
+    }
+    return updatedAddresses;
+  };
+
+  const submitAddress = (key) => {
+    props.changeLoaderPlace('underForm');
+    const formIsValid = checkFormValidity();
+
+    if (!formIsValid) {
+      dispatch(
+        uiActions.setError('please fill all inputs with correct information')
+      );
+      return;
+    }
+
+    if ((updatedAddresses.length >= 5) & (props.mode === 'add')) {
+      dispatch(
+        uiActions.setError(
+          'too many saved addresses. You can save no more than 5 addresses. Please delete or edit unnecessary address'
+        )
+      );
+      return;
+    }
+
+    const body = transfromData();
+
     httpRequest(
-      {
-        url: `/users/${key}/addresses.json`,
-        method: 'PUT',
-        body: updatedAddresses,
-      },
+      { url: `/users/${key}/addresses.json`, method: 'PUT', body },
       () => {
         dispatch(fetchUserData(props.userId, 'addresses'));
         cancelEditMode();
@@ -115,15 +148,9 @@ const AddressesForm = (props) => {
     );
   };
 
-  const editAddressHandler = () => {
-    getFirebaseKey(props.userId, editAddress.bind(null, props.editData.id));
-  };
-
   const formSubmitHandler = (e) => {
     e.preventDefault();
-    props.mode === 'add'
-      ? getFirebaseKey(props.userId, addAddressHandler)
-      : getFirebaseKey(props.userId, editAddressHandler);
+    getFirebaseKey(props.userId, submitAddress);
   };
 
   return (

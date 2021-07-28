@@ -5,7 +5,7 @@ import { uiActions } from '../../store/ui-slice';
 import useCurrentWidth from '../../hooks/useCurrentWidth';
 
 import IconItem from './IconItem';
-import Contacts from './Contacts'
+import Contacts from './Contacts';
 import NavBar from './NavBar';
 import Button from '../UI/Button';
 import Logo from '../UI/Logo';
@@ -45,7 +45,7 @@ const Toolbar = () => {
         </div>
 
         <ul className={styles.profileBar}>
-          <IconItem link="/profile" icon={userIcon}>
+          <IconItem link="/profile/orders" icon={userIcon}>
             Profile
           </IconItem>
           <IconItem
