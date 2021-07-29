@@ -59,6 +59,11 @@ const cartSlice = createSlice({
       state.items = [];
       state.totalQuantity = 0;
     },
+    repeatOrder(state, action) {
+      state.items = action.payload.items;
+      state.totalQuantity = action.payload.totalQuantity;
+      state.totalAmount = action.payload.totalAmount;
+    },
   },
 });
 

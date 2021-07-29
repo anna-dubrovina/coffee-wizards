@@ -8,6 +8,7 @@ import Layout from './components/Layout/Layout';
 import Cart from './components/Cart/Cart';
 import Modal from './components/UI/Modal';
 import Loader from './components/UI/Loader';
+import NotFoundPage from './pages/NotFoundPage';
 
 const Checkout = lazy(() => import('./pages/CheckoutPage'));
 const About = lazy(() => import('./pages/AboutPage'));
@@ -43,7 +44,7 @@ const App = () => {
       </AnimatePresence>
       <Suspense fallback={<Loader />}>
         <Switch>
-          <Route path="/checkout">
+          <Route path="/checkout" exact>
             <Checkout />
           </Route>
           <Route path="/">
@@ -72,7 +73,7 @@ const App = () => {
                     <HomePage />
                   </Route>
                   <Route path="*">
-                    <h1>Error Page</h1>
+                    <NotFoundPage />
                   </Route>
                 </Switch>
               </Suspense>

@@ -46,9 +46,7 @@ const AddressesForm = (props) => {
     }
   }, [props.mode, props.editData]);
 
-  const getDeliveryMethod = (value) => {
-    setDeliveryMethod(value);
-  };
+  const getDeliveryMethod = (value) => setDeliveryMethod(value);
 
   const resetInputs = () => {
     resetAddress();

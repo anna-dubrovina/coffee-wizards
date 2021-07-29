@@ -3,8 +3,10 @@ import Card from '../UI/Card';
 import styles from './Header.module.scss';
 import arrowIcon from '../../assets/icons/right-arrow.svg';
 import { getSubcategoryName } from '../../shared/getSubcategoryName';
+import { useSelector } from 'react-redux';
 
 const Header = (props) => {
+  const { isFound } = useSelector((state) => state.ui);
   const { pathname } = useLocation();
   const { path } = useRouteMatch();
   const subcategory = getSubcategoryName(pathname);
@@ -76,14 +78,16 @@ const Header = (props) => {
   }
 
   return (
-    <header className={classes.join(' ')}>
-      <div className={styles.headerContent + ' container'}>
-        <Card>
-          {headerContent}
-          {props.children}
-        </Card>
-      </div>
-    </header>
+    isFound && (
+      <header className={classes.join(' ')}>
+        <div className={styles.headerContent + ' container'}>
+          <Card>
+            {headerContent}
+            {props.children}
+          </Card>
+        </div>
+      </header>
+    )
   );
 };
 

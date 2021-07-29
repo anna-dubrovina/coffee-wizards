@@ -7,6 +7,7 @@ const uiSlice = createSlice({
     modalType: '',
     isLoading: false,
     errorMessage: null,
+    isFound: true,
   },
   reducers: {
     modalClose(state) {
@@ -27,6 +28,9 @@ const uiSlice = createSlice({
       state.isModalOpen = true;
       state.modalType = 'error';
       state.errorMessage = action.payload;
+    },
+    setFound(state, action) {
+      state.isFound = action.payload;
     },
   },
 });

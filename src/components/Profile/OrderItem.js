@@ -6,19 +6,35 @@ import Button from '../UI/Button';
 import arrowDown from '../../assets/icons/arrow-down.svg';
 import arrowUp from '../../assets/icons/arrow-up.svg';
 import styles from './OrderItem.module.scss';
+import { useDispatch } from 'react-redux';
+import { cartActions } from '../../store/cart-slice';
+import { uiActions } from '../../store/ui-slice';
 
 const OrderItem = (props) => {
   const [showDetails, setShowDetails] = useState(false);
   const { id, deliveryInfo, amount, prodList } = props;
+  const dispatch = useDispatch();
 
   const arrowIcon = showDetails ? arrowUp : arrowDown;
 
-  const toggleDetailsHandler = () => {
-    setShowDetails((curState) => !curState);
+  const toggleDetailsHandler = () => setShowDetails((curState) => !curState);
+
+  const repeatOrderHandler = () => {
+    const totalQuantity = prodList.reduce((accumulator, item) => {
+      return accumulator + item.quantity;
+    }, 0);
+
+    dispatch(
+      cartActions.repeatOrder({
+        items: prodList,
+        totalAmount: amount,
+        totalQuantity,
+      })
+    );
+    dispatch(uiActions.openCart());
   };
 
   let productList;
-
   if (!showDetails) {
     productList = prodList.map((item, index) => {
       if (index > 2) {
@@ -85,15 +101,19 @@ const OrderItem = (props) => {
               <li>{deliveryInfo.paymentMethod}</li>
               <li>{deliveryInfo.deliveryMethod} Delivery</li>
               <li>
-                {deliveryInfo.city},{' '}
-                {deliveryInfo.address === '' && deliveryInfo.postalCode}
-                {deliveryInfo.postalCode === '' && deliveryInfo.address}
+                {deliveryInfo.city +
+                  ', ' +
+                  deliveryInfo.address +
+                  ', ' +
+                  deliveryInfo.postalCode}
               </li>
             </ul>
             <h4>Ordered Products</h4>
             <ul>{productList}</ul>
             <h4>Order Amount: $ {amount}</h4>
-            <Button btnStyle="btnDark">Repeat Order</Button>
+            <Button btnStyle="btnDark" clicked={repeatOrderHandler}>
+              Repeat Order
+            </Button>
           </div>
         )}
       </Card>

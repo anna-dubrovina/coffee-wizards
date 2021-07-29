@@ -87,6 +87,22 @@ span {
   }
 }
 
+.status-page {
+  padding: 0px 20px;
+  h2 {
+    text-transform: capitalize;
+  }
+  div {
+    max-width: 600px;
+    margin-top: 50px;
+    img {
+      width: 150px;
+      display: block;
+      margin: 10px auto;
+    }
+  }
+}
+
 .container {
   max-width: 1400px;
   margin: 0 auto;

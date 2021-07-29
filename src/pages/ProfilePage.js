@@ -7,6 +7,7 @@ import Addresses from '../components/Profile/Addresses';
 import Contacts from '../components/Profile/Contacts';
 import Orders from '../components/Profile/Orders';
 import Section from '../components/Layout/Section';
+import NotFoundPage from './NotFoundPage';
 
 const ProfilePage = () => {
   const { isAuth } = useSelector((state) => state.profile);
@@ -26,19 +27,22 @@ const ProfilePage = () => {
     <Section className="page-with-aside">
       <ProfileSidebar />
       <Switch>
-        <Route path="/profile/contacts">
+        <Route path="/profile/contacts" exact>
           <Contacts />
         </Route>
-        <Route path="/profile/orders">
+        <Route path="/profile/orders" exact>
           <Orders />
         </Route>
-        <Route path="/profile/addresses">
+        <Route path="/profile/addresses" exact>
           <Addresses />
+        </Route>
+        <Route path="*">
+          <NotFoundPage />
         </Route>
       </Switch>
     </Section>
   ) : (
-    <Route path="/profile/auth">
+    <Route path="/profile/auth" exact>
       <Auth />
     </Route>
   );

@@ -4,6 +4,7 @@ import Header from '../components/Layout/Header';
 import AboutDelivery from '../components/About/AboutDelivery';
 import AboutBusiness from '../components/About/AboutBusiness';
 import AboutContacts from '../components/About/AboutContacts';
+import NotFoundPage from './NotFoundPage';
 
 const AboutPage = () => {
   const { path } = useRouteMatch();
@@ -25,7 +26,7 @@ const AboutPage = () => {
           <About />
         </Route>
         <Route path="*">
-          <h1>Error Page</h1>
+          <NotFoundPage />
         </Route>
       </Switch>
     </>

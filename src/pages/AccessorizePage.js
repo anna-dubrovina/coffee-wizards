@@ -3,6 +3,7 @@ import Header from '../components/Layout/Header';
 import AccessorizeCups from '../components/Products/Accessorize/AccessorizeCups';
 import AccessorizeTools from '../components/Products/Accessorize/AccessorizeTools';
 import Accessorize from '../components/Products/Accessorize/Accessorize';
+import NotFoundPage from './NotFoundPage';
 
 const AccessorizePage = () => {
   const { path } = useRouteMatch();
@@ -21,7 +22,7 @@ const AccessorizePage = () => {
           <Accessorize />
         </Route>
         <Route path="*">
-          <h1>Error Page</h1>
+          <NotFoundPage />
         </Route>
       </Switch>
     </div>

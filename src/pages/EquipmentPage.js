@@ -4,6 +4,7 @@ import EquipmentMachines from '../components/Products/Equipment/EquipmentMachine
 import EquipmentGrinders from '../components/Products/Equipment/EquipmentGrinders';
 import EquipmentManual from '../components/Products/Equipment/EquipmentManual';
 import Header from '../components/Layout/Header';
+import NotFoundPage from './NotFoundPage';
 
 const EquipmentPage = () => {
   const { path } = useRouteMatch();
@@ -24,7 +25,7 @@ const EquipmentPage = () => {
           <Equipment />
         </Route>
         <Route path="*">
-          <h1>Error Page</h1>
+          <NotFoundPage />
         </Route>
       </Switch>
     </div>

@@ -1,6 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
 import cartSlice from './cart-slice';
-import checkoutSlice from './checkout-slice';
 import uiSlice from './ui-slice';
 import productsSlice from './products-slice';
 import profileSlice from './profile-slice';
@@ -11,6 +10,5 @@ export const store = configureStore({
     ui: uiSlice,
     cart: cartSlice,
     profile: profileSlice,
-    checkout: checkoutSlice,
   },
 });
