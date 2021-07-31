@@ -1,0 +1,40 @@
+@import '../../styles/variables';
+
+.sortingBar {
+  span {
+    font-size: 100%;
+    font-weight: 600;
+    padding: 0 20px;
+  }
+  @include flex-row;
+  justify-content: flex-start;
+  width: 100%;
+  border-top: 1px solid $main-coffee-color;
+  border-bottom: 1px solid $main-coffee-color;
+  margin-top: 30px;
+  padding: 10px 20px;
+  ul {
+    @include flex-row;
+    width: 400px;
+    li {
+      height: 40px;
+      padding: 8px 16px;
+      font-size: 100%;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      svg {
+        fill: $dark-coffee-color;
+      }
+    }
+  }
+}
+
+.sortingBar .selected {
+  color: $main-coffee-color;
+
+  border: 1px solid $main-coffee-color;
+  svg {
+    fill: $main-coffee-color;
+  }
+}

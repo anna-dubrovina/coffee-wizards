@@ -10,6 +10,7 @@ import discountIcon from '../../assets/icons/discount.svg';
 import machineIcon from '../../assets/icons/machine.svg';
 import shippingIcon from '../../assets/icons/shipped.svg';
 import starIcon from '../../assets/icons/star.svg';
+import { useHistory } from 'react-router-dom';
 
 const advantages = [
   {
@@ -55,6 +56,9 @@ const advantages = [
 ];
 
 const HomeContent = () => {
+  const history = useHistory();
+
+  const goShoppingHandler = () => history.push('/coffee');
   const advantagesList = advantages.map((item) => {
     return (
       <li key={item.alt}>
@@ -68,7 +72,11 @@ const HomeContent = () => {
     <>
       <Section className={styles.topProducts}>
         <h1>Featured Products</h1>
-        <ProductsList listType="featured" />
+        <ProductsList
+          listType="featured"
+          clicked={goShoppingHandler}
+          btnStyle="btnSemilight"
+        />
       </Section>
       <Section light className={styles.whyUs}>
         <h1>Why our coffee is magical?</h1>
