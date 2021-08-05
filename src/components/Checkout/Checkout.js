@@ -52,7 +52,7 @@ const Checkout = () => {
             </span>
           </h2>
         )}
-        {checkoutType === 'login' ? (
+        {(checkoutType === 'login') & !isAuth ? (
           <Auth />
         ) : (
           <CheckoutForm

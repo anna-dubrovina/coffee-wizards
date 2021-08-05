@@ -1,28 +1,27 @@
-import { Route, Switch, useRouteMatch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
+import * as vars from '../shared/globalVars';
 import About from '../components/About/About';
-import Header from '../components/Layout/Header';
 import AboutDelivery from '../components/About/AboutDelivery';
 import AboutBusiness from '../components/About/AboutBusiness';
 import AboutContacts from '../components/About/AboutContacts';
+import Header from '../components/Layout/Header';
 import NotFoundPage from './NotFoundPage';
 
 const AboutPage = () => {
-  const { path } = useRouteMatch();
-
   return (
     <>
       <Header title="About Coffee Wizards Store" />
       <Switch>
-        <Route path={path + '/business'}>
+        <Route path={vars.ABOUT_BUSINESS}>
           <AboutBusiness />
         </Route>
-        <Route path={path + '/payment-delivery'}>
+        <Route path={vars.ABOUT_PAYMENT}>
           <AboutDelivery />
         </Route>
-        <Route path={path + '/contacts'}>
+        <Route path={vars.ABOUT_CONTACTS}>
           <AboutContacts />
         </Route>
-        <Route exact path={path}>
+        <Route exact path={vars.ABOUT_MAIN}>
           <About />
         </Route>
         <Route path="*">

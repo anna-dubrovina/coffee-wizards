@@ -1,7 +1,7 @@
 @import '../../styles/variables';
 
 .productsList {
-  padding: 0px 10px;
+  padding: 0px 20px;
   margin-bottom: 30px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -10,6 +10,10 @@
   align-items: center;
   text-align: center;
   column-gap: 1.2%;
+}
+
+.categoryList {
+  grid-template-columns: repeat(4, 1fr);
 }
 
 .pagesList {
@@ -21,12 +25,17 @@
   border-bottom: 1px solid $main-coffee-color;
   li {
     padding: 8px 16px;
-    color: $main-coffee-color;
     font-weight: 600;
-    border: 1px solid $main-coffee-color;
+    border: 1px solid transparent;
     cursor: pointer;
     margin: 10px;
   }
+}
+
+.pagesList .current {
+  border: 1px solid $main-coffee-color;
+  color: $main-coffee-color;
+  background: $light-coffee-color;
 }
 
 .btnWrapper {
@@ -47,10 +56,14 @@
   .productsList {
     grid-template-columns: repeat(2, 1fr);
   }
+  .categoryList {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 @media (max-width: 750px) {
-  .productsList {
+  .productsList,
+  .categoryList {
     grid-template-columns: repeat(2, 1fr);
     column-gap: 2.2%;
   }

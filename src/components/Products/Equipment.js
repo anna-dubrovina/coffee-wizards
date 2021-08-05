@@ -1,19 +1,20 @@
 import { useHistory } from 'react-router';
-import Section from '../../Layout/Section';
-import ProductsList from '../ProductsList';
+import * as vars from '../../shared/globalVars';
+import Section from '../Layout/Section';
+import ProductsList from './ProductsList';
 
 const Equipment = () => {
   const history = useHistory();
-  const gotoMachinesPageHandler = () => history.push('/equipment/machines');
-  const gotoManualPageHandler = () => history.push('/equipment/manual');
-  const gotoGrindersPageHandler = () => history.push('/equipment/grinders');
+  const gotoMachinesPageHandler = () => history.push(vars.EQUIP_MACHINES);
+  const gotoManualPageHandler = () => history.push(vars.EQUIP_MANUAL);
+  const gotoGrindersPageHandler = () => history.push(vars.EQUIP_GRINDERS);
 
   return (
     <>
       <Section light>
         <h1>Coffee Machines</h1>
         <ProductsList
-          subcategory="machines"
+          subcategory={vars.MACHINES}
           clicked={gotoMachinesPageHandler}
           cardStyle="cardDark"
           listType="category"
@@ -22,7 +23,7 @@ const Equipment = () => {
       <Section>
         <h1> Manual Coffee Makers</h1>
         <ProductsList
-          subcategory="manual"
+          subcategory={vars.MANUAL}
           clicked={gotoManualPageHandler}
           btnStyle="btnSemilight"
           listType="category"
@@ -31,7 +32,7 @@ const Equipment = () => {
       <Section light>
         <h1> CoffeeGrinders</h1>
         <ProductsList
-          subcategory="grinders"
+          subcategory={vars.GRINDERS}
           clicked={gotoGrindersPageHandler}
           cardStyle="cardDark"
           listType="category"

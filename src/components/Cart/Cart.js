@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { CHECKOUT_MAIN } from '../../shared/globalVars';
 import { uiActions } from '../../store/ui-slice';
 import Button from '../UI/Button';
 import styles from './Cart.module.scss';
@@ -10,10 +11,10 @@ const Cart = () => {
 
   const history = useHistory();
   const dispatch = useDispatch();
-  const closeCartHanlder = () => dispatch(uiActions.close());
+  const closeCartHanlder = () => dispatch(uiActions.modalClose());
 
   const submitCartHandler = () => {
-    history.push('/checkout');
+    history.push(CHECKOUT_MAIN);
     dispatch(uiActions.modalClose());
   };
 

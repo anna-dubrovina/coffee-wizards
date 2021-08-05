@@ -14,6 +14,7 @@ import Section from '../Layout/Section';
 import Button from '../UI/Button';
 import Loader from '../UI/Loader';
 import styles from './ProductsList.module.scss';
+import FiltersBar from './FiltersBar';
 
 const getPages = (array) => {
   const remainder = array.length % 6;
@@ -31,7 +32,7 @@ const ProductsList = (props) => {
   const { isLoading } = useSelector((state) => state.ui);
   const [sortedProducts, setSortedProducts] = useState(subcategoryProducts);
   const dispatch = useDispatch();
-  const subcategory = getSubcategoryName(pathname);
+  const { subcategory } = getSubcategoryName(pathname);
 
   useEffect(() => {
     props.listType === 'subcategory' &&
@@ -61,7 +62,11 @@ const ProductsList = (props) => {
     const pages = getPages(products);
     for (let i = 0; i < pages; i++) {
       const page = (
-        <li key={i} onClick={changePageHandler.bind(null, i + 1)}>
+        <li
+          key={i}
+          onClick={changePageHandler.bind(null, i + 1)}
+          className={listPage === i + 1 ? styles.current : ''}
+        >
           {i + 1}
         </li>
       );
@@ -87,40 +92,57 @@ const ProductsList = (props) => {
         .filter((item) => item.subcategory === props.subcategory)
         .slice(0, 4);
     }
-    const startIndex = 0 + 6 * (listPage - 1);
-    const endIndex = 5 + 6 * (listPage - 1);
-    productsList = sortedProducts.map((item, index) => {
-      if (index < startIndex || index > endIndex) {
-        return null;
-      }
-      return (
-        <ProductItem
-          cardStyle={props.cardStyle}
-          key={item.id}
-          product={item}
-          price={item.price || item.size.medium.price}
-        />
-      );
-    });
+    if (props.listType === 'subcategory') {
+      const startIndex = 0 + 6 * (listPage - 1);
+      const endIndex = 5 + 6 * (listPage - 1);
+      productsList = sortedProducts.map((item, index) => {
+        if (index < startIndex || index > endIndex) {
+          return null;
+        }
+        return (
+          <ProductItem
+            cardStyle={props.cardStyle}
+            key={item.id}
+            product={item}
+            price={item.price || item.size.medium.price}
+          />
+        );
+      });
+    } else {
+      productsList = products.map((item) => {
+        return (
+          <ProductItem
+            cardStyle={props.cardStyle}
+            key={item.id}
+            product={item}
+            price={item.price || item.size.medium.price}
+          />
+        );
+      });
+    }
   }
 
   return isLoading ? (
     <Loader />
   ) : props.listType === 'subcategory' ? (
     <Section className="page-with-aside">
-      <aside> something</aside>
+      <FiltersBar products={products} />
       <div>
         <SortingBar sort={sortHandler} reverse={reverseHandler} />
         <ul className={styles.productsList}>{productsList}</ul>
-        <div className={styles.btnWrapper}>
-          <Button>Show More</Button>
-        </div>
+        {products.length > 6 && (
+          <div className={styles.btnWrapper}>
+            <Button>Show More</Button>
+          </div>
+        )}
         <ul className={styles.pagesList}>{pagesList} </ul>
       </div>
     </Section>
   ) : (
     <>
-      <ul className={styles.productsList}>{productsList}</ul>
+      <ul className={styles.productsList + ' ' + styles.categoryList}>
+        {productsList}
+      </ul>
       <div className={styles.btnWrapper}>
         <Button clicked={props.clicked} btnStyle={props.btnStyle}>
           See More

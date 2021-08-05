@@ -1,12 +1,13 @@
 import { useHistory } from 'react-router';
-import Section from '../../Layout/Section';
-import ProductsList from '../ProductsList';
+import * as vars from '../../shared/globalVars';
+import Section from '../Layout/Section';
+import ProductsList from './ProductsList';
 
 const Coffee = () => {
   const history = useHistory();
-  const gotoBeansPageHandler = () => history.push('/coffee/beans');
-  const gotoGroundPageHandler = () => history.push('/coffee/ground');
-  const gotoCapsulesPageHandler = () => history.push('/coffee/capsules');
+  const gotoBeansPageHandler = () => history.push(vars.COFFEE_BEANS);
+  const gotoGroundPageHandler = () => history.push(vars.COFFEE_GROUND);
+  const gotoCapsulesPageHandler = () => history.push(vars.COFFEE_CAPSULES);
 
   return (
     <>
@@ -15,14 +16,14 @@ const Coffee = () => {
         <ProductsList
           clicked={gotoBeansPageHandler}
           cardStyle="cardDark"
-          subcategory="beans"
+          subcategory={vars.BEANS}
           listType="category"
         />
       </Section>
       <Section>
         <h1> Ground Coffee</h1>
         <ProductsList
-          subcategory="ground"
+          subcategory={vars.GROUND}
           clicked={gotoGroundPageHandler}
           btnStyle="btnSemilight"
           listType="category"
@@ -31,7 +32,7 @@ const Coffee = () => {
       <Section light>
         <h1>Coffee Capsules</h1>
         <ProductsList
-          subcategory="capsules"
+          subcategory={vars.CAPSULES}
           clicked={gotoCapsulesPageHandler}
           cardStyle="cardDark"
           listType="category"

@@ -1,0 +1,22 @@
+@import '../../styles/variables';
+
+.filterList {
+  margin: 10px auto;
+  width: 95%;
+  padding: 10px 5px;
+  h4 {
+    text-transform: capitalize;
+    padding-top: 0;
+  }
+  ul li {
+    margin: 2px 0;
+    font-size: 95%;
+    min-height: 20px;
+    div {
+      justify-content: left;
+      label {
+        text-align: left;
+      }
+    }
+  }
+}

@@ -1,11 +1,12 @@
 import { useHistory } from 'react-router';
-import Section from '../../Layout/Section';
-import ProductsList from '../ProductsList';
+import * as vars from '../../shared/globalVars';
+import Section from '../Layout/Section';
+import ProductsList from './ProductsList';
 
 const Accessorize = () => {
   const history = useHistory();
-  const gotoCupsPageHandler = () => history.push('/accessorize/cups');
-  const gotoToolsPageHandler = () => history.push('/accessorize/tools');
+  const gotoCupsPageHandler = () => history.push(vars.ACCS_CUPS);
+  const gotoToolsPageHandler = () => history.push(vars.ACCS_TOOLS);
 
   return (
     <>
@@ -13,7 +14,7 @@ const Accessorize = () => {
         <h1>Coffee Cups</h1>
         <ProductsList
           clicked={gotoCupsPageHandler}
-          subcategory="cups"
+          subcategory={vars.CUPS}
           btnStyle="btnSemilight"
           listType="category"
         />
@@ -22,7 +23,7 @@ const Accessorize = () => {
         <h1> Additional Tools</h1>
         <ProductsList
           clicked={gotoToolsPageHandler}
-          subcategory="tools"
+          subcategory={vars.TOOLS}
           cardStyle="cardDark"
           listType="category"
         />

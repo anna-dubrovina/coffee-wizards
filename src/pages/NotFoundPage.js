@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { uiActions } from '../store/ui-slice';
 import Button from '../components/UI/Button';
 import Card from '../components/UI/Card';
-import { uiActions } from '../store/ui-slice';
 
 const NotFoundPage = () => {
   const history = useHistory();

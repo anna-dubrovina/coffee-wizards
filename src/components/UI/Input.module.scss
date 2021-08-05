@@ -40,6 +40,11 @@
     &:disabled::placeholder {
       color: $semilight-coffee-color;
     }
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
   }
   label {
     font-size: 90%;

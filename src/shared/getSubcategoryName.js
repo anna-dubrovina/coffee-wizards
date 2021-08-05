@@ -2,9 +2,15 @@ const regex = /\/\w+\//;
 
 export const getSubcategoryName = (path) => {
   if (path.search(regex) >= 0) {
-    const subcategory = path.split(regex);
-    return subcategory[1];
+    const names = path.substring(1).split('/');
+    return {
+      category: names[0],
+      subcategory: names[1],
+    };
   } else {
-    return '';
+    return {
+      category: path.substring(1),
+      subcategory: '',
+    };
   }
 };

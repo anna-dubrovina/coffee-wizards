@@ -1,15 +1,16 @@
+import { useSelector } from 'react-redux';
 import { Link, useLocation, useRouteMatch } from 'react-router-dom';
+import { getSubcategoryName } from '../../shared/getSubcategoryName';
+import * as vars from '../../shared/globalVars';
 import Card from '../UI/Card';
 import styles from './Header.module.scss';
 import arrowIcon from '../../assets/icons/right-arrow.svg';
-import { getSubcategoryName } from '../../shared/getSubcategoryName';
-import { useSelector } from 'react-redux';
 
 const Header = (props) => {
   const { isFound } = useSelector((state) => state.ui);
   const { pathname } = useLocation();
   const { path } = useRouteMatch();
-  const subcategory = getSubcategoryName(pathname);
+  const { subcategory } = getSubcategoryName(pathname);
   let classes = [styles.header];
   const { productPage } = props;
 
@@ -17,19 +18,19 @@ const Header = (props) => {
     case '/':
       classes.push(styles.headerHome);
       break;
-    case '/about':
+    case vars.ABOUT_MAIN:
       classes.push(styles.headerAbout);
       break;
-    case '/coffee':
+    case vars.COFFEE_MAIN:
       classes.push(styles.headerCoffee);
       break;
-    case '/equipment':
+    case vars.EQUIP_MAIN:
       classes.push(styles.headerEquipment);
       break;
-    case '/accessorize':
+    case vars.ACCS_MAIN:
       classes.push(styles.headerAccessorize);
       break;
-    case '/product/:id':
+    case vars.PRODUCT_MAIN:
       classes.push(styles.headerProduct);
       break;
     default:

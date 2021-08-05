@@ -1,0 +1,55 @@
+@import '../../styles/variables';
+
+.filtersBar {
+  margin: 30px 0;
+  padding: 60px 8px 20px;
+  border: 1px solid $main-coffee-color;
+  border-left: none;
+}
+
+.priceFilter {
+  padding: 0;
+  margin: 0 auto;
+  width: 95%;
+  margin-bottom: 30px;
+  form {
+    @include flex-row;
+    padding: 8px;
+    div {
+      display: grid;
+      grid-template-columns: auto;
+      column-gap: 5px;
+      grid-template-areas:
+        'label input'
+        'span span';
+      margin: 0;
+
+      input {
+        grid-area: input;
+        padding: 4px 8px;
+        height: 30px;
+        width: 45px;
+        margin: 0;
+        border: 1px solid $main-coffee-color;
+      }
+      label {
+        grid-area: label;
+        padding: 0;
+        font-size: 95%;
+        justify-self: flex-end;
+        align-self: center;
+      }
+      span {
+        grid-area: span;
+      }
+    }
+    button {
+      padding: 5px;
+      height: 30px;
+      max-width: 50px;
+      margin: 0;
+      margin-bottom: 10px;
+      font-size: 90%;
+    }
+  }
+}

@@ -8,6 +8,8 @@ import { cartActions } from '../../store/cart-slice';
 const CartItem = (props) => {
   const { title, price, img, quantity, id, category, size } = props.product;
 
+  console.log(id);
+
   const dispatch = useDispatch();
 
   const addItemHandler = () => {

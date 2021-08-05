@@ -1,3 +1,5 @@
+import { useHistory } from 'react-router-dom';
+import { COFFEE_MAIN } from '../../shared/globalVars';
 import ProductsList from '../Products/ProductsList';
 import Section from '../Layout/Section';
 import styles from './HomeContent.module.scss';
@@ -10,7 +12,6 @@ import discountIcon from '../../assets/icons/discount.svg';
 import machineIcon from '../../assets/icons/machine.svg';
 import shippingIcon from '../../assets/icons/shipped.svg';
 import starIcon from '../../assets/icons/star.svg';
-import { useHistory } from 'react-router-dom';
 
 const advantages = [
   {
@@ -58,7 +59,7 @@ const advantages = [
 const HomeContent = () => {
   const history = useHistory();
 
-  const goShoppingHandler = () => history.push('/coffee');
+  const goShoppingHandler = () => history.push(COFFEE_MAIN);
   const advantagesList = advantages.map((item) => {
     return (
       <li key={item.alt}>

@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { useScrollUp } from '../../hooks/useScrollUp';
+import * as vars from '../../shared/globalVars';
 import { fetchProduct } from '../../store/products-actions';
 import { cartActions } from '../../store/cart-slice';
 import { uiActions } from '../../store/ui-slice';
@@ -25,6 +26,7 @@ const setTasteBars = (barData) => {
 };
 
 const ProductDetails = () => {
+  useScrollUp();
   const { id } = useParams();
   const product = useSelector((state) => state.products.product);
   const dispatch = useDispatch();
@@ -38,13 +40,13 @@ const ProductDetails = () => {
   let tasteTable = [];
   let sizeControls = [];
   const prodPrice =
-    product.subcategory === 'beans'
+    product.subcategory === vars.BEANS
       ? pricePerSize.price || product.size.medium.price
       : product.price;
   const prodId =
-    product.subcategory === 'beans' ? pricePerSize.id || id + 'medium' : id;
+    product.subcategory === vars.BEANS ? pricePerSize.id || id + 'medium' : id;
   const prodSize =
-    product.subcategory === 'beans'
+    product.subcategory === vars.BEANS
       ? pricePerSize.weight || product.size.medium.weight
       : product.size;
 

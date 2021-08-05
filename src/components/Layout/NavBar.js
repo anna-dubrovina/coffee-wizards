@@ -1,58 +1,25 @@
 import NavItem from './NavItem';
+import * as vars from '../../shared/globalVars';
 import styles from './NavBar.module.scss';
 
 const coffeeDropdown = [
-  {
-    title: 'Coffee Beans',
-    link: '/coffee/beans',
-  },
-  {
-    title: 'Ground Coffee',
-    link: '/coffee/ground',
-  },
-  {
-    title: 'Coffee Capsules',
-    link: '/coffee/capsules',
-  },
+  { title: 'Coffee Beans', link: vars.COFFEE_BEANS },
+  { title: 'Ground Coffee', link: vars.COFFEE_GROUND },
+  { title: 'Coffee Capsules', link: vars.COFFEE_CAPSULES },
 ];
-
 const equipmentDropdown = [
-  {
-    title: 'Coffee Machines',
-    link: '/equipment/machines',
-  },
-  {
-    title: 'Manual Brewers',
-    link: '/equipment/manual',
-  },
-  {
-    title: 'Grinders',
-    link: '/equipment/grinders',
-  },
+  { title: 'Coffee Machines', link: vars.EQUIP_MACHINES },
+  { title: 'Manual Brewers', link: vars.EQUIP_MANUAL },
+  { title: 'Grinders', link: vars.EQUIP_GRINDERS },
 ];
 const accessorizeDropdown = [
-  {
-    title: 'Coffee Cups',
-    link: '/accessorize/cups',
-  },
-  {
-    title: 'Additional Tools',
-    link: '/accessorize/tools',
-  },
+  { title: 'Coffee Cups', link: vars.ACCS_CUPS },
+  { title: 'Additional Tools', link: vars.ACCS_TOOLS },
 ];
 const aboutDropdown = [
-  {
-    title: 'Our Contacts',
-    link: '/about/contacts',
-  },
-  {
-    title: 'Payment & Delivery',
-    link: '/about/payment-delivery',
-  },
-  {
-    title: 'For Business Clients',
-    link: '/about/business',
-  },
+  { title: 'Our Contacts', link: vars.ABOUT_CONTACTS },
+  { title: 'Payment & Delivery', link: vars.ABOUT_PAYMENT },
+  { title: 'For Business Clients', link: vars.ABOUT_BUSINESS },
 ];
 
 const NavBar = (props) => {
@@ -64,7 +31,7 @@ const NavBar = (props) => {
     >
       <ul>
         <NavItem
-          link="/coffee"
+          link={vars.COFFEE_MAIN}
           mobile={props.mobileMode}
           dropdown={coffeeDropdown}
           clicked={props.clicked}
@@ -72,7 +39,7 @@ const NavBar = (props) => {
           Coffee
         </NavItem>
         <NavItem
-          link="/equipment"
+          link={vars.EQUIP_MAIN}
           mobile={props.mobileMode}
           dropdown={equipmentDropdown}
           clicked={props.clicked}
@@ -80,7 +47,7 @@ const NavBar = (props) => {
           Equipment
         </NavItem>
         <NavItem
-          link="/accessorize"
+          link={vars.ACCS_MAIN}
           mobile={props.mobileMode}
           dropdown={accessorizeDropdown}
           clicked={props.clicked}
@@ -88,7 +55,7 @@ const NavBar = (props) => {
           Accessorize
         </NavItem>
         <NavItem
-          link="/about"
+          link={vars.ABOUT_MAIN}
           mobile={props.mobileMode}
           dropdown={aboutDropdown}
           clicked={props.clicked}

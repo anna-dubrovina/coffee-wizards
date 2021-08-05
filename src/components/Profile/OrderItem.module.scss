@@ -8,6 +8,7 @@
     max-width: 400px;
   }
 }
+
 .orderHeader {
   @include flex-row;
   justify-content: space-between;
@@ -94,7 +95,7 @@
     padding: 20px 5px 10px 15px;
     h5 {
       font-size: 105%;
-      transition: 0.5s all ease-in-out;
+      transition: 0.5s color ease-in-out;
       &:hover {
         color: $main-coffee-color;
       }
@@ -123,14 +124,27 @@
     display: block;
     width: 90%;
     &:first-of-type li {
-      min-width: none;
+      min-width: 0px;
     }
   }
 }
 
 
 @media (max-width: 500px) {
+  .orderHeader {
+    padding: 0;
+    h3 {
+      min-width: 100px;
+    }
+    p {
+      width: 50%;
+      min-width: 70px;
+    }
+  }
   .orderDetail ul {
     width: 100%;
+    li {
+      width: 100%;
+    }
   }
 }

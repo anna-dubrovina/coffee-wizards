@@ -5,6 +5,7 @@ const emailRe =
   /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
 const passwordRe = /^(?=.*[A-ZА-яa-z])(?=.*\d)[A-ZА-яa-z\d]{8,}$/;
 const postCodeRe = /^[0-9]{5}$/;
+const priceRe = /[0-9.]{1,6}/;
 const phoneRe =
   /^(\+)?(\d{2})?[-. ]?\(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{2}[-. ]?\d{2}$/;
 
@@ -41,7 +42,10 @@ export const validateValue = (type, value) => {
       isValid = postCodeRe.test(value);
       errorMsg = 'Wrong post code format';
       break;
-
+    case 'price':
+      isValid = priceRe.test(value);
+      errorMsg = 'Not correct price';
+      break;
     default:
       break;
   }

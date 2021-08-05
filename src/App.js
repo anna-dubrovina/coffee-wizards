@@ -9,6 +9,7 @@ import Cart from './components/Cart/Cart';
 import Modal from './components/UI/Modal';
 import Loader from './components/UI/Loader';
 import NotFoundPage from './pages/NotFoundPage';
+import * as vars from './shared/globalVars';
 
 const Checkout = lazy(() => import('./pages/CheckoutPage'));
 const About = lazy(() => import('./pages/AboutPage'));
@@ -44,29 +45,29 @@ const App = () => {
       </AnimatePresence>
       <Suspense fallback={<Loader />}>
         <Switch>
-          <Route path="/checkout" exact>
+          <Route path={vars.CHECKOUT_MAIN} exact>
             <Checkout />
           </Route>
           <Route path="/">
             <Layout>
               <Suspense fallback={<Loader />}>
                 <Switch>
-                  <Route path="/profile">
+                  <Route path={vars.PROFILE_MAIN}>
                     <Profile />
                   </Route>
-                  <Route path="/product/:id">
+                  <Route path={vars.PRODUCT_MAIN}>
                     <Product />
                   </Route>
-                  <Route path="/accessorize">
+                  <Route path={vars.ACCS_MAIN}>
                     <Accessorize />
                   </Route>
-                  <Route path="/equipment">
+                  <Route path={vars.EQUIP_MAIN}>
                     <Equipment />
                   </Route>
-                  <Route path="/coffee">
+                  <Route path={vars.COFFEE_MAIN}>
                     <Coffee />
                   </Route>
-                  <Route path="/about">
+                  <Route path={vars.ABOUT_MAIN}>
                     <About />
                   </Route>
                   <Route path="/" exact>

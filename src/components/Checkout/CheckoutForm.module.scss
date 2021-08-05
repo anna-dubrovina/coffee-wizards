@@ -30,72 +30,11 @@
   border-bottom: 1px solid $main-coffee-color;
 }
 
-.checkbox {
-  text-align: center;
-  @include flex-row;
-  justify-content: center;
-  align-self: center;
-  input[type='checkbox'] {
-    position: relative;
-    min-width: 16px;
-    min-width: 16px;
-    height: 16px;
-    margin: 0 20px;
-    -webkit-appearance: initial;
-    outline: none;
-    cursor: pointer;
-    border: 1px solid $main-coffee-color;
-    transition: ease-in-out 0.5s all;
-    box-sizing: content-box;
-    &:hover {
-      background: $semilight-coffee-color;
-    }
-    &:checked:after {
-      content: '';
-      position: absolute;
-      top: 3px;
-      left: 3px;
-      background: url('../../assets/icons/square.png') no-repeat center/cover;
-      width: 10px;
-      height: 10px;
-    }
-  }
-}
-
-// .orderBtn {
-//   margin: 29px auto;
-//   width: 95%;
-//   button {
-//     width: 100%;
-//     height: 42px;
-//   }
-// }
-
-// .nextBtn {
-//   background-color: $light-coffee-color;
-//   padding: 5px 15px;
-//   min-width: fit-content;
-//   width: 50%;
-//   border: 1px solid $main-coffee-color;
-//   cursor: pointer;
-//   font-size: 16px;
-//   font-weight: 600;
-//   font-family: inherit;
-//   color: $dark-coffee-color;
-//   transition: background-color 0.5s ease-out;
-//   text-align: center;
-//   justify-self: flex-end;
-//   align-self: center;
-//   &:hover {
-//     background-color: $semilight-coffee-color;
-//   }
-// }
-
 @media (max-width: 1100px) {
   .formControls {
     grid-template-columns: 1fr;
-  }
-  .checkbox {
-    margin-bottom: 20px;
+    div:last-child {
+      margin-bottom: 20px;
+    }
   }
 }

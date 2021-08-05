@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
-import Auth from '../components/Profile/Auth';
-import ProfileSidebar from '../components/Profile/ProfileSidebar';
+import * as vars from '../shared/globalVars';
 import Addresses from '../components/Profile/Addresses';
 import Contacts from '../components/Profile/Contacts';
+import Auth from '../components/Profile/Auth';
+import ProfileSidebar from '../components/Profile/ProfileSidebar';
 import Orders from '../components/Profile/Orders';
 import Section from '../components/Layout/Section';
 import NotFoundPage from './NotFoundPage';
@@ -16,10 +17,10 @@ const ProfilePage = () => {
 
   useEffect(() => {
     if (!isAuth) {
-      history.push('/profile/auth');
+      history.push(vars.PROFILE_AUTH);
     }
-    if (isAuth && pathname === '/profile/auth') {
-      history.replace('/profile/orders');
+    if (isAuth && pathname === vars.PROFILE_AUTH) {
+      history.replace(vars.PROFILE_ORDERS);
     }
   }, [isAuth, history, pathname]);
 
@@ -27,13 +28,13 @@ const ProfilePage = () => {
     <Section className="page-with-aside">
       <ProfileSidebar />
       <Switch>
-        <Route path="/profile/contacts" exact>
+        <Route path={vars.PROFILE_CONTACTS} exact>
           <Contacts />
         </Route>
-        <Route path="/profile/orders" exact>
+        <Route path={vars.PROFILE_ORDERS} exact>
           <Orders />
         </Route>
-        <Route path="/profile/addresses" exact>
+        <Route path={vars.PROFILE_ADDRESSES} exact>
           <Addresses />
         </Route>
         <Route path="*">
@@ -42,7 +43,7 @@ const ProfilePage = () => {
       </Switch>
     </Section>
   ) : (
-    <Route path="/profile/auth" exact>
+    <Route path={vars.PROFILE_AUTH} exact>
       <Auth />
     </Route>
   );

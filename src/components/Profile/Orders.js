@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { COFFEE_MAIN } from '../../shared/globalVars';
 import { httpRequest } from '../../shared/httpRequest';
 import Button from '../UI/Button';
 import Card from '../UI/Card';
 import Loader from '../UI/Loader';
 import OrderItem from './OrderItem';
-
 import styles from './Orders.module.scss';
 
 const Orders = () => {
@@ -14,8 +14,6 @@ const Orders = () => {
   const { userId } = useSelector((state) => state.profile);
   const { isLoading } = useSelector((state) => state.ui);
   const history = useHistory();
-
-  console.log(orders);
 
   useEffect(() => {
     const fetchedOrders = [];
@@ -30,7 +28,7 @@ const Orders = () => {
     setOrders(fetchedOrders);
   }, [userId]);
 
-  const buyCoffeeHandler = () => history.push('/coffee');
+  const buyCoffeeHandler = () => history.push(COFFEE_MAIN);
 
   let ordersList;
   if (orders.length > 0) {

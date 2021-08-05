@@ -3,6 +3,8 @@ import styles from './Input.module.scss';
 const Input = (props) => {
   let inputType = (
     <input
+      min={props.min}
+      max={props.max}
       disabled={props.disabled}
       type={props.type}
       id={props.id}

@@ -1,11 +1,6 @@
 @import '../../styles/variables';
 
 .sortingBar {
-  span {
-    font-size: 100%;
-    font-weight: 600;
-    padding: 0 20px;
-  }
   @include flex-row;
   justify-content: flex-start;
   width: 100%;
@@ -13,6 +8,11 @@
   border-bottom: 1px solid $main-coffee-color;
   margin-top: 30px;
   padding: 10px 20px;
+  span {
+    font-size: 100%;
+    font-weight: 600;
+    padding: 0 20px;
+  }
   ul {
     @include flex-row;
     width: 400px;
@@ -32,7 +32,7 @@
 
 .sortingBar .selected {
   color: $main-coffee-color;
-
+  background: $light-coffee-color;
   border: 1px solid $main-coffee-color;
   svg {
     fill: $main-coffee-color;

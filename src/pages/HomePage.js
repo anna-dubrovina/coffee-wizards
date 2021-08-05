@@ -1,4 +1,5 @@
 import { useHistory } from 'react-router-dom';
+import { COFFEE_MAIN } from '../shared/globalVars';
 import HomeContent from '../components/Home/HomeContent';
 import Header from '../components/Layout/Header';
 import Button from '../components/UI/Button';
@@ -6,7 +7,7 @@ import Button from '../components/UI/Button';
 const HomePage = () => {
   const history = useHistory();
   const gotoProductsPageHandler = () => {
-    history.push('/coffee');
+    history.push(COFFEE_MAIN);
   };
 
   return (

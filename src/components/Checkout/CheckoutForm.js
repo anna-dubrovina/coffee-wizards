@@ -11,6 +11,7 @@ import Input from '../UI/Input';
 import Loader from '../UI/Loader';
 import Button from '../UI/Button';
 import styles from './CheckoutForm.module.scss';
+import Checkbox from '../UI/Checkbox';
 
 const getOrderId = (name) => {
   const charArray = name
@@ -306,18 +307,14 @@ const CheckoutForm = (props) => {
               invalid={invalidPassword}
               value={enteredPassword}
             />
-            <div className={styles.checkbox}>
-              <input
-                type="checkbox"
-                id="register"
-                onChange={registerChangeHanlder}
-              />
-              <label htmlFor="register">Don't register me</label>
-            </div>
+            <Checkbox
+              id="register"
+              onChange={registerChangeHanlder}
+              label="Don't register me"
+            />
           </>
         )}
       </div>
-
       <h4>
         <span>2</span>
         Delivery Info

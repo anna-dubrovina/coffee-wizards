@@ -1,30 +1,26 @@
-import { Route, Switch, useRouteMatch } from 'react-router-dom';
-import Equipment from '../components/Products/Equipment/Equipment';
-// import EquipmentMachines from '../components/Products/Equipment/EquipmentMachines';
-// import EquipmentGrinders from '../components/Products/Equipment/EquipmentGrinders';
-// import EquipmentManual from '../components/Products/Equipment/EquipmentManual';
+import { Route, Switch } from 'react-router-dom';
+import * as vars from '../shared/globalVars';
 import Header from '../components/Layout/Header';
-import NotFoundPage from './NotFoundPage';
+import Equipment from '../components/Products/Equipment';
 import ProductsList from '../components/Products/ProductsList';
-import Section from '../components/Layout/Section';
+import NotFoundPage from './NotFoundPage';
 
 const EquipmentPage = () => {
-  const { path } = useRouteMatch();
   return (
     <div>
       <Header title="Magical Staff for Coffee Wizarding" />
 
       <Switch>
-        <Route path={path + '/grinders'}>
-          <ProductsList listType="subcategory" />
+        <Route path={vars.EQUIP_GRINDERS}>
+          <ProductsList listType={vars.SUBCATEGORY} />
         </Route>
-        <Route path={path + '/manual'}>
-          <ProductsList listType="subcategory" />
+        <Route path={vars.EQUIP_MANUAL}>
+          <ProductsList listType={vars.SUBCATEGORY} />
         </Route>
-        <Route path={path + '/machines'}>
-          <ProductsList listType="subcategory" />
+        <Route path={vars.EQUIP_MACHINES}>
+          <ProductsList listType={vars.SUBCATEGORY} />
         </Route>
-        <Route path={path} exact>
+        <Route path={vars.EQUIP_MAIN} exact>
           <Equipment />
         </Route>
         <Route path="*">

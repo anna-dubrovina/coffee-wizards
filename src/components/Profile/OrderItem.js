@@ -1,20 +1,19 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import Card from '../UI/Card';
-import Button from '../UI/Button';
-
-import arrowDown from '../../assets/icons/arrow-down.svg';
-import arrowUp from '../../assets/icons/arrow-up.svg';
-import styles from './OrderItem.module.scss';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { PRODUCT_DYNAMIC } from '../../shared/globalVars';
 import { cartActions } from '../../store/cart-slice';
 import { uiActions } from '../../store/ui-slice';
+import Card from '../UI/Card';
+import Button from '../UI/Button';
+import styles from './OrderItem.module.scss';
+import arrowDown from '../../assets/icons/arrow-down.svg';
+import arrowUp from '../../assets/icons/arrow-up.svg';
 
 const OrderItem = (props) => {
   const [showDetails, setShowDetails] = useState(false);
   const { id, deliveryInfo, amount, prodList } = props;
   const dispatch = useDispatch();
-
   const arrowIcon = showDetails ? arrowUp : arrowDown;
 
   const toggleDetailsHandler = () => setShowDetails((curState) => !curState);
@@ -55,11 +54,11 @@ const OrderItem = (props) => {
       return (
         <li key={item.id}>
           <Card className={styles.orderProdItem} cardStyle="cardDark">
-            <Link to={'/product/' + prodId}>
+            <Link to={PRODUCT_DYNAMIC + prodId}>
               <img src={item.img} alt="product" />
             </Link>
             <div>
-              <Link to={'/product/' + prodId}>
+              <Link to={PRODUCT_DYNAMIC + prodId}>
                 <h5>{item.title}</h5>
               </Link>
               <span>{item.category}</span>
