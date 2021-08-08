@@ -1,6 +1,10 @@
 import styles from './Input.module.scss';
 
 const Input = (props) => {
+  const classes = props.invalid
+    ? [styles.control, styles.invalid]
+    : [styles.control];
+
   let inputType = (
     <input
       min={props.min}
@@ -30,7 +34,7 @@ const Input = (props) => {
   }
 
   return (
-    <div className={`${styles.control} ${props.invalid ? styles.invalid : ''}`}>
+    <div className={classes.join(' ')}>
       {props.label && <label htmlFor={props.id}>{props.label}</label>}
       {inputType}
       <span>{props.errorMsg}</span>

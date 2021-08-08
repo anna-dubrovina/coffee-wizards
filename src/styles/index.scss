@@ -69,6 +69,11 @@ span {
   width: 100%;
 }
 
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
 .lead {
   font-size: 20px;
   line-height: 1.5;
@@ -79,12 +84,19 @@ span {
   font-weight: 600;
 }
 
-.errorDiv {
+.error-msg {
   color: $error-color;
   padding: 10px;
   h3 {
     margin-top: 20px;
   }
+}
+
+.bg-light {
+  background-color: $light-coffee-color;
+}
+.bg-semilight {
+  background-color: $semilight-coffee-color;
 }
 
 .status-page {
@@ -103,21 +115,58 @@ span {
   }
 }
 
-.container {
-  max-width: 1400px;
-  margin: 0 auto;
+.form-success {
+  margin: 20px auto 0;
+  @include flex-column;
+  justify-content: flex-start;
+  row-gap: 10px;
+  padding-top: 20px;
+  img {
+    display: block;
+    width: 50px;
+    margin: 0 auto;
+  }
+  p {
+    text-align: center;
+  }
 }
 
-.bg-light {
-  background-color: $light-coffee-color;
-}
-.bg-semilight {
-  background-color: $semilight-coffee-color;
+.form-modal {
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 40px 20px 20px;
+  height: 350px;
+  background: $semilight-coffee-color;
+  p {
+    text-align: center;
+    font-size: 95%;
+  }
 }
 
 .page-with-aside {
   display: grid;
   grid-template-columns: 250px auto;
+}
+
+.main-logo {
+  grid-area: logo;
+  max-width: 500px;
+  min-width: 250px;
+  justify-self: center;
+  padding: 10px;
+  img {
+    width: 95%;
+    margin: auto 0;
+  }
+}
+
+.profile-orders {
+  padding: 20px;
+  min-height: 50vh;
+  h1 {
+    width: 100%;
+  }
 }
 
 @media (min-width: 2000px) {

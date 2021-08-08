@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
+import * as vars from '../../shared/globalVars';
 import IconItem from './IconItem';
-import Contacts from './Contacts';
+import ShortContacts from './ShortContacts';
 import Input from '../UI/Input';
 import Button from '../UI/Button';
 import Logo from '../UI/Logo';
@@ -55,24 +56,24 @@ const Footer = () => {
           <h3> Information </h3>
           <ul>
             <li>
-              <Link to="/about" exact="true">
+              <Link to={vars.ABOUT_MAIN} exact="true">
                 About Us
               </Link>
             </li>
             <li>
-              <Link to="/about/contacts">Contacts</Link>
+              <Link to={vars.ABOUT_CONTACTS}>Contacts</Link>
             </li>
             <li>
-              <Link to="/about/payment-delivery">Payment & Delivery</Link>
+              <Link to={vars.ABOUT_PAYMENT}>Payment & Delivery</Link>
             </li>
             <li>
-              <Link to="/about/business"> For Business Clients</Link>
+              <Link to={vars.ABOUT_BUSINESS}> For Business Clients</Link>
             </li>
           </ul>
         </div>
         <div className={styles.contacts}>
           <h3>Contact Us</h3>
-          <Contacts dark />
+          <ShortContacts dark />
         </div>
         <div className={styles.logo}>
           <Logo light />

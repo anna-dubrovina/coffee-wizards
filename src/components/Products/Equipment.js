@@ -1,7 +1,7 @@
 import { useHistory } from 'react-router';
 import * as vars from '../../shared/globalVars';
 import Section from '../Layout/Section';
-import ProductsList from './ProductsList';
+import ProductsListSummary from './ProductsListSummary';
 
 const Equipment = () => {
   const history = useHistory();
@@ -13,29 +13,26 @@ const Equipment = () => {
     <>
       <Section light>
         <h1>Coffee Machines</h1>
-        <ProductsList
+        <ProductsListSummary
           subcategory={vars.MACHINES}
           clicked={gotoMachinesPageHandler}
           cardStyle="cardDark"
-          listType="category"
         />
       </Section>
       <Section>
         <h1> Manual Coffee Makers</h1>
-        <ProductsList
+        <ProductsListSummary
           subcategory={vars.MANUAL}
           clicked={gotoManualPageHandler}
           btnStyle="btnSemilight"
-          listType="category"
         />
       </Section>
       <Section light>
         <h1> CoffeeGrinders</h1>
-        <ProductsList
+        <ProductsListSummary
           subcategory={vars.GRINDERS}
           clicked={gotoGrindersPageHandler}
           cardStyle="cardDark"
-          listType="category"
         />
       </Section>
     </>

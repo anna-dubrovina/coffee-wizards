@@ -2,6 +2,7 @@ import ReactDOM from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
 import { uiActions } from '../../store/ui-slice';
+import * as vars from '../../shared/globalVars';
 import Card from './Card';
 import closeIcon from '../../assets/icons/close.svg';
 import styles from './Modal.module.scss';
@@ -9,16 +10,17 @@ import styles from './Modal.module.scss';
 const Modal = (props) => {
   const dispatch = useDispatch();
   const { modalType } = useSelector((state) => state.ui);
+  const classes =
+    modalType === vars.ERROR
+      ? [styles.modal, styles.errorModal]
+      : [styles.modal];
 
   const closeModalHanlder = () => {
-    if (modalType === 'error') {
+    if (modalType === vars.ERROR) {
       dispatch(uiActions.setError(null));
     }
     dispatch(uiActions.modalClose());
   };
-
-  let classes =
-    modalType === 'error' ? [styles.modal, styles.errorModal] : [styles.modal];
 
   return ReactDOM.createPortal(
     <>

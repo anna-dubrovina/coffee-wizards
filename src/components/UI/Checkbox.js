@@ -1,10 +1,21 @@
+import { useEffect, useState } from 'react';
 import styles from './Checkbox.module.scss';
 
 const Checkbox = (props) => {
+  const [isChecked, setIsChecked] = useState(false);
+  const { id, label, getCheckedStatus } = props;
+
+  // useEffect(() => getCheckedStatus(isChecked), [isChecked, getCheckedStatus]);
+
+  const onChangeHandler = () => {
+    setIsChecked((curState) => !curState);
+    getCheckedStatus(!isChecked)
+  };
+
   return (
     <div className={styles.checkbox}>
-      <input type="checkbox" id={props.id} onChange={props.onChange} />
-      <label htmlFor={props.id}>{props.label}</label>
+      <input type="checkbox" id={id} onChange={onChangeHandler} />
+      <label htmlFor={id}>{label}</label>
     </div>
   );
 };

@@ -52,3 +52,23 @@ export const ARABICA = 'arabica',
   TYPE = 'type',
   WARRANTY = 'warranty',
   MATERIAL = 'material';
+
+//Actions
+export const ADD = 'add',
+  EDIT = 'edit',
+  DELETE = 'delete';
+
+//Modal Types
+export const CART = 'cart',
+  FORM = 'form',
+  ERROR = 'error';
+
+// Input Value Types
+export const NAME_INPUT = 'name',
+  EMAIL_INPUT = 'email',
+  PHONE_INPUT = 'phone',
+  PASSWORD_INPUT = 'password',
+  CITY_INPUT = 'city',
+  ADDRESS_INPUT = 'address',
+  POSTCODE_INPUT = 'postalCode',
+  PRICE_INPUT = 'price';

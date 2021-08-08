@@ -1,24 +1,14 @@
-import { firebaseConfig } from '../firebase-data';
+import { httpRequest } from './httpRequest';
 
 export const getFirebaseKey = (id, update) => {
-  fetch(
-    `${firebaseConfig.databaseURL}/users.json?orderBy="userId"&equalTo="${id}"`
-  )
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        throw new Error('Request failed!');
-      }
-    })
-    .then((resData) => {
+  httpRequest(
+    { url: `/users.json?orderBy="userId"&equalTo="${id}"` },
+    (resData) => {
       let keyName;
       for (const key in resData) {
         keyName = key;
       }
-      update(keyName)
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+      update(keyName);
+    }
+  );
 };

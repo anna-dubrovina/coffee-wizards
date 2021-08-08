@@ -1,7 +1,7 @@
 import { useHistory } from 'react-router-dom';
 import { COFFEE_MAIN } from '../../shared/globalVars';
-import ProductsList from '../Products/ProductsList';
 import Section from '../Layout/Section';
+import ProductsListSummary from '../Products/ProductsListSummary';
 import styles from './HomeContent.module.scss';
 
 import beansIcon from '../../assets/icons/beans.svg';
@@ -73,8 +73,8 @@ const HomeContent = () => {
     <>
       <Section className={styles.topProducts}>
         <h1>Featured Products</h1>
-        <ProductsList
-          listType="featured"
+        <ProductsListSummary
+          isFeatured
           clicked={goShoppingHandler}
           btnStyle="btnSemilight"
         />

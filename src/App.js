@@ -3,13 +3,15 @@ import { Route, Switch } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { AnimatePresence } from 'framer-motion';
 import { authCheckState } from './store/profile-actions';
+import * as vars from './shared/globalVars';
 import HomePage from './pages/HomePage';
 import Layout from './components/Layout/Layout';
 import Cart from './components/Cart/Cart';
+import CallbackForm from './components/UI/CallbackForm';
 import Modal from './components/UI/Modal';
 import Loader from './components/UI/Loader';
 import NotFoundPage from './pages/NotFoundPage';
-import * as vars from './shared/globalVars';
+import Button from './components/UI/Button';
 
 const Checkout = lazy(() => import('./pages/CheckoutPage'));
 const About = lazy(() => import('./pages/AboutPage'));
@@ -34,9 +36,12 @@ const App = () => {
       <AnimatePresence>
         {isModalOpen && (
           <Modal>
-            {modalType === 'cart' && <Cart />}
-            {modalType === 'error' && (
-              <div className="errorDiv">
+            {modalType === vars.CART && <Cart />}
+            {modalType === vars.FORM && (
+              <CallbackForm title="Leave Your Number" />
+            )}
+            {modalType === vars.ERROR && (
+              <div className="error-msg">
                 <h3>Error occured: {errorMessage}</h3>
               </div>
             )}

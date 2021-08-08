@@ -8,8 +8,6 @@
   justify-content: center;
   column-gap: 20px;
   div {
-    width: 90%;
-
     h2 {
       @include flex-row;
       justify-content: flex-start;
@@ -30,7 +28,9 @@
         }
       }
     }
-    &:first-child {
+    &:first-child,
+    &:last-child {
+      width: 90%;
       height: 90%;
     }
     form {

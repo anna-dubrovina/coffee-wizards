@@ -6,7 +6,7 @@ import useCurrentWidth from '../../hooks/useCurrentWidth';
 import { PROFILE_ORDERS } from '../../shared/globalVars';
 
 import IconItem from './IconItem';
-import Contacts from './Contacts';
+import ShortContacts from './ShortContacts';
 import NavBar from './NavBar';
 import Button from '../UI/Button';
 import Logo from '../UI/Logo';
@@ -34,7 +34,7 @@ const Toolbar = () => {
     <header className={styles.toolbar}>
       <div className={styles.toolbarContent + ' container'}>
         <div className={styles.contacts}>
-          <Contacts />
+          <ShortContacts />
         </div>
 
         <Logo />

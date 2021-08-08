@@ -41,7 +41,7 @@ const AboutContacts = () => {
             Write us a letter
           </h2>
           <CallbackForm
-            text="You can send your request / complaint / suggestion using this form"
+            title="You can send your request / complaint / suggestion using this form"
             fullForm
           />
         </Card>

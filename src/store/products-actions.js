@@ -1,12 +1,8 @@
 import { productsActions } from './products-slice';
 import { httpRequest } from '../shared/httpRequest';
 
-const {
-  getCategoryProducts,
-  getSubcategoryProducts,
-  getFeaturedProducts,
-  getProduct,
-} = productsActions;
+const { getCategoryProds, getSubcategoryProds, getFeaturedProds, getProduct } =
+  productsActions;
 
 const transfromData = (actionType, data) => {
   return (dispatch) => {
@@ -23,13 +19,13 @@ const transfromData = (actionType, data) => {
         products.splice(index, 1);
       }
     }
-    actionType === 'subcategory' && dispatch(getSubcategoryProducts(products));
-    actionType === 'category' && dispatch(getCategoryProducts(products));
-    actionType === 'featured' && dispatch(getFeaturedProducts(featured));
+    actionType === 'subcategory' && dispatch(getSubcategoryProds(products));
+    actionType === 'category' && dispatch(getCategoryProds(products));
+    actionType === 'featured' && dispatch(getFeaturedProds(featured));
   };
 };
 
-export const fetchSubcategoryProducts = (subcategory) => {
+export const fetchSubcategoryProds = (subcategory) => {
   return (dispatch) => {
     httpRequest(
       { url: `/products.json?orderBy="subcategory"&equalTo="${subcategory}"` },
@@ -38,7 +34,7 @@ export const fetchSubcategoryProducts = (subcategory) => {
   };
 };
 
-export const fetchCategoryProducts = (category) => {
+export const fetchCategoryProds = (category) => {
   return (dispatch) => {
     httpRequest(
       { url: `/products.json?orderBy="category"&equalTo="${category}"` },
@@ -47,7 +43,7 @@ export const fetchCategoryProducts = (category) => {
   };
 };
 
-export const fetchFeaturedProducts = () => {
+export const fetchFeaturedProds = () => {
   return (dispatch) => {
     httpRequest({ url: '/products.json' }, (resData) =>
       dispatch(transfromData('featured', resData))

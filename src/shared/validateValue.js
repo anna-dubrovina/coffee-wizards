@@ -1,3 +1,5 @@
+import * as vars from './globalVars';
+
 const nameRe = /^[A-Za-zА-я ]{2,}/;
 const cityRe = /^[A-Za-zА-я ]{2,}/;
 const addressRe = /^[\S ]{8,}/;
@@ -13,36 +15,36 @@ export const validateValue = (type, value) => {
   let isValid;
   let errorMsg;
   switch (type) {
-    case 'name':
+    case vars.NAME_INPUT:
       isValid = nameRe.test(value.trim());
       errorMsg = 'Entered name is too short';
       break;
-    case 'email':
+    case vars.EMAIL_INPUT:
       isValid = emailRe.test(value);
       errorMsg = 'Wrong email format';
       break;
-    case 'phone':
+    case vars.PHONE_INPUT:
       isValid = phoneRe.test(value);
       errorMsg = 'Wrong phone number format';
       break;
-    case 'password':
+    case vars.PASSWORD_INPUT:
       isValid = passwordRe.test(value);
       errorMsg =
         'Password must be at least 8 characters long and include letters and digits';
       break;
-    case 'city':
+    case vars.CITY_INPUT:
       isValid = cityRe.test(value);
       errorMsg = 'Enter valid city name';
       break;
-    case 'address':
+    case vars.ADDRESS_INPUT:
       isValid = addressRe.test(value.trim());
       errorMsg = 'Entered address is too short';
       break;
-    case 'postalCode':
+    case vars.POSTCODE_INPUT:
       isValid = postCodeRe.test(value);
       errorMsg = 'Wrong post code format';
       break;
-    case 'price':
+    case vars.PRICE_INPUT:
       isValid = priceRe.test(value);
       errorMsg = 'Not correct price';
       break;

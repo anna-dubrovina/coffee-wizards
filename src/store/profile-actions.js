@@ -39,7 +39,7 @@ const createNewUser = (email, userId) => {
       method: 'POST',
       body: newUser,
     },
-    () => console.log('success')
+    () => {}
   );
 };
 

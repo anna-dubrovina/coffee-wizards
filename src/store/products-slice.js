@@ -3,23 +3,23 @@ import { createSlice } from '@reduxjs/toolkit';
 const productsSlice = createSlice({
   name: 'products',
   initialState: {
-    subcategoryProducts: [],
-    categoryProducts: [],
+    subcategoryProds: [],
+    categoryProds: [],
     product: {},
-    featuredProducts: [],
+    featuredProds: [],
   },
   reducers: {
-    getSubcategoryProducts(state, action) {
-      state.subcategoryProducts = action.payload;
+    getSubcategoryProds(state, action) {
+      state.subcategoryProds = action.payload;
     },
-    getCategoryProducts(state, action) {
-      state.categoryProducts = action.payload;
+    getCategoryProds(state, action) {
+      state.categoryProds = action.payload;
     },
     getProduct(state, action) {
       state.product = action.payload;
     },
-    getFeaturedProducts(state, action) {
-      state.featuredProducts = action.payload;
+    getFeaturedProds(state, action) {
+      state.featuredProds = action.payload;
     },
   },
 });

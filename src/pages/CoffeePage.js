@@ -2,7 +2,7 @@ import { Route, Switch } from 'react-router-dom';
 import * as vars from '../shared/globalVars';
 import Header from '../components/Layout/Header';
 import Coffee from '../components/Products/Coffee';
-import ProductsList from '../components/Products/ProductsList';
+import ProductsListFull from '../components/Products/ProductsListFull';
 import NotFoundPage from './NotFoundPage';
 
 const CoffeePage = () => {
@@ -11,13 +11,13 @@ const CoffeePage = () => {
       <Header title={'Our Wizarding Coffee'} />
       <Switch>
         <Route path={vars.COFFEE_BEANS}>
-          <ProductsList listType="subcategory" />
+          <ProductsListFull />
         </Route>
         <Route path={vars.COFFEE_GROUND}>
-          <ProductsList listType="subcategory" />
+          <ProductsListFull />
         </Route>
         <Route path={vars.COFFEE_CAPSULES}>
-          <ProductsList listType="subcategory" />
+          <ProductsListFull />
         </Route>
         <Route exact path={vars.COFFEE_MAIN}>
           <Coffee />

@@ -7,7 +7,6 @@ import Button from '../UI/Button';
 import Card from '../UI/Card';
 import Loader from '../UI/Loader';
 import OrderItem from './OrderItem';
-import styles from './Orders.module.scss';
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
@@ -48,7 +47,7 @@ const Orders = () => {
   return isLoading ? (
     <Loader />
   ) : (
-    <div className={styles.orders}>
+    <div className="profile-orders">
       <h1>My Orders</h1>
       {orders.length === 0 && (
         <Card>
