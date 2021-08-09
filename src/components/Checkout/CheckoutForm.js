@@ -192,8 +192,8 @@ const CheckoutForm = (props) => {
       },
       (resData) => {
         dispatch(cartActions.clearCart());
+        localStorage.removeItem(vars.USER_CART);
         const orderId = getOrderId(resData.name);
-
         httpRequest(
           {
             url: `/orders/${resData.name}.json`,

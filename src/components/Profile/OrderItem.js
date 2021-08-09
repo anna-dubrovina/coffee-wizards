@@ -25,7 +25,7 @@ const OrderItem = (props) => {
     }, 0);
 
     dispatch(
-      cartActions.repeatOrder({
+      cartActions.setCart({
         items: prodList,
         totalAmount: amount,
         totalQuantity,

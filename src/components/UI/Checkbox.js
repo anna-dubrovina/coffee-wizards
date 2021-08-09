@@ -3,11 +3,12 @@ import styles from './Checkbox.module.scss';
 
 const Checkbox = (props) => {
   const [isChecked, setIsChecked] = useState(false);
-  const { id, label, getCheckedStatus } = props;
+  const { id, label, getCheckedStatus, onChange } = props;
 
   const onChangeHandler = () => {
     setIsChecked((curState) => !curState);
-    getCheckedStatus(!isChecked);
+    getCheckedStatus && getCheckedStatus(!isChecked);
+    onChange && onChange();
   };
 
   return (

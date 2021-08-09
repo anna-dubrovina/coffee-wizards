@@ -92,4 +92,5 @@ export const BTN_DARK = 'btnDark',
 // Local Storage Names
 export const TOKEN = 'token',
   EXP_DATE = 'expirationDate',
-  USER_ID = 'userId';
+  USER_ID = 'userId',
+  USER_CART = 'userCart';

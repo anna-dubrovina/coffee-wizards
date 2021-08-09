@@ -33,7 +33,6 @@ const cartSlice = createSlice({
         existingItem.totalItemPrice =
           existingItem.totalItemPrice + newItem.price;
       }
-
       state.totalAmount = getTotalAmount(state.items);
     },
     removeItem(state, action) {
@@ -58,8 +57,9 @@ const cartSlice = createSlice({
     clearCart(state) {
       state.items = [];
       state.totalQuantity = 0;
+      state.totalAmount = 0;
     },
-    repeatOrder(state, action) {
+    setCart(state, action) {
       state.items = action.payload.items;
       state.totalQuantity = action.payload.totalQuantity;
       state.totalAmount = action.payload.totalAmount;

@@ -11,6 +11,7 @@ import CallbackForm from './components/UI/CallbackForm';
 import Modal from './components/UI/Modal';
 import Loader from './components/UI/Loader';
 import NotFoundPage from './pages/NotFoundPage';
+import { cartActions } from './store/cart-slice';
 
 const Checkout = lazy(() => import('./pages/CheckoutPage'));
 const About = lazy(() => import('./pages/AboutPage'));
@@ -24,11 +25,11 @@ const App = () => {
   const { isModalOpen, modalType, errorMessage } = useSelector(
     (state) => state.ui
   );
+  const cart = JSON.parse(localStorage.getItem(vars.USER_CART));
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(authCheckState());
-  }, [dispatch]);
+  useEffect(() => dispatch(authCheckState()), [dispatch]);
+  useEffect(() => dispatch(cartActions.setCart(cart)), [dispatch]);
 
   return (
     <>
