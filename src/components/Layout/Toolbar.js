@@ -4,17 +4,16 @@ import { useDispatch } from 'react-redux';
 import { uiActions } from '../../store/ui-slice';
 import useCurrentWidth from '../../hooks/useCurrentWidth';
 import { PROFILE_ORDERS } from '../../shared/globalVars';
-
 import IconItem from './IconItem';
 import ShortContacts from './ShortContacts';
 import NavBar from './NavBar';
 import Button from '../UI/Button';
 import Logo from '../UI/Logo';
+import styles from './Toolbar.module.scss';
 
 import userIcon from '../../assets/icons/user.svg';
 import cartIcon from '../../assets/icons/cart.svg';
 import menuIcon from '../../assets/icons/menu.svg';
-import styles from './Toolbar.module.scss';
 
 const Toolbar = () => {
   const [showNavMenu, setShowNavMenu] = useState(false);
@@ -26,9 +25,7 @@ const Toolbar = () => {
   const toggleMenuHandler = () => setShowNavMenu((curState) => !curState);
   const openCartHanlder = () => dispatch(uiActions.openCart());
 
-  useEffect(() => {
-    width > 600 && closeNavMenuHandler();
-  }, [width]);
+  useEffect(() => width > 600 && closeNavMenuHandler(), [width]);
 
   return (
     <header className={styles.toolbar}>

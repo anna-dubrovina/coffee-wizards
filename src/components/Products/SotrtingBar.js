@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { BEANS } from '../../shared/globalVars';
 import styles from './SortingBar.module.scss';
 
 const arrowUp = (
@@ -41,8 +42,12 @@ const arrowDown = (
   </svg>
 );
 
+const DEFAULT_MODE = 'default',
+  NAME_MODE = 'name',
+  PRICE_MODE = 'price';
+
 const SortingBar = (props) => {
-  const [sortingMode, setSortingMode] = useState('default');
+  const [sortingMode, setSortingMode] = useState(DEFAULT_MODE);
   const [isAsc, setIsAsc] = useState(true);
 
   const sortByDefault = (array) => array;
@@ -54,7 +59,7 @@ const SortingBar = (props) => {
   };
   const sortByPrice = (array) => {
     return array.sort((firstEl, secondEl) => {
-      if (firstEl.subcategory === 'beans') {
+      if (firstEl.subcategory === BEANS) {
         return firstEl.size.medium.price < secondEl.size.medium.price ? -1 : 1;
       }
       return firstEl.price < secondEl.price ? -1 : 1;
@@ -62,15 +67,15 @@ const SortingBar = (props) => {
   };
 
   const sortByDefaultHandler = () => {
-    setSortingMode('default');
+    setSortingMode(DEFAULT_MODE);
     props.sort(sortByDefault);
   };
   const sortByNameHandler = () => {
-    setSortingMode('name');
+    setSortingMode(NAME_MODE);
     props.sort(sortByName);
   };
   const sortByPriceHandler = () => {
-    setSortingMode('price');
+    setSortingMode(PRICE_MODE);
     props.sort(sortByPrice);
   };
   const ascHandler = () => {
@@ -95,19 +100,19 @@ const SortingBar = (props) => {
       <ul>
         <li
           onClick={sortByDefaultHandler}
-          className={sortingMode === 'default' ? styles.selected : ''}
+          className={sortingMode === DEFAULT_MODE ? styles.selected : ''}
         >
           Default
         </li>
         <li
           onClick={sortByNameHandler}
-          className={sortingMode === 'name' ? styles.selected : ''}
+          className={sortingMode === NAME_MODE ? styles.selected : ''}
         >
           Name
         </li>
         <li
           onClick={sortByPriceHandler}
-          className={sortingMode === 'price' ? styles.selected : ''}
+          className={sortingMode === PRICE_MODE ? styles.selected : ''}
         >
           Price
         </li>

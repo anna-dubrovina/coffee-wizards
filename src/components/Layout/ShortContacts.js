@@ -1,10 +1,10 @@
 import { useDispatch } from 'react-redux';
+import { BTN_DARK } from '../../shared/globalVars';
 import { uiActions } from '../../store/ui-slice';
 import Button from '../UI/Button';
 
 const ShortContacts = (props) => {
   const dispatch = useDispatch();
-
   const openCallbackFormHandler = () => dispatch(uiActions.openCallbackForm());
 
   return (
@@ -15,7 +15,7 @@ const ShortContacts = (props) => {
         <li> 10:00 AM – 7:00 PM </li>
       </ul>
       <Button
-        btnStyle={props.dark && 'btnDark'}
+        btnStyle={props.dark && BTN_DARK}
         clicked={openCallbackFormHandler}
       >
         Callback Me

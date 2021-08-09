@@ -44,7 +44,7 @@ const ProductDetails = () => {
       ? pricePerSize.price || product.size.medium.price
       : product.price;
   const prodId =
-    product.subcategory === vars.BEANS ? pricePerSize.id || id + 'medium' : id;
+    product.subcategory === vars.BEANS ? pricePerSize.id || id + vars.PROD_SIZE_M : id;
   const prodSize =
     product.subcategory === vars.BEANS
       ? pricePerSize.weight || product.size.medium.weight
@@ -75,18 +75,22 @@ const ProductDetails = () => {
     let tableRow;
     let sizeControl;
     if (
-      key === 'id' ||
-      key === 'title' ||
-      key === 'img' ||
-      key === 'description' ||
-      key === 'category' ||
-      key === 'subcategory' ||
-      key === 'price'
+      key === vars.PROD_ID ||
+      key === vars.PROD_TITLE ||
+      key === vars.PROD_IMG ||
+      key === vars.PROD_DECS ||
+      key === vars.PROD_CATEGORY ||
+      key === vars.PROD_SUBCATEGORRY ||
+      key === vars.PROD_PRICE
     ) {
       continue;
     }
 
-    if (key === 'sweetness' || key === 'strength' || key === 'sourness') {
+    if (
+      key === vars.PROD_SWEETNESS ||
+      key === vars.PROD_STRENGTH ||
+      key === vars.PROD_SOURNESS
+    ) {
       tableRow = (
         <tr key={key}>
           <th>{key}</th>
@@ -149,21 +153,19 @@ const ProductDetails = () => {
       />
       <Section>
         <h1>{product.title}</h1>
-
         <Card className={styles.productDetails}>
           <img src={product.img} alt={product.title} />
-
           <header className={styles.titleWrapper}>
             <h2>{product.title}</h2>
             <span>In Stock</span>
             <span>SKU#: {id}</span>
-            {product.category === 'coffee' ? (
+            {product.category === vars.COFFEE ? (
               <ul className={styles.sizeControl}>{sizeControls}</ul>
             ) : (
               <span className={styles.sizeControl}></span>
             )}
             <p className="lead">Price: ${prodPrice}</p>
-            <Button btnStyle="btnMain" clicked={openCartHanlder}>
+            <Button btnStyle={vars.BTN_MAIN} clicked={openCartHanlder}>
               Add to Cart
             </Button>
           </header>
@@ -176,8 +178,7 @@ const ProductDetails = () => {
                 </tr>
               </tbody>
             </table>
-
-            {product.category === 'coffee' && (
+            {product.category === vars.COFFEE && (
               <>
                 <h3>Taste</h3>
                 <table className={styles.table} cellSpacing="0">

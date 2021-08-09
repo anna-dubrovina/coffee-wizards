@@ -1,15 +1,14 @@
-
 import { useScrollUp } from '../../hooks/useScrollUp';
 import Section from '../Layout/Section';
 import Card from '../UI//Card';
+import styles from './AboutSections.module.scss';
 
 import coffeeBeansIcon from '../../assets/icons/beans.svg';
 import discountIcon from '../../assets/icons/discount.svg';
-import styles from './AboutSections.module.scss';
 
 const AboutBusiness = () => {
   useScrollUp();
-  
+
   return (
     <Section className={styles.aboutSections}>
       <h1>Information for business clients</h1>
@@ -19,7 +18,6 @@ const AboutBusiness = () => {
           Discount for wholesale customers
         </h2>
         <p>
-  
           Lorem ipsum dolor sit amet, ut vel delectus disputando. Cum ne diam
           interesset. Saperet civibus vel ad, putant iSmpetus offendit sit ut.
           Vocibus salutatus imperdiet ex eos.

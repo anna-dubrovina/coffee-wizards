@@ -12,19 +12,18 @@ const ProductItem = (props) => {
   const dispatch = useDispatch();
   const prodPrice = price || size.medium.price;
   const prodSize = size && size.medium ? size.medium.weight : size;
-  const prodId = subcategory === vars.BEANS ? id + 'medium' : id;
+  const prodId = subcategory === vars.BEANS ? id + vars.PROD_SIZE_M : id;
+  const itemData = {
+    id: prodId,
+    title,
+    price: prodPrice,
+    img,
+    size: prodSize,
+    category: category + ' / ' + subcategory,
+  };
 
   const openCartHanlder = () => {
-    dispatch(
-      cartActions.addItem({
-        id: prodId,
-        title,
-        price: prodPrice,
-        img,
-        size: prodSize,
-        category: category + ' / ' + subcategory,
-      })
-    );
+    dispatch(cartActions.addItem(itemData));
     dispatch(uiActions.openCart());
   };
 
@@ -36,7 +35,7 @@ const ProductItem = (props) => {
           <h4>{title}</h4>
         </Link>
         <span>$ {prodPrice}</span>
-        <Button btnStyle="btnMain" clicked={openCartHanlder}>
+        <Button btnStyle={vars.BTN_MAIN} clicked={openCartHanlder}>
           Add to Cart
         </Button>
       </Card>

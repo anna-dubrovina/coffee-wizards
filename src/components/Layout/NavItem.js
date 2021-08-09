@@ -10,24 +10,17 @@ import styles from './NavItem.module.scss';
 const NavItem = (props) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const width = useCurrentWidth(!showDropdown && !props.mobile);
-
-  useEffect(() => {
-    width > 600 && setShowDropdown(false);
-  }, [width]);
-
   const arrowIcon = showDropdown ? arrowUp : arrowDown;
 
-  const toggleDropdownHanlder = () => {
-    setShowDropdown((curState) => !curState);
-  };
+  useEffect(() =>  width > 600 && setShowDropdown(false), [width]);
 
+  const toggleDropdownHanlder = () => setShowDropdown((curState) => !curState);
   const showDropdownHanlder = (e) => {
     if (e.type === 'mouseenter' && props.mobile) {
       return;
     }
     setShowDropdown(true);
   };
-
   const closeDropdownHanlder = (e) => {
     if (e.type === 'mouseleave' && props.mobile) {
       return;

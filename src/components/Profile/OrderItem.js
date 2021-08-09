@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { PRODUCT_DYNAMIC } from '../../shared/globalVars';
+import * as vars from '../../shared/globalVars';
 import { cartActions } from '../../store/cart-slice';
 import { uiActions } from '../../store/ui-slice';
 import Card from '../UI/Card';
 import Button from '../UI/Button';
 import styles from './OrderItem.module.scss';
+
 import arrowDown from '../../assets/icons/arrow-down.svg';
 import arrowUp from '../../assets/icons/arrow-up.svg';
 
@@ -53,12 +54,12 @@ const OrderItem = (props) => {
 
       return (
         <li key={item.id}>
-          <Card className={styles.orderProdItem} cardStyle="cardDark">
-            <Link to={PRODUCT_DYNAMIC + prodId}>
+          <Card className={styles.orderProdItem} cardStyle={vars.CARD_DARK}>
+            <Link to={vars.PRODUCT_DYNAMIC + prodId}>
               <img src={item.img} alt="product" />
             </Link>
             <div>
-              <Link to={PRODUCT_DYNAMIC + prodId}>
+              <Link to={vars.PRODUCT_DYNAMIC + prodId}>
                 <h5>{item.title}</h5>
               </Link>
               <span>{item.category}</span>
@@ -110,7 +111,7 @@ const OrderItem = (props) => {
             <h4>Ordered Products</h4>
             <ul>{productList}</ul>
             <h4>Order Amount: $ {amount}</h4>
-            <Button btnStyle="btnDark" clicked={repeatOrderHandler}>
+            <Button btnStyle={vars.BTN_DARK} clicked={repeatOrderHandler}>
               Repeat Order
             </Button>
           </div>

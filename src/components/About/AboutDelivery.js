@@ -1,10 +1,10 @@
 import { useScrollUp } from '../../hooks/useScrollUp';
 import Section from '../Layout/Section';
 import Card from '../UI//Card';
+import styles from './AboutSections.module.scss';
 
 import cardIcon from '../../assets/icons/valid.svg';
 import deliveryIcon from '../../assets/icons/shipped.svg';
-import styles from './AboutSections.module.scss';
 
 const AboutDelivery = () => {
   useScrollUp();

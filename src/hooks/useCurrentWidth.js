@@ -16,12 +16,8 @@ const useCurrentWidth = (conditions) => {
         setWidth(getWidth());
       }
     };
-
     window.addEventListener('resize', resizeListener);
-
-    return () => {
-      window.removeEventListener('resize', resizeListener);
-    };
+    return () => window.removeEventListener('resize', resizeListener);
   }, [conditions]);
 
   return width;

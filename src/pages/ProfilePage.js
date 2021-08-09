@@ -16,12 +16,9 @@ const ProfilePage = () => {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    if (!isAuth) {
-      history.push(vars.PROFILE_AUTH);
-    }
-    if (isAuth && pathname === vars.PROFILE_AUTH) {
+    !isAuth && history.push(vars.PROFILE_AUTH);
+    isAuth & (pathname === vars.PROFILE_AUTH) &&
       history.replace(vars.PROFILE_ORDERS);
-    }
   }, [isAuth, history, pathname]);
 
   return isAuth ? (

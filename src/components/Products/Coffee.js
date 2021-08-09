@@ -15,7 +15,7 @@ const Coffee = () => {
         <h1>Coffee Beans</h1>
         <ProductsListSummary
           clicked={gotoBeansPageHandler}
-          cardStyle="cardDark"
+          cardStyle={vars.CARD_DARK}
           subcategory={vars.BEANS}
         />
       </Section>
@@ -24,7 +24,7 @@ const Coffee = () => {
         <ProductsListSummary
           subcategory={vars.GROUND}
           clicked={gotoGroundPageHandler}
-          btnStyle="btnSemilight"
+          btnStyle={vars.BTN_SEMILIGHT}
         />
       </Section>
       <Section light>
@@ -32,7 +32,7 @@ const Coffee = () => {
         <ProductsListSummary
           subcategory={vars.CAPSULES}
           clicked={gotoCapsulesPageHandler}
-          cardStyle="cardDark"
+          cardStyle={vars.CARD_DARK}
         />
       </Section>
     </>

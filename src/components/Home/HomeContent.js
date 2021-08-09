@@ -1,5 +1,5 @@
 import { useHistory } from 'react-router-dom';
-import { COFFEE_MAIN } from '../../shared/globalVars';
+import * as vars from '../../shared/globalVars';
 import Section from '../Layout/Section';
 import ProductsListSummary from '../Products/ProductsListSummary';
 import styles from './HomeContent.module.scss';
@@ -59,7 +59,7 @@ const advantages = [
 const HomeContent = () => {
   const history = useHistory();
 
-  const goShoppingHandler = () => history.push(COFFEE_MAIN);
+  const goShoppingHandler = () => history.push(vars.COFFEE_MAIN);
   const advantagesList = advantages.map((item) => {
     return (
       <li key={item.alt}>
@@ -76,7 +76,7 @@ const HomeContent = () => {
         <ProductsListSummary
           isFeatured
           clicked={goShoppingHandler}
-          btnStyle="btnSemilight"
+          btnStyle={vars.BTN_SEMILIGHT}
         />
       </Section>
       <Section light className={styles.whyUs}>

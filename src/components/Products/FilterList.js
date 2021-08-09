@@ -1,4 +1,3 @@
-import { useCallback } from 'react';
 import * as vars from '../../shared/globalVars';
 import Checkbox from '../UI/Checkbox';
 import Card from '../UI/Card';

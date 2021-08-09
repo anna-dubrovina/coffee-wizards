@@ -1,18 +1,18 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import CheckoutForm from './CheckoutForm';
 import Auth from '../Profile/Auth';
 import CartItemsList from '../Cart/CartItemsList';
+import CheckoutForm from './CheckoutForm';
+import CheckoutSuccess from './CheckoutSuccess';
 import Section from '../Layout/Section';
 import Card from '../UI/Card';
 import styles from './Checkout.module.scss';
-import CheckoutSuccess from './CheckoutSuccess';
 
 const Checkout = () => {
   const { items, totalAmount } = useSelector((state) => state.cart);
   const { isAuth, userId } = useSelector((state) => state.profile);
-  const [checkoutType, setCheckoutType] = useState('new');
+  const [isNewUser, setCheckoutType] = useState(true);
   const [checkoutSuccess, setCheckoutSuccess] = useState({
     isSuccess: false,
     orderId: null,
@@ -20,8 +20,9 @@ const Checkout = () => {
   const history = useHistory();
 
   const cancelCheckoutHandler = () => history.goBack();
-  const showLoginFormHandler = () => setCheckoutType('login');
-  const showNewCustomerFormHandler = () => setCheckoutType('new');
+  const showLoginFormHandler = () => setCheckoutType(false);
+  const showNewCustomerFormHandler = () => setCheckoutType(true);
+
   const getCheckoutSuccess = (orderId) => {
     setCheckoutSuccess((curState) => {
       const updatedState = { ...curState };
@@ -40,19 +41,19 @@ const Checkout = () => {
           <h2>
             <span
               onClick={showNewCustomerFormHandler}
-              className={checkoutType === 'login' ? styles.formType : ''}
+              className={!isNewUser ? styles.formType : ''}
             >
               New Customer
             </span>
             <span
               onClick={showLoginFormHandler}
-              className={checkoutType === 'new' ? styles.formType : ''}
+              className={isNewUser ? styles.formType : ''}
             >
-              Regular Customer
+              I Have an Account
             </span>
           </h2>
         )}
-        {(checkoutType === 'login') & !isAuth ? (
+        {!isNewUser & !isAuth ? (
           <Auth />
         ) : (
           <CheckoutForm

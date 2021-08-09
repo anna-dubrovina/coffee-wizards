@@ -1,4 +1,5 @@
 import { useHistory } from 'react-router-dom';
+import { BTN_DARK } from '../../shared/globalVars';
 import Button from '../UI/Button';
 import Card from '../UI/Card';
 import successIcon from '../../assets/icons/checked.svg';
@@ -19,8 +20,8 @@ const CheckoutSuccess = (props) => {
           minim veniam, quis nostrud exercitation ullamco laboris nisi ut
           aliquip ex ea commodo consequat.
         </p>
-        <Button btnStyle="btnDark" clicked={goBackHandler}>
-          Back to Shopping{' '}
+        <Button btnStyle={BTN_DARK} clicked={goBackHandler}>
+          Back to Shopping
         </Button>
       </Card>
     </div>

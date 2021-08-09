@@ -2,19 +2,19 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { uiActions } from '../store/ui-slice';
+import { BTN_DARK } from '../shared/globalVars';
 import Button from '../components/UI/Button';
 import Card from '../components/UI/Card';
 
 const NotFoundPage = () => {
   const history = useHistory();
-  const goBackHandler = () => history.goBack();
   const dispatch = useDispatch();
+
+  const goBackHandler = () => history.goBack();
 
   useEffect(() => {
     dispatch(uiActions.setFound(false));
-    return () => {
-      dispatch(uiActions.setFound(true));
-    };
+    return () => dispatch(uiActions.setFound(true));
   }, [dispatch]);
 
   return (
@@ -29,7 +29,7 @@ const NotFoundPage = () => {
           If you know exactly what you are looking for, use the search bar or
           navigation menu.
         </p>
-        <Button btnStyle="btnDark" clicked={goBackHandler}>
+        <Button btnStyle={BTN_DARK} clicked={goBackHandler}>
           Go Back
         </Button>
       </Card>

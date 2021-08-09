@@ -2,9 +2,9 @@ import CartItem from './CartItem';
 import styles from './CartItemsList.module.scss';
 
 const CartItemsList = (props) => {
-  const cartItems = props.items.map((item) => {
-    return <CartItem key={item.id} product={item} />;
-  });
+  const cartItems = props.items.map((item) => (
+    <CartItem key={item.id} product={item} />
+  ));
 
   return (
     <>

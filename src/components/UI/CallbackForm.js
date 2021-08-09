@@ -122,7 +122,7 @@ const CallbackForm = (props) => {
         invalid={invalidPhone}
       />
       {fullFormInputs}
-      <Button type="submit" btnStyle="btnDark" disabled={!formIsValid}>
+      <Button type="submit" btnStyle={vars.BTN_DARK} disabled={!formIsValid}>
         Confirm
       </Button>
     </form>

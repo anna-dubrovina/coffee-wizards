@@ -16,9 +16,7 @@ const Modal = (props) => {
       : [styles.modal];
 
   const closeModalHanlder = () => {
-    if (modalType === vars.ERROR) {
-      dispatch(uiActions.setError(null));
-    }
+    modalType === vars.ERROR && dispatch(uiActions.setError(null));
     dispatch(uiActions.modalClose());
   };
 

@@ -16,7 +16,7 @@ const Equipment = () => {
         <ProductsListSummary
           subcategory={vars.MACHINES}
           clicked={gotoMachinesPageHandler}
-          cardStyle="cardDark"
+          cardStyle={vars.CARD_DARK}
         />
       </Section>
       <Section>
@@ -24,7 +24,7 @@ const Equipment = () => {
         <ProductsListSummary
           subcategory={vars.MANUAL}
           clicked={gotoManualPageHandler}
-          btnStyle="btnSemilight"
+          btnStyle={vars.BTN_SEMILIGHT}
         />
       </Section>
       <Section light>
@@ -32,7 +32,7 @@ const Equipment = () => {
         <ProductsListSummary
           subcategory={vars.GRINDERS}
           clicked={gotoGrindersPageHandler}
-          cardStyle="cardDark"
+          cardStyle={vars.CARD_DARK}
         />
       </Section>
     </>

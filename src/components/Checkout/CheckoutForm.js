@@ -1,17 +1,23 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import { cartActions } from '../../store/cart-slice';
 import { uiActions } from '../../store/ui-slice';
 import { fetchUserData, login } from '../../store/profile-actions';
 import { httpRequest } from '../../shared/httpRequest';
+import * as vars from '../../shared/globalVars';
 import useInput from '../../hooks/useInput';
 import Select from '../UI/Select';
 import Input from '../UI/Input';
 import Loader from '../UI/Loader';
 import Button from '../UI/Button';
-import styles from './CheckoutForm.module.scss';
 import Checkbox from '../UI/Checkbox';
+import styles from './CheckoutForm.module.scss';
+
+const DELIVERY_TIME_1 = 'tomorrow',
+  DELIVERY_TIME_2 = 'this week',
+  DELIVERY_TIME_3 = 'on weekends',
+  PAYMENT_METHOD_1 = 'card transfer',
+  PAYMENT_METHOD_2 = 'cash on receipt';
 
 const getOrderId = (name) => {
   const charArray = name
@@ -29,85 +35,78 @@ const getOrderId = (name) => {
 
 const CheckoutForm = (props) => {
   const [register, setRegister] = useState(true);
-  const [deliveryMethod, setDeliveryMethod] = useState('courier');
-  const [deliveryTime, setDeliveryTime] = useState('tomorrow');
-  const [paymentMethod, setPaymentMethod] = useState('card transfer');
+  const [deliveryMethod, setDeliveryMethod] = useState(vars.DELIVERY_METHOD_1);
+  const [deliveryTime, setDeliveryTime] = useState(DELIVERY_TIME_1);
+  const [paymentMethod, setPaymentMethod] = useState(PAYMENT_METHOD_1);
   const { userContacts } = useSelector((state) => state.profile);
   const { userAddresses } = useSelector((state) => state.profile);
   const { isLoading } = useSelector((state) => state.ui);
   const dispatch = useDispatch();
-  const history = useHistory();
   let mainAddress = {};
   if (userAddresses.length > 0) {
     mainAddress = userAddresses.filter((item) => item.isMain === true)[0];
   }
-
   const {
     value: enteredName,
     invalid: invalidName,
     error: nameError,
     changeHandler: nameChangeHandler,
     blurHandler: nameBlurHandler,
-  } = useInput('name', userContacts.name);
-
+  } = useInput(vars.NAME_INPUT, userContacts.name);
   const {
     value: enteredLastname,
     invalid: invalidLastname,
     error: lastnameError,
     changeHandler: lastnameChangeHandler,
     blurHandler: lastnameBlurHandler,
-  } = useInput('name', userContacts.lastName);
-
+  } = useInput(vars.NAME_INPUT, userContacts.lastName);
   const {
     value: enteredEmail,
     invalid: invalidEmail,
     error: emailError,
     changeHandler: emailChangeHandler,
     blurHandler: emailBlurHandler,
-  } = useInput('email', userContacts.email);
-
+  } = useInput(vars.EMAIL_INPUT, userContacts.email);
   const {
     value: enteredPhone,
     invalid: invalidPhone,
     error: phoneError,
     changeHandler: phoneChangeHandler,
     blurHandler: phoneBlurHandler,
-  } = useInput('phone', userContacts.phone);
-
+  } = useInput(vars.PHONE_INPUT, userContacts.phone);
   const {
     value: enteredPassword,
     invalid: invalidPassword,
     error: passwordError,
     changeHandler: passwordChangeHandler,
     blurHandler: passwordBlurHandler,
-  } = useInput('password');
-
+  } = useInput(vars.PASSWORD_INPUT);
   const {
     value: enteredCity,
     invalid: invalidCity,
     error: cityError,
     changeHandler: cityChangeHandler,
     blurHandler: cityBlurHandler,
-  } = useInput('city', mainAddress.city);
+  } = useInput(vars.CITY_INPUT, mainAddress.city);
   const {
     value: enteredPostalCode,
     invalid: invalidPostalCode,
     error: postalCodeError,
     changeHandler: postalCodeChangeHandler,
     blurHandler: postalCodeBlurHandler,
-  } = useInput('postalCode', mainAddress.postalCode);
+  } = useInput(vars.POSTCODE_INPUT, mainAddress.postalCode);
   const {
     value: enteredAddress,
     invalid: invalidAddress,
     error: addressError,
     changeHandler: addressChangeHandler,
     blurHandler: addressBlurHandler,
-  } = useInput('address', mainAddress.address);
+  } = useInput(vars.ADDRESS_INPUT, mainAddress.address);
 
   useEffect(() => {
     if (props.auth) {
-      dispatch(fetchUserData(props.userId, 'contacts'));
-      dispatch(fetchUserData(props.userId, 'addresses'));
+      dispatch(fetchUserData(props.userId, vars.USER_CONTACTS));
+      dispatch(fetchUserData(props.userId, vars.USER_ADDRESSES));
       setDeliveryMethod(mainAddress.deliveryMethod);
     }
   }, [dispatch, props.userId, props.auth, mainAddress.deliveryMethod]);
@@ -131,10 +130,12 @@ const CheckoutForm = (props) => {
       (enteredPassword.trim() === '') & !props.auth & register ||
       invalidCity ||
       enteredCity.trim() === '' ||
-      invalidAddress & (deliveryMethod === 'courier') ||
-      (enteredAddress.trim() === '') & (deliveryMethod === 'courier') ||
-      invalidPostalCode & (deliveryMethod === 'post office') ||
-      enteredPostalCode.trim() & ((deliveryMethod === 'post office') === '')
+      invalidAddress & (deliveryMethod === vars.DELIVERY_METHOD_1) ||
+      (enteredAddress.trim() === '') &
+        (deliveryMethod === vars.DELIVERY_METHOD_1) ||
+      invalidPostalCode & (deliveryMethod === vars.DELIVERY_METHOD_2) ||
+      enteredPostalCode.trim() &
+        ((deliveryMethod === vars.DELIVERY_METHOD_2) === '')
     ) {
       return false;
     }
@@ -144,7 +145,6 @@ const CheckoutForm = (props) => {
   const sendDataHandler = (e) => {
     e.preventDefault();
     const formIsValid = checkFormValidity();
-
     if (!formIsValid) {
       dispatch(
         uiActions.setError('please fill all inputs with correct information')
@@ -159,12 +159,12 @@ const CheckoutForm = (props) => {
       );
       return;
     }
-
     if (!props.auth & register) {
       const url =
         'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=';
       dispatch(login(url, enteredEmail, enteredPassword));
     }
+
     const deliveryInfo = {
       address: enteredAddress,
       city: enteredCity,
@@ -211,7 +211,7 @@ const CheckoutForm = (props) => {
   let conditionalInput;
 
   switch (deliveryMethod) {
-    case 'courier':
+    case vars.DELIVERY_METHOD_1:
       conditionalInput = (
         <Input
           type="text"
@@ -225,7 +225,7 @@ const CheckoutForm = (props) => {
         />
       );
       break;
-    case 'post office':
+    case vars.DELIVERY_METHOD_2:
       conditionalInput = (
         <Input
           type="text"
@@ -332,21 +332,21 @@ const CheckoutForm = (props) => {
         />
         <Select
           id="deliveryTime"
-          options={['tomorrow', 'this week', 'on weekends']}
+          options={[DELIVERY_TIME_1, DELIVERY_TIME_2, DELIVERY_TIME_3]}
           label="Delivery Time"
           getValue={getDeliveryTime}
           value={deliveryTime}
         />
         <Select
           id="deliveryMethod"
-          options={['courier', 'post office']}
+          options={[vars.DELIVERY_METHOD_1, vars.DELIVERY_METHOD_2]}
           label="Delivery Method"
           getValue={getDeliveryMethod}
           value={deliveryMethod}
         />
         <Select
           id="paymentMethod"
-          options={['card transfer', 'cash on receipt']}
+          options={[PAYMENT_METHOD_1, PAYMENT_METHOD_2]}
           label="Payment Method"
           getValue={getPaymentMethod}
           value={paymentMethod}
@@ -354,7 +354,7 @@ const CheckoutForm = (props) => {
         {conditionalInput}
       </div>
 
-      <Button submit btnStyle="btnDark">
+      <Button submit btnStyle={vars.BTN_DARK}>
         Confirm Order
       </Button>
     </form>

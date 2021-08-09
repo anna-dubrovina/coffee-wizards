@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import useInput from '../../hooks/useInput';
 import { getSubcategoryName } from '../../shared/getSubcategoryName';
@@ -42,8 +42,7 @@ const FiltersBar = (props) => {
     error: minPriceError,
     changeHandler: minPriceChangeHandler,
     blurHandler: minPriceBlurHandler,
-    reset: resetMinPrice,
-  } = useInput('price', minPrice);
+  } = useInput(vars.PRICE_INPUT, minPrice);
 
   const {
     value: enteredMaxPrice,
@@ -51,8 +50,7 @@ const FiltersBar = (props) => {
     error: maxPriceError,
     changeHandler: maxPriceChangeHandler,
     blurHandler: maxPriceBlurHandler,
-    reset: resetMaxPrice,
-  } = useInput('price', maxPrice);
+  } = useInput(vars.PRICE_INPUT, maxPrice);
 
   useEffect(() => {
     if (props.products.length) {
@@ -91,32 +89,32 @@ const FiltersBar = (props) => {
       const arabicaFilter = (
         <FilterList
           filter={updateFilterList}
-          key={vars.ARABICA}
-          property={vars.ARABICA}
+          key={vars.PROD_ARABICA }
+          property={vars.PROD_ARABICA }
           products={props.products}
         />
       );
       const sournessFilter = (
         <FilterList
           filter={updateFilterList}
-          key={vars.SOURNESS}
-          property={vars.SOURNESS}
+          key={vars.PROD_SOURNESS }
+          property={vars.PROD_SOURNESS }
           products={props.products}
         />
       );
       const swetnessFilter = (
         <FilterList
           filter={updateFilterList}
-          key={vars.SWEETNESS}
-          property={vars.SWEETNESS}
+          key={vars.PROD_SWEETNESS}
+          property={vars.PROD_SWEETNESS}
           products={props.products}
         />
       );
       const strengthFilter = (
         <FilterList
           filter={updateFilterList}
-          key={vars.STRENGTH}
-          property={vars.STRENGTH}
+          key={vars.PROD_STRENGTH}
+          property={vars.PROD_STRENGTH}
           products={props.products}
         />
       );
@@ -133,16 +131,16 @@ const FiltersBar = (props) => {
       const brandFilter = (
         <FilterList
           filter={updateFilterList}
-          key={vars.BRAND}
-          property={vars.BRAND}
+          key={vars.PROD_BRAND}
+          property={vars.PROD_BRAND}
           products={props.products}
         />
       );
       const typeFilter = (
         <FilterList
           filter={updateFilterList}
-          key={vars.TYPE}
-          property={vars.TYPE}
+          key={vars.PROD_TYPE}
+          property={vars.PROD_TYPE}
           products={props.products}
         />
       );
@@ -153,8 +151,8 @@ const FiltersBar = (props) => {
       const warrantyFilter = (
         <FilterList
           filter={updateFilterList}
-          key={vars.WARRANTY}
-          property={vars.WARRANTY}
+          key={vars.PROD_WARRANTY}
+          property={vars.PROD_WARRANTY}
           products={props.products}
         />
       );
@@ -169,8 +167,8 @@ const FiltersBar = (props) => {
       const materialFilter = (
         <FilterList
           filter={updateFilterList}
-          key={vars.MATERIAL}
-          property={vars.MATERIAL}
+          key={vars.PROD_MATERIAL}
+          property={vars.PROD_MATERIAL}
           products={props.products}
         />
       );
@@ -181,8 +179,8 @@ const FiltersBar = (props) => {
       const sizeFilter = (
         <FilterList
           filter={updateFilterList}
-          key={vars.SIZE}
-          property={vars.SIZE}
+          key={vars.PROD_SIZE }
+          property={vars.PROD_SIZE }
           products={props.products}
         />
       );
@@ -190,7 +188,7 @@ const FiltersBar = (props) => {
     }
 
     const priceFilter = (
-      <Card key={vars.PRICE} className={styles.priceFilter}>
+      <Card key={vars.PROD_PRICE} className={styles.priceFilter}>
         <h4>Price</h4>
         <form>
           <div>
@@ -217,7 +215,7 @@ const FiltersBar = (props) => {
               value={enteredMaxPrice}
             />
           </div>
-          <Button submit btnStyle="btnSemilight">
+          <Button submit btnStyle={vars.BTN_SEMILIGHT}>
             OK
           </Button>
         </form>
@@ -230,7 +228,7 @@ const FiltersBar = (props) => {
   return (
     <aside className={styles.filtersBar}>
       {props.loading ? <Loader /> : filters}
-      <Button btnStyle="btnDark">Reset Filters</Button>
+      <Button btnStyle={vars.BTN_DARK}>Reset Filters</Button>
     </aside>
   );
 };

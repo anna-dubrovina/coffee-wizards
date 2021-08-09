@@ -1,3 +1,4 @@
+import * as vars from '../shared/globalVars';
 import { authHttpRequest, httpRequest } from '../shared/httpRequest';
 import { profileActions } from './profile-slice';
 
@@ -14,8 +15,8 @@ const checkAuthTimeout = (expirationTime) => {
 export const logout = () => {
   return (dispatch) => {
     dispatch(profileActions.logout());
-    localStorage.removeItem('token');
-    localStorage.removeItem('expirationDate');
+    localStorage.removeItem(vars.TOKEN);
+    localStorage.removeItem(vars.EXP_DATE);
     if (logoutTimer) {
       clearTimeout(logoutTimer);
     }
@@ -60,9 +61,9 @@ export const login = (url, email, password, isSignup) => {
           new Date().getTime() + +resData.expiresIn * 1000
         );
         const userId = resData.localId.substring(0, 10);
-        localStorage.setItem('token', resData.idToken);
-        localStorage.setItem('expirationDate', expirationDate);
-        localStorage.setItem('userId', userId);
+        localStorage.setItem(vars.TOKEN, resData.idToken);
+        localStorage.setItem(vars.EXP_DATE, expirationDate);
+        localStorage.setItem(vars.USER_ID, userId);
         isSignup && createNewUser(email, userId);
         dispatch(profileActions.login(userId));
         dispatch(checkAuthTimeout(resData.expiresIn));
@@ -73,10 +74,10 @@ export const login = (url, email, password, isSignup) => {
 
 export const authCheckState = () => {
   return (dispatch) => {
-    const token = localStorage.getItem('token');
-    const userId = localStorage.getItem('userId');
+    const token = localStorage.getItem(vars.TOKEN);
+    const userId = localStorage.getItem(vars.USER_ID);
 
-    const expirationDate = new Date(localStorage.getItem('expirationDate'));
+    const expirationDate = new Date(localStorage.getItem(vars.EXP_DATE));
     if (!token || expirationDate <= new Date()) {
       dispatch(profileActions.logout());
     } else {
@@ -103,9 +104,9 @@ export const fetchUserData = (userId, dataType) => {
             addresses = resData[key].addresses;
           }
         }
-        if (dataType === 'contacts') {
+        if (dataType === vars.USER_CONTACTS) {
           dispatch(profileActions.getUserContacts(contacts));
-        } else if (dataType === 'addresses') {
+        } else if (dataType === vars.USER_ADDRESSES) {
           dispatch(profileActions.getUserAddresses(addresses));
         }
       }

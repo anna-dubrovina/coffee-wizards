@@ -11,7 +11,6 @@ import CallbackForm from './components/UI/CallbackForm';
 import Modal from './components/UI/Modal';
 import Loader from './components/UI/Loader';
 import NotFoundPage from './pages/NotFoundPage';
-import Button from './components/UI/Button';
 
 const Checkout = lazy(() => import('./pages/CheckoutPage'));
 const About = lazy(() => import('./pages/AboutPage'));

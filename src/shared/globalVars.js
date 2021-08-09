@@ -36,22 +36,24 @@ export const COFFEE_MAIN = `/${COFFEE}`,
   PRODUCT_MAIN = '/product/:id',
   PRODUCT_DYNAMIC = '/product/';
 
-//Product Lists Types
-export const CATEGORY = 'category',
-  SUBCATEGORY = 'subcategory',
-  FEATURED = 'featured';
-
-//Names of Product Filters
-export const ARABICA = 'arabica',
-  SOURNESS = 'sourness',
-  STRENGTH = 'strength',
-  SWEETNESS = 'sweetness',
-  SIZE = 'size',
-  PRICE = 'price',
-  BRAND = 'brand',
-  TYPE = 'type',
-  WARRANTY = 'warranty',
-  MATERIAL = 'material';
+//Product Properties
+export const PROD_ARABICA = 'arabica',
+  PROD_SOURNESS = 'sourness',
+  PROD_STRENGTH = 'strength',
+  PROD_SWEETNESS = 'sweetness',
+  PROD_SIZE = 'size',
+  PROD_SIZE_M = 'medium',
+  PROD_PRICE = 'price',
+  PROD_BRAND = 'brand',
+  PROD_TYPE = 'type',
+  PROD_WARRANTY = 'warranty',
+  PROD_MATERIAL = 'material',
+  PROD_ID = 'id',
+  PROD_TITLE = 'title',
+  PROD_IMG = 'img',
+  PROD_DECS = 'description',
+  PROD_CATEGORY = 'category',
+  PROD_SUBCATEGORRY = 'subcategory';
 
 //Actions
 export const ADD = 'add',
@@ -63,6 +65,14 @@ export const CART = 'cart',
   FORM = 'form',
   ERROR = 'error';
 
+//User Data Type
+export const USER_CONTACTS = 'contacts',
+  USER_ADDRESSES = 'addresses';
+
+//Delivery Mwthods
+export const DELIVERY_METHOD_1 = 'courier',
+  DELIVERY_METHOD_2 = 'post office';
+
 // Input Value Types
 export const NAME_INPUT = 'name',
   EMAIL_INPUT = 'email',
@@ -72,3 +82,14 @@ export const NAME_INPUT = 'name',
   ADDRESS_INPUT = 'address',
   POSTCODE_INPUT = 'postalCode',
   PRICE_INPUT = 'price';
+
+//UI Styles
+export const BTN_DARK = 'btnDark',
+  BTN_SEMILIGHT = 'btnSemilight',
+  BTN_MAIN = 'btnMain',
+  CARD_DARK = 'cardDark';
+
+// Local Storage Names
+export const TOKEN = 'token',
+  EXP_DATE = 'expirationDate',
+  USER_ID = 'userId';

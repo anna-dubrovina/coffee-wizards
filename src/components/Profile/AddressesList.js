@@ -1,11 +1,15 @@
-import deleteIcon from '../../assets/icons/trash.svg';
-import editIcon from '../../assets/icons/edit.svg';
-import { httpRequest } from '../../shared/httpRequest';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserData } from '../../store/profile-actions';
+import { httpRequest } from '../../shared/httpRequest';
 import { getFirebaseKey } from '../../shared/getFirebaseKey';
-import styles from './AddressesList.module.scss';
+import * as vars from '../../shared/globalVars';
 import Loader from '../UI/Loader';
+import styles from './AddressesList.module.scss';
+
+import deleteIcon from '../../assets/icons/trash.svg';
+import editIcon from '../../assets/icons/edit.svg';
+
+const LOADER_PLACE_2 = 'under form';
 
 const AddressesList = (props) => {
   const { isLoading } = useSelector((state) => state.ui);
@@ -14,7 +18,7 @@ const AddressesList = (props) => {
   props.addresses.forEach((item) => updatedAddresses.push({ ...item }));
 
   const deleteAddress = (id, key) => {
-    props.changeLoaderPlace('underForm');
+    props.changeLoaderPlace(LOADER_PLACE_2);
     const index = updatedAddresses.findIndex((item) => item.id === id);
     if ((index === 0) & (updatedAddresses.length > 1)) {
       updatedAddresses[1].isMain = true;
@@ -28,13 +32,13 @@ const AddressesList = (props) => {
         body: updatedAddresses,
       },
       () => {
-        dispatch(fetchUserData(props.userId, 'addresses'));
+        dispatch(fetchUserData(props.userId, vars.USER_ADDRESSES));
       }
     );
   };
 
   const setMain = (id, key) => {
-    props.changeLoaderPlace('underForm');
+    props.changeLoaderPlace(LOADER_PLACE_2);
     updatedAddresses.forEach(
       (item) => (item.isMain = item.id === id ? true : false)
     );
@@ -50,13 +54,13 @@ const AddressesList = (props) => {
         body: updatedAddresses,
       },
       () => {
-        dispatch(fetchUserData(props.userId, 'addresses'));
+        dispatch(fetchUserData(props.userId, vars.USER_ADDRESSES));
       }
     );
   };
 
   const editAddressHandler = (addressData) =>
-    props.changeMode('edit', addressData);
+    props.changeMode(vars.EDIT, addressData);
   const deleteAddressHandler = (addressId) =>
     getFirebaseKey(props.userId, deleteAddress.bind(null, addressId));
   const setMainHandler = (addressId) =>
@@ -109,7 +113,7 @@ const AddressesList = (props) => {
   ) : (
     <>
       <ul>{addressesList} </ul>
-      {isLoading & (props.loaderPlace === 'underForm') ? (
+      {isLoading & (props.loaderPlace === LOADER_PLACE_2) ? (
         <Loader small />
       ) : (
         <div />

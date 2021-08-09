@@ -1,18 +1,19 @@
 import { useScrollUp } from '../../hooks/useScrollUp';
+import { CARD_DARK } from '../../shared/globalVars';
 import Section from '../Layout/Section';
-import Card from '../UI//Card';
-import CallbackForm from '../UI//CallbackForm';
+import Card from '../UI/Card';
+import CallbackForm from '../UI/CallbackForm';
+import styles from './AboutContacts.module.scss';
 
 import contactIcon from '../../assets/icons/contact.svg';
 import feedbackIcon from '../../assets/icons/feedback.svg';
-import styles from './AboutContacts.module.scss';
 
 const AboutContacts = () => {
   useScrollUp();
   return (
     <>
       <Section light className={styles.aboutContacts}>
-        <Card cardStyle="cardDark">
+        <Card cardStyle={CARD_DARK}>
           <h2>
             <img src={contactIcon} alt="contacts icon" />
             Our Contact Information
@@ -35,7 +36,7 @@ const AboutContacts = () => {
             </li>
           </ul>
         </Card>
-        <Card cardStyle="cardDark">
+        <Card cardStyle={CARD_DARK}>
           <h2>
             <img src={feedbackIcon} alt="feedback icon" />
             Write us a letter

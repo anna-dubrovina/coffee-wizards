@@ -1,23 +1,18 @@
-import Card from '../UI/Card';
-import Button from '../UI/Button';
-import deleteIcon from '../../assets/icons/trash.svg';
-import styles from './CartItem.module.scss';
 import { useDispatch } from 'react-redux';
 import { cartActions } from '../../store/cart-slice';
+import Card from '../UI/Card';
+import Button from '../UI/Button';
+import styles from './CartItem.module.scss';
+import deleteIcon from '../../assets/icons/trash.svg';
 
 const CartItem = (props) => {
   const { title, price, img, quantity, id, category, size } = props.product;
   const dispatch = useDispatch();
 
-  const addItemHandler = () => {
-    dispatch(cartActions.addItem({ id, price }));
-  };
-  const removeItemHandler = () => {
-    dispatch(cartActions.removeItem(id));
-  };
-  const deleteItemHandler = () => {
+  const addItemHandler = () => dispatch(cartActions.addItem({ id, price }));
+  const removeItemHandler = () => dispatch(cartActions.removeItem(id));
+  const deleteItemHandler = () =>
     dispatch(cartActions.deleteItem({ id, quantity }));
-  };
 
   return (
     <li className={styles.cartItem}>

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+import styles from './Select.module.scss';
 import arrowDown from '../../assets/icons/arrow-down.svg';
 import arrowUp from '../../assets/icons/arrow-up.svg';
-import styles from './Select.module.scss';
 
 const Select = (props) => {
   const [selectedOption, setSelectedOption] = useState(props.options[0]);
@@ -28,19 +28,11 @@ const Select = (props) => {
     toggleOptionsHanlder();
   };
 
+  useEffect(() => props.value && setSelectedOption(props.value), [props.value]);
   useEffect(() => {
-    if (props.value) {
-      setSelectedOption(props.value);
-    }
-  }, [props.value]);
-
-  useEffect(() => {
-    if (showOptions) {
-      document.body.addEventListener('click', closeOptionsHandler);
-    }
-    return () => {
+    showOptions && document.body.addEventListener('click', closeOptionsHandler);
+    return () =>
       document.body.removeEventListener('click', closeOptionsHandler);
-    };
   }, [showOptions, closeOptionsHandler]);
 
   const arrowIcon = showOptions ? arrowUp : arrowDown;

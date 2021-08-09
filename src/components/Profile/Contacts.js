@@ -6,12 +6,12 @@ import { authHttpRequest, httpRequest } from '../../shared/httpRequest';
 import { uiActions } from '../../store/ui-slice';
 import * as vars from '../../shared/globalVars';
 import useInput from '../../hooks/useInput';
+import FormSuccess from '../UI/FormSuccess';
 import Input from '../UI/Input';
 import Button from '../UI/Button';
 import Card from '../UI/Card';
 import Loader from '../UI/Loader';
 import styles from './Contacts.module.scss';
-import FormSuccess from '../UI/FormSuccess';
 
 const PASSWORD = 'password form',
   CONTACTS = 'contacts form';
@@ -86,7 +86,7 @@ const Contacts = () => {
   } = useInput(vars.PASSWORD_INPUT);
 
   useEffect(() => {
-    dispatch(fetchUserData(userId, 'contacts'));
+    dispatch(fetchUserData(userId, vars.USER_CONTACTS));
   }, [dispatch, userId]);
 
   const changePasswordSubmitHandler = (e) => {
@@ -101,7 +101,7 @@ const Contacts = () => {
       return;
     }
     dispatch(uiActions.setIsLoading(true));
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem(vars.TOKEN);
     authHttpRequest(
       {
         url: 'https://identitytoolkit.googleapis.com/v1/accounts:update?key=',
@@ -160,7 +160,7 @@ const Contacts = () => {
         body: upddatedContacts,
       },
       () => {
-        dispatch(fetchUserData(userId, 'contacts'));
+        dispatch(fetchUserData(userId, vars.USER_CONTACTS));
         setContactsFormSuccess(true);
       }
     );
@@ -221,7 +221,7 @@ const Contacts = () => {
         value={enteredEmail}
       />
       {isLoading & (loaderPlace === CONTACTS) ? <Loader small /> : <div />}
-      <Button btnStyle="btnDark" submit>
+      <Button btnStyle={vars.BTN_DARK} submit>
         Confirm Changes
       </Button>
     </form>
@@ -262,7 +262,7 @@ const Contacts = () => {
         value={confirmPassword}
       />
       {isLoading & (loaderPlace === PASSWORD) ? <Loader small /> : <div />}
-      <Button btnStyle="btnDark" submit>
+      <Button btnStyle={vars.BTN_DARK} submit>
         Confirm Changes
       </Button>
     </form>

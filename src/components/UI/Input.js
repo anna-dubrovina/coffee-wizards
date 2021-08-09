@@ -1,9 +1,20 @@
+import { useEffect, useState } from 'react';
 import styles from './Input.module.scss';
 
 const Input = (props) => {
-  const classes = props.invalid
+  const [isErrorStyle, setIsErrorStyle] = useState(false);
+  const classes = isErrorStyle
     ? [styles.control, styles.invalid]
     : [styles.control];
+
+  useEffect(() => {
+    let timer;
+    if (props.invalid) {
+      setIsErrorStyle(true);
+      timer = setTimeout(() => setIsErrorStyle(false), [3000]);
+    }
+    return () => clearTimeout(timer);
+  }, [props.invalid, props.value]);
 
   let inputType = (
     <input
@@ -16,7 +27,6 @@ const Input = (props) => {
       onChange={props.onChange}
       onBlur={props.onBlur}
       placeholder={props.placeholder}
-      defaultValue={props.default}
     />
   );
 
@@ -37,7 +47,7 @@ const Input = (props) => {
     <div className={classes.join(' ')}>
       {props.label && <label htmlFor={props.id}>{props.label}</label>}
       {inputType}
-      <span>{props.errorMsg}</span>
+      {isErrorStyle && <span>{props.errorMsg}</span>}
     </div>
   );
 };

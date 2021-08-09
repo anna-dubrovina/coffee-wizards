@@ -1,27 +1,28 @@
 import { useScrollUp } from '../../hooks/useScrollUp';
+import * as vars from '../../shared/globalVars';
 import IconItem from '../Layout/IconItem';
 import Section from '../Layout/Section';
 import Card from '../UI/Card';
+import styles from './About.module.scss';
+
 import contactIcon from '../../assets/icons/contact.svg';
 import cardIcon from '../../assets/icons/valid.svg';
 import suitcaseIcon from '../../assets/icons/suitcase.svg';
 import team from '../../assets/img/team.jpg';
-import styles from './About.module.scss';
 
 const About = () => {
   useScrollUp();
-
   return (
     <>
       <Section light className={styles.aboutMenu}>
         <ul>
-          <IconItem link={'about/contacts'} icon={contactIcon}>
+          <IconItem link={vars.ABOUT_CONTACTS} icon={contactIcon}>
             Contact Information
           </IconItem>
-          <IconItem link={'about/payment-delivery'} icon={cardIcon}>
+          <IconItem link={vars.ABOUT_PAYMENT} icon={cardIcon}>
             Payment & Delivery
           </IconItem>
-          <IconItem link={'about/business'} icon={suitcaseIcon}>
+          <IconItem link={vars.ABOUT_BUSINESS} icon={suitcaseIcon}>
             For Business Clients
           </IconItem>
         </ul>
@@ -48,7 +49,7 @@ const About = () => {
         </Card>
       </Section>
       <Section light className={styles.team}>
-        <Card cardStyle="cardDark">
+        <Card cardStyle={vars.CARD_DARK}>
           <h1> Wizards Team</h1>
           <p>
             Pulvinar pellentesque habitant morbi tristique senectus et netus.

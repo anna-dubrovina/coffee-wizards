@@ -15,7 +15,7 @@ const Accessorize = () => {
         <ProductsListSummary
           clicked={gotoCupsPageHandler}
           subcategory={vars.CUPS}
-          btnStyle="btnSemilight"
+          btnStyle={vars.BTN_SEMILIGHT}
         />
       </Section>
       <Section light>
@@ -23,7 +23,7 @@ const Accessorize = () => {
         <ProductsListSummary
           clicked={gotoToolsPageHandler}
           subcategory={vars.TOOLS}
-          cardStyle="cardDark"
+          cardStyle={vars.CARD_DARK}
         />
       </Section>
     </>

@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { login } from '../../store/profile-actions';
 import useInput from '../../hooks/useInput';
+import { login } from '../../store/profile-actions';
+import * as vars from '../../shared/globalVars';
 import Input from '../UI/Input';
 import Card from '../UI/Card';
 import Button from '../UI/Button';
@@ -19,7 +20,7 @@ const Auth = () => {
     error: emailError,
     changeHandler: emailChangeHandler,
     blurHandler: emailBlurHandler,
-  } = useInput('email');
+  } = useInput(vars.EMAIL_INPUT);
 
   const {
     value: enteredPassword,
@@ -27,7 +28,7 @@ const Auth = () => {
     error: passwordError,
     changeHandler: passwordChangeHandler,
     blurHandler: passwordBlurHandler,
-  } = useInput('password');
+  } = useInput(vars.PASSWORD_INPUT);
 
   const switchAuthModeHandler = () => setIsSignup((curState) => !curState);
 
