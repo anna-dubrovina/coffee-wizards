@@ -77,7 +77,9 @@ const Footer = () => {
           <h3> Information </h3>
           <ul>
             <li>
-              <Link to={vars.ABOUT_MAIN} exact>About Us</Link>
+              <Link to={vars.ABOUT_MAIN} exact="true">
+                About Us
+              </Link>
             </li>
             <li>
               <Link to={vars.ABOUT_CONTACTS}>Contacts</Link>

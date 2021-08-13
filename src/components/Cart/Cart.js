@@ -12,7 +12,7 @@ const Cart = () => {
   const { items, totalAmount } = cart;
   const history = useHistory();
   const dispatch = useDispatch();
-
+  
   const closeCartHanlder = () => dispatch(uiActions.modalClose());
   const submitCartHandler = () => {
     history.push(vars.CHECKOUT_MAIN);

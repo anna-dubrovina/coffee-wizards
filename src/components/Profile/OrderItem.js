@@ -20,10 +20,11 @@ const OrderItem = (props) => {
   const toggleDetailsHandler = () => setShowDetails((curState) => !curState);
 
   const repeatOrderHandler = () => {
-    const totalQuantity = prodList.reduce((accumulator, item) => {
-      return accumulator + item.quantity;
-    }, 0);
-
+    const totalQuantity = prodList.reduce(
+      (accumulator, item) => accumulator + item.quantity,
+      0
+    );
+    console.log(amount);
     dispatch(
       cartActions.setCart({
         items: prodList,

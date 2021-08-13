@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import useInput from '../../hooks/useInput';
 import { getSubcategoryName } from '../../shared/getSubcategoryName';
+import { useDispatch } from 'react-redux';
+import { filtersActions } from '../../store/filters-slice';
 import * as vars from '../../shared/globalVars';
 import FilterList from './FilterList';
 import Button from '../UI/Button';
@@ -9,8 +11,12 @@ import Input from '../UI/Input';
 import styles from './FiltersBar.module.scss';
 import Card from '../UI/Card';
 import Loader from '../UI/Loader';
+import Select from '../UI/Select';
 
-const getMinMaxPrice = (list) => {
+const getMinMaxPrice = (list, size) => {
+  if (list.length === 0) {
+    return [null, null];
+  }
   let priceList = [];
   if (list[0].price) {
     priceList = list.map((item) => item.price);
@@ -18,7 +24,9 @@ const getMinMaxPrice = (list) => {
     const sizeObjList = list.map((item) => item.size);
     sizeObjList.forEach((item) => {
       for (const key in item) {
-        priceList.push(item[key].price);
+        if (key === size) {
+          priceList.push(item[key].price);
+        }
       }
     });
   }
@@ -31,10 +39,11 @@ const getMinMaxPrice = (list) => {
 const FiltersBar = (props) => {
   const { pathname } = useLocation();
   const { category, subcategory } = getSubcategoryName(pathname);
-  const [minPrice, setMinPrice] = useState(0);
-  const [maxPrice, setMaxPrice] = useState(10000);
-  const [checkedFilters, setCheckedFilters] = useState([]);
-  const { filter } = props;
+  const [minPrice, maxPrice] = getMinMaxPrice(
+    props.filteredProds,
+    props.beansWeight
+  );
+  const dispatch = useDispatch();
 
   const {
     value: enteredMinPrice,
@@ -52,34 +61,30 @@ const FiltersBar = (props) => {
     blurHandler: maxPriceBlurHandler,
   } = useInput(vars.PRICE_INPUT, maxPrice);
 
-  useEffect(() => {
-    if (props.products.length) {
-      const [min, max] = getMinMaxPrice(props.products);
-      setMinPrice(min);
-      setMaxPrice(max);
+  const resetFiltersHandler = () => dispatch(filtersActions.clearFilters());
+  const getBeansWeight = (value) => {
+    let size = vars.PROD_SIZE_M;
+    if (value === vars.WEIGHT_S) {
+      size = vars.PROD_SIZE_S;
+    } else if (value === vars.WEIGHT_L) {
+      size = vars.PROD_SIZE_L;
     }
-  }, [props.products]);
+    props.getBeansWeight(size);
+  };
 
-  useEffect(() => filter(checkedFilters), [checkedFilters, filter]);
-
-  const updateFilterList = (filterName, filterValue, action) => {
-    if (action === vars.ADD) {
-      setCheckedFilters((curState) => {
-        const updatedState = [...curState];
-        updatedState.push({ filterName, filterValue });
-        return updatedState;
-      });
+  const filterByPriceHandler = (e) => {
+    e.preventDefault();
+    if (
+      enteredMinPrice < minPrice ||
+      invalidMinPrice ||
+      enteredMinPrice.toString().trim() === '' ||
+      enteredMaxPrice > maxPrice ||
+      invalidMaxPrice ||
+      enteredMaxPrice.toString().trim() === ''
+    ) {
+      return;
     }
-    if (action === vars.DELETE) {
-      setCheckedFilters((curState) => {
-        const updatedState = [...curState];
-        const index = updatedState.findIndex(
-          (item) => item === { filterName, filterValue }
-        );
-        updatedState.splice(index, 1);
-        return updatedState;
-      });
-    }
+    props.priceFilter(enteredMinPrice, enteredMaxPrice);
   };
 
   let filters = [];
@@ -88,23 +93,20 @@ const FiltersBar = (props) => {
     if (category === vars.COFFEE) {
       const arabicaFilter = (
         <FilterList
-          filter={updateFilterList}
-          key={vars.PROD_ARABICA }
-          property={vars.PROD_ARABICA }
+          key={vars.PROD_ARABICA}
+          property={vars.PROD_ARABICA}
           products={props.products}
         />
       );
       const sournessFilter = (
         <FilterList
-          filter={updateFilterList}
-          key={vars.PROD_SOURNESS }
-          property={vars.PROD_SOURNESS }
+          key={vars.PROD_SOURNESS}
+          property={vars.PROD_SOURNESS}
           products={props.products}
         />
       );
       const swetnessFilter = (
         <FilterList
-          filter={updateFilterList}
           key={vars.PROD_SWEETNESS}
           property={vars.PROD_SWEETNESS}
           products={props.products}
@@ -112,7 +114,6 @@ const FiltersBar = (props) => {
       );
       const strengthFilter = (
         <FilterList
-          filter={updateFilterList}
           key={vars.PROD_STRENGTH}
           property={vars.PROD_STRENGTH}
           products={props.products}
@@ -130,7 +131,6 @@ const FiltersBar = (props) => {
     if (subcategory === vars.MACHINES) {
       const brandFilter = (
         <FilterList
-          filter={updateFilterList}
           key={vars.PROD_BRAND}
           property={vars.PROD_BRAND}
           products={props.products}
@@ -138,7 +138,6 @@ const FiltersBar = (props) => {
       );
       const typeFilter = (
         <FilterList
-          filter={updateFilterList}
           key={vars.PROD_TYPE}
           property={vars.PROD_TYPE}
           products={props.products}
@@ -150,7 +149,6 @@ const FiltersBar = (props) => {
     if (subcategory === vars.MACHINES || subcategory === vars.GRINDERS) {
       const warrantyFilter = (
         <FilterList
-          filter={updateFilterList}
           key={vars.PROD_WARRANTY}
           property={vars.PROD_WARRANTY}
           products={props.products}
@@ -166,7 +164,6 @@ const FiltersBar = (props) => {
     ) {
       const materialFilter = (
         <FilterList
-          filter={updateFilterList}
           key={vars.PROD_MATERIAL}
           property={vars.PROD_MATERIAL}
           products={props.products}
@@ -175,22 +172,34 @@ const FiltersBar = (props) => {
       filters.push(materialFilter);
     }
 
-    if (subcategory !== vars.MACHINES) {
+    if (subcategory !== vars.MACHINES && subcategory !== vars.BEANS) {
       const sizeFilter = (
         <FilterList
-          filter={updateFilterList}
-          key={vars.PROD_SIZE }
-          property={vars.PROD_SIZE }
+          key={vars.PROD_SIZE}
+          property={vars.PROD_SIZE}
           products={props.products}
         />
       );
       filters.push(sizeFilter);
     }
 
+    if (subcategory === vars.BEANS) {
+      const beansWeigthFilter = (
+        <Card key={vars.PROD_SIZE} className={styles.weightFilter}>
+          <h4>Weight Options</h4>
+          <Select
+            options={[vars.WEIGHT_M, vars.WEIGHT_S, vars.WEIGHT_L]}
+            getValue={getBeansWeight}
+          />
+        </Card>
+      );
+      filters.push(beansWeigthFilter);
+    }
+
     const priceFilter = (
       <Card key={vars.PROD_PRICE} className={styles.priceFilter}>
         <h4>Price</h4>
-        <form>
+        <form onSubmit={filterByPriceHandler}>
           <div>
             <Input
               type="number"
@@ -228,7 +237,9 @@ const FiltersBar = (props) => {
   return (
     <aside className={styles.filtersBar}>
       {props.loading ? <Loader /> : filters}
-      <Button btnStyle={vars.BTN_DARK}>Reset Filters</Button>
+      <Button btnStyle={vars.BTN_DARK} clicked={resetFiltersHandler}>
+        Reset Filters
+      </Button>
     </aside>
   );
 };

@@ -9,14 +9,16 @@
     padding-top: 0;
   }
   ul li {
+    cursor: pointer;
     margin: 2px 0;
     font-size: 95%;
     min-height: 20px;
     div {
       justify-content: left;
-      label {
-        text-align: left;
-      }
+      cursor: pointer;
+    }
+    span {
+      text-align: left;
     }
   }
 }

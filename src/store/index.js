@@ -3,6 +3,7 @@ import cartSlice from './cart-slice';
 import uiSlice from './ui-slice';
 import productsSlice from './products-slice';
 import profileSlice from './profile-slice';
+import filtersSlice from './filters-slice';
 
 export const store = configureStore({
   reducer: {
@@ -10,5 +11,6 @@ export const store = configureStore({
     ui: uiSlice,
     cart: cartSlice,
     profile: profileSlice,
+    filters: filtersSlice,
   },
 });

@@ -8,17 +8,22 @@ import Button from '../UI/Button';
 import styles from './ProductItem.module.scss';
 
 const ProductItem = (props) => {
-  const { id, title, price, img, size, category, subcategory } = props.product;
+  const { id, title, img, size, category, subcategory } = props.product;
   const dispatch = useDispatch();
-  const prodPrice = price || size.medium.price;
-  const prodSize = size && size.medium ? size.medium.weight : size;
-  const prodId = subcategory === vars.BEANS ? id + vars.PROD_SIZE_M : id;
+  let beansSize = vars.PROD_SIZE_M;
+  if (props.size === vars.WEIGHT_S) {
+    beansSize = vars.PROD_SIZE_S;
+  } else if (props.size === vars.WEIGHT_L) {
+    beansSize = vars.PROD_SIZE_L;
+  }
+  const prodId = subcategory === vars.BEANS ? id + beansSize : id;
+
   const itemData = {
     id: prodId,
     title,
-    price: prodPrice,
+    price: props.price,
     img,
-    size: prodSize,
+    size: props.size,
     category: category + ' / ' + subcategory,
   };
 
@@ -34,7 +39,7 @@ const ProductItem = (props) => {
           <img src={img} alt={title} />
           <h4>{title}</h4>
         </Link>
-        <span>$ {prodPrice}</span>
+        <span>$ {props.price}</span>
         <Button btnStyle={vars.BTN_MAIN} clicked={openCartHanlder}>
           Add to Cart
         </Button>

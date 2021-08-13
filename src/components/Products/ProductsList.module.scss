@@ -1,7 +1,7 @@
 @import '../../styles/variables';
 
 .productsList {
-  padding: 0px 20px;
+  padding: 0 20px;
   margin-bottom: 30px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -38,6 +38,14 @@
   background: $light-coffee-color;
 }
 
+.noProds {
+  max-width: 700px;
+  margin: 30px auto;
+  p {
+    text-align: center;
+  }
+}
+
 .btnWrapper {
   width: 50%;
   min-width: 250px;
@@ -58,6 +66,9 @@
   }
   .productsListSummary {
     grid-template-columns: repeat(3, 1fr);
+  }
+  .noProds {
+    margin: 20px;
   }
 }
 

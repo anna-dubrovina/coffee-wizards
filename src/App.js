@@ -1,8 +1,9 @@
-import { useEffect, lazy, Suspense } from 'react';
+import { useEffect, lazy, Suspense, useMemo } from 'react';
 import { Route, Switch } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { AnimatePresence } from 'framer-motion';
 import { authCheckState } from './store/profile-actions';
+import { cartActions } from './store/cart-slice';
 import * as vars from './shared/globalVars';
 import HomePage from './pages/HomePage';
 import Layout from './components/Layout/Layout';
@@ -11,7 +12,6 @@ import CallbackForm from './components/UI/CallbackForm';
 import Modal from './components/UI/Modal';
 import Loader from './components/UI/Loader';
 import NotFoundPage from './pages/NotFoundPage';
-import { cartActions } from './store/cart-slice';
 
 const Checkout = lazy(() => import('./pages/CheckoutPage'));
 const About = lazy(() => import('./pages/AboutPage'));
@@ -25,11 +25,17 @@ const App = () => {
   const { isModalOpen, modalType, errorMessage } = useSelector(
     (state) => state.ui
   );
-  const cart = JSON.parse(localStorage.getItem(vars.USER_CART));
   const dispatch = useDispatch();
+  const cart = useMemo(
+    () => JSON.parse(localStorage.getItem(vars.USER_CART)),
+    []
+  );
 
   useEffect(() => dispatch(authCheckState()), [dispatch]);
-  useEffect(() => dispatch(cartActions.setCart(cart)), [dispatch]);
+  useEffect(
+    () => cart && dispatch(cartActions.setCart(cart)),
+    [dispatch, cart]
+  );
 
   return (
     <>

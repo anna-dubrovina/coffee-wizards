@@ -7,6 +7,20 @@
   border-left: none;
 }
 
+.weightFilter {
+  padding: 0;
+  margin: 10px auto;
+  width: 95%;
+  div {
+    border-width: 1px;
+
+    ul {
+      border-width: 1px;
+      left: -1px;
+    }
+  }
+}
+
 .priceFilter {
   padding: 0;
   margin: 0 auto;
@@ -20,23 +34,26 @@
     div {
       @include flex-column;
       width: 100%;
-
       margin: 0;
       padding: 0;
-
+      position: relative;
+      margin-bottom: 20px;
       input {
         width: 100%;
         grid-area: input;
         padding: 4px 8px;
         height: 30px;
         margin: 0;
-        border: 1px solid $main-coffee-color;
+        border-width: 1px;
       }
       label {
         display: none;
       }
       span {
-        grid-area: span;
+        position: absolute;
+        top: 30px;
+        left: 0;
+        padding: 0;
       }
     }
   }

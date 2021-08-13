@@ -42,7 +42,9 @@ export const PROD_ARABICA = 'arabica',
   PROD_STRENGTH = 'strength',
   PROD_SWEETNESS = 'sweetness',
   PROD_SIZE = 'size',
+  PROD_SIZE_S = 'small',
   PROD_SIZE_M = 'medium',
+  PROD_SIZE_L = 'large',
   PROD_PRICE = 'price',
   PROD_BRAND = 'brand',
   PROD_TYPE = 'type',
@@ -53,7 +55,10 @@ export const PROD_ARABICA = 'arabica',
   PROD_IMG = 'img',
   PROD_DECS = 'description',
   PROD_CATEGORY = 'category',
-  PROD_SUBCATEGORRY = 'subcategory';
+  PROD_SUBCATEGORRY = 'subcategory',
+  WEIGHT_S = '250 g',
+  WEIGHT_M = '500 g',
+  WEIGHT_L = '1 kg';
 
 //Actions
 export const ADD = 'add',

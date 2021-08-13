@@ -1,5 +1,4 @@
-import * as vars from '../../shared/globalVars';
-import Checkbox from '../UI/Checkbox';
+import FilterItem from './FilterItem';
 import Card from '../UI/Card';
 import styles from './FilterList.module.scss';
 
@@ -22,24 +21,11 @@ const getFilterList = (list, property) => {
 };
 
 const FilterList = (props) => {
-  const { property, filter, products } = props;
+  const { property, products } = props;
+  const filterList = getFilterList(products, property).map((item, index) => (
+    <FilterItem key={index} filterValue={item} filterName={property} />
+  ));
 
-  const toggleFilterHandler = (item, isChecked) => {
-    const action = isChecked ? vars.ADD : vars.DELETE;
-    filter(property, item, action);
-  };
-
-  const filterList = getFilterList(products, property).map((item, index) => {
-    return (
-      <li key={index}>
-        <Checkbox
-          getCheckedStatus={toggleFilterHandler.bind(null, item)}
-          id={item}
-          label={item}
-        />
-      </li>
-    );
-  });
   return (
     <Card className={styles.filterList}>
       <h4>{property}</h4>
