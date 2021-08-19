@@ -1,6 +1,6 @@
 @import '../../styles/variables';
 
-.filtersBar {
+.filtersAside {
   margin: 30px 0;
   padding: 60px 8px 20px;
   border: 1px solid $main-coffee-color;
@@ -11,8 +11,10 @@
   padding: 0;
   margin: 10px auto;
   width: 95%;
+
   div {
     border-width: 1px;
+    max-width: 350px;
 
     ul {
       border-width: 1px;
@@ -60,5 +62,52 @@
   form button {
     margin: 0 auto 15px;
     font-size: 90%;
+  }
+}
+
+.filterBtn {
+  display: none;
+}
+
+@media (max-width: 650px) {
+  .filtersAside {
+    position: sticky;
+    border: none;
+    margin: 0;
+    top: 0;
+    z-index: 60;
+    background-color: $semilight-coffee-color;
+    padding: 5px;
+  }
+  .filtersBar {
+    max-width: 500px;
+    border: 1px solid $main-coffee-color;
+    margin: 0 auto;
+    padding: 10px;
+  }
+  .filterBtn {
+    display: block;
+    margin: 0px auto;
+    border-bottom: 1px solid $main-coffee-color;
+  }
+  .hidden {
+    display: none;
+  }
+  .priceFilter {
+    form {
+      max-width: 350px;
+      margin: 0 auto;
+      margin-bottom: 15px;
+      div {
+        padding: 0;
+      }
+
+      button {
+        margin: 0 auto 5px;
+        font-size: 90%;
+        height: 30px;
+        width: 100px;
+      }
+    }
   }
 }

@@ -23,7 +23,10 @@ const FilterItem = (props) => {
   useEffect(() => {
     checkedFilters.forEach((item) => {
       for (let i = 0; i < item.values.length; i++) {
-        if (item.values[i] === props.filterValue) {
+        if (
+          item.values[i] === props.filterValue &&
+          item.filterName === props.filterName
+        ) {
           setIsChecked(true);
         }
       }

@@ -12,6 +12,7 @@
     font-size: 100%;
     font-weight: 600;
     padding: 0 20px;
+    min-width: 70px;
   }
   ul {
     @include flex-row;
@@ -23,6 +24,7 @@
       font-weight: 600;
       cursor: pointer;
       border: 1px solid transparent;
+      transition: none;
       svg {
         fill: $dark-coffee-color;
       }
@@ -36,5 +38,47 @@
   border: 1px solid $main-coffee-color;
   svg {
     fill: $main-coffee-color;
+  }
+}
+
+@media (max-width: 750px) {
+  .sortingBar {
+    padding: 10px;
+    span {
+      padding: 0 5px;
+    }
+    ul {
+      width: 100%;
+      li {
+        padding: 5px 10px;
+        height: 35px;
+        margin-left: 5px;
+      }
+    }
+  }
+}
+
+@media (max-width: 650px) {
+  .sortingBar {
+    position: sticky;
+    top: 50px;
+    z-index: 50;
+    background: $semilight-coffee-color;
+    margin-top: 0;
+    border-top: none;
+  }
+}
+
+@media (max-width: 400px) {
+  .sortingBar {
+    font-weight: 500;
+    font-size: 90%;
+    span {
+      min-width: 50px;
+      text-align: center;
+    }
+    ul li {
+      margin-left: 0px;
+    }
   }
 }

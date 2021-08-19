@@ -11,6 +11,7 @@ import styles from './FiltersBar.module.scss';
 import Card from '../UI/Card';
 import Loader from '../UI/Loader';
 import Select from '../UI/Select';
+import { useState } from 'react';
 
 const getMinMaxPrice = (list, size) => {
   if (list.length === 0) {
@@ -36,6 +37,7 @@ const getMinMaxPrice = (list, size) => {
 };
 
 const FiltersBar = (props) => {
+  const [showFilters, setShowFilters] = useState(false);
   const { pathname } = useLocation();
   const { category, subcategory } = getSubcategoryName(pathname);
   const [minPrice, maxPrice] = getMinMaxPrice(
@@ -59,6 +61,8 @@ const FiltersBar = (props) => {
     changeHandler: maxPriceChangeHandler,
     blurHandler: maxPriceBlurHandler,
   } = useInput(vars.PRICE_INPUT, maxPrice);
+
+  const toggleFiltersHandler = () => setShowFilters((curState) => !curState);
 
   const resetFiltersHandler = () => dispatch(filtersActions.clearFilters());
   const getBeansWeight = (value) => {
@@ -238,12 +242,24 @@ const FiltersBar = (props) => {
     filters.push(priceFilter);
   }
 
+  const filterBarClasses = [styles.filterBar];
+  if (!showFilters) {
+    filterBarClasses.push(styles.hidden);
+  }
+
   return (
-    <aside className={styles.filtersBar}>
-      {props.loading ? <Loader /> : filters}
-      <Button btnStyle={vars.BTN_DARK} clicked={resetFiltersHandler}>
-        Reset Filters
-      </Button>
+    <aside className={styles.filtersAside}>
+      <div className={styles.filterBtn}>
+        <Button btnStyle={vars.BTN_MAIN} clicked={toggleFiltersHandler}>
+          {showFilters ? 'Hide Filters' : 'Show Filters'}
+        </Button>
+      </div>
+      <div className={filterBarClasses.join(' ')}>
+        {props.loading ? <Loader /> : filters}
+        <Button btnStyle={vars.BTN_DARK} clicked={resetFiltersHandler}>
+          Reset Filters
+        </Button>
+      </div>
     </aside>
   );
 };
