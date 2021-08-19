@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { BEANS } from '../../shared/globalVars';
 import styles from './SortingBar.module.scss';
 
@@ -44,19 +44,20 @@ const arrowDown = (
 
 const DEFAULT_MODE = 'default',
   NAME_MODE = 'name',
-  PRICE_MODE = 'price';
+  PRICE_MODE = 'price',
+  ASC_MODE = 'asc',
+  DESC_MODE = 'desc';
 
 const SortingBar = (props) => {
+  const { sort, reverse, sortParam, orderParam } = props;
   const [sortingMode, setSortingMode] = useState(DEFAULT_MODE);
-  const [isAsc, setIsAsc] = useState(true);
+  const [orderMode, setOrderMode] = useState(ASC_MODE);
 
   const sortByDefault = (array) => array;
-
-  const sortByName = (array) => {
-    return array.sort((firstEl, secondEl) =>
+  const sortByName = (array) =>
+    array.sort((firstEl, secondEl) =>
       firstEl.title < secondEl.title ? -1 : 1
     );
-  };
   const sortByPrice = (array) => {
     return array.sort((firstEl, secondEl) => {
       if (firstEl.subcategory === BEANS) {
@@ -66,60 +67,80 @@ const SortingBar = (props) => {
     });
   };
 
-  const sortByDefaultHandler = () => {
-    setSortingMode(DEFAULT_MODE);
-    props.sort(sortByDefault);
-  };
-  const sortByNameHandler = () => {
-    setSortingMode(NAME_MODE);
-    props.sort(sortByName);
-  };
-  const sortByPriceHandler = () => {
-    setSortingMode(PRICE_MODE);
-    props.sort(sortByPrice);
-  };
-  const ascHandler = () => {
-    if (isAsc) {
-      return;
-    }
-    setIsAsc(true);
-    props.reverse();
-  };
+  const sortHandler = useCallback(
+    (mode, event) => {
+      setSortingMode(mode);
+      let sortFunction = sortByDefault;
+      if (mode === NAME_MODE) {
+        sortFunction = sortByName;
+      } else if (mode === PRICE_MODE) {
+        sortFunction = sortByPrice;
+      }
+      sort(sortFunction, mode);
+      if (orderMode === DESC_MODE && event) {
+        reverse(DESC_MODE);
+      }
+    },
+    [sort, orderMode, reverse]
+  );
 
-  const descHandler = () => {
-    if (!isAsc) {
-      return;
+  const orderHandler = useCallback(
+    (mode) => {
+      if (orderMode === mode) {
+        return;
+      }
+      setOrderMode(mode);
+      reverse(mode);
+    },
+    [reverse, orderMode]
+  );
+
+  useEffect(() => {
+    if (sortParam !== sortingMode && sortParam) {
+      sortHandler(sortParam);
     }
-    setIsAsc(false);
-    props.reverse();
-  };
+  }, [sortParam, sortingMode, sortHandler]);
+
+  useEffect(() => {
+    let timer;
+    if (orderParam !== orderMode && orderParam) {
+      timer = setTimeout(() => orderHandler(orderParam), [100]);
+    }
+    return () => clearTimeout(timer);
+  }, [orderParam, orderMode, orderHandler]);
 
   return (
     <div className={styles.sortingBar}>
       <span>Sort By:</span>
       <ul>
         <li
-          onClick={sortByDefaultHandler}
+          onClick={sortHandler.bind(null, DEFAULT_MODE)}
           className={sortingMode === DEFAULT_MODE ? styles.selected : ''}
         >
           Default
         </li>
         <li
-          onClick={sortByNameHandler}
+          onClick={sortHandler.bind(null, NAME_MODE)}
           className={sortingMode === NAME_MODE ? styles.selected : ''}
         >
           Name
         </li>
         <li
-          onClick={sortByPriceHandler}
+          onClick={sortHandler.bind(null, PRICE_MODE)}
           className={sortingMode === PRICE_MODE ? styles.selected : ''}
         >
           Price
         </li>
-        <li onClick={ascHandler} className={isAsc ? styles.selected : ''}>
+        <li
+          onClick={orderHandler.bind(null, ASC_MODE)}
+          className={orderMode === ASC_MODE ? styles.selected : ''}
+        >
           {arrowUp}
         </li>
-        <li onClick={descHandler} className={!isAsc ? styles.selected : ''}>
+        <li
+          onClick={orderHandler.bind(null, DESC_MODE)}
+          className={orderMode === DESC_MODE ? styles.selected : ''}
+        >
           {arrowDown}
         </li>
       </ul>

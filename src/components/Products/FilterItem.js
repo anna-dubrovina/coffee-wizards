@@ -20,10 +20,16 @@ const FilterItem = (props) => {
       : dispatch(filtersActions.deleteFilter({ filterValue }));
   };
 
-  useEffect(
-    () => checkedFilters.length === 0 && setIsChecked(false),
-    [checkedFilters]
-  );
+  useEffect(() => {
+    checkedFilters.forEach((item) => {
+      for (let i = 0; i < item.values.length; i++) {
+        if (item.values[i] === props.filterValue) {
+          setIsChecked(true);
+        }
+      }
+    });
+    checkedFilters.length === 0 && setIsChecked(false);
+  }, [checkedFilters, props.filterValue]);
 
   return (
     <li onClick={toggleFilterHandler.bind(null, props.filterValue)}>

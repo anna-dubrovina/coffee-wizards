@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import useInput from '../../hooks/useInput';
 import { getSubcategoryName } from '../../shared/getSubcategoryName';
@@ -40,7 +39,7 @@ const FiltersBar = (props) => {
   const { pathname } = useLocation();
   const { category, subcategory } = getSubcategoryName(pathname);
   const [minPrice, maxPrice] = getMinMaxPrice(
-    props.filteredProds,
+    props.products,
     props.beansWeight
   );
   const dispatch = useDispatch();
@@ -84,7 +83,12 @@ const FiltersBar = (props) => {
     ) {
       return;
     }
-    props.priceFilter(enteredMinPrice, enteredMaxPrice);
+    dispatch(
+      filtersActions.addFilter({
+        filterName: 'price',
+        filterValue: `${enteredMinPrice}-${enteredMaxPrice}`,
+      })
+    );
   };
 
   let filters = [];

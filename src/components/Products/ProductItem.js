@@ -8,7 +8,7 @@ import Button from '../UI/Button';
 import styles from './ProductItem.module.scss';
 
 const ProductItem = (props) => {
-  const { id, title, img, size, category, subcategory } = props.product;
+  const { id, title, img, category, subcategory } = props.product;
   const dispatch = useDispatch();
   let beansSize = vars.PROD_SIZE_M;
   if (props.size === vars.WEIGHT_S) {

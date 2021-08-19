@@ -12,7 +12,7 @@ const NavItem = (props) => {
   const width = useCurrentWidth(!showDropdown && !props.mobile);
   const arrowIcon = showDropdown ? arrowUp : arrowDown;
 
-  useEffect(() =>  width > 600 && setShowDropdown(false), [width]);
+  useEffect(() => width > 600 && setShowDropdown(false), [width]);
 
   const toggleDropdownHanlder = () => setShowDropdown((curState) => !curState);
   const showDropdownHanlder = (e) => {
@@ -32,7 +32,10 @@ const NavItem = (props) => {
   let dropdownItems = props.dropdown.map((item) => {
     return (
       <li key={item.title}>
-        <Link to={item.link} onClick={closeDropdownHanlder}>
+        <Link
+          to={{ pathname: item.link, search: '' }}
+          onClick={closeDropdownHanlder}
+        >
           {item.title}
         </Link>
       </li>
@@ -46,7 +49,7 @@ const NavItem = (props) => {
       className={styles.navItem}
     >
       <NavLink
-        to={props.link}
+        to={{ pathname: props.link, search: '' }}
         activeClassName="selected"
         onClick={props.clicked}
       >

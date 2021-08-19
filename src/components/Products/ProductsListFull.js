@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { useScrollUp } from '../../hooks/useScrollUp';
 import { getSubcategoryName } from '../../shared/getSubcategoryName';
 import { fetchSubcategoryProds } from '../../store/products-actions';
@@ -14,6 +14,7 @@ import Button from '../UI/Button';
 import Card from '../UI/Card';
 import Loader from '../UI/Loader';
 import styles from './ProductsList.module.scss';
+import { useQuery } from '../../hooks/useQuery';
 
 const getPages = (array) => {
   const remainder = array.length % 6;
@@ -24,45 +25,142 @@ const getPages = (array) => {
 
 const ProductsListFull = () => {
   useScrollUp();
+  const { pathname, search } = useLocation();
   const products = useSelector((state) => state.products.subcategoryProds);
-  const { checkedFilters } = useSelector((state) => state.filters);
+  const { checkedFilters, filtersParams } = useSelector(
+    (state) => state.filters
+  );
   const { isLoading } = useSelector((state) => state.ui);
   const [listPage, setListPage] = useState(1);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [sortedProducts, setSortedProducts] = useState([]);
   const [beansWeight, setBeansWeight] = useState(vars.PROD_SIZE_M);
-  const { pathname } = useLocation();
+  const [searchParams, setSearchParams] = useState({});
   const { subcategory } = getSubcategoryName(pathname);
   const dispatch = useDispatch();
   const pages = getPages(sortedProducts);
-
-  const filterByPrice = (min, max) => {
-    setFilteredProducts((curState) => {
-      const updatedFilteredProds = [...curState];
-      const filteredByPrice = updatedFilteredProds.filter((item) => {
-        const productPrice = item.price
-          ? item.price
-          : item.size[beansWeight].price;
-        return (productPrice >= min) & (productPrice <= max);
-      });
-      return filteredByPrice;
-    });
-  };
+  const history = useHistory();
+  const query = useQuery();
+  const queryParams = useMemo(() => {
+    return {};
+  }, []);
+  for (const entry of query.entries()) {
+    queryParams[entry[0]] = entry[1];
+  }
 
   const getBeansWeightHandler = (weight) => setBeansWeight(weight);
-  const sortHandler = (sort) => setSortedProducts([...sort(filteredProducts)]);
-  const reverseHandler = () => {
-    setSortedProducts((curState) => {
-      const updatedState = [...curState];
-      return updatedState.reverse();
+
+  const sortHandler = useCallback(
+    (sort, mode) => {
+      setSortedProducts([...sort(filteredProducts)]);
+      if (mode !== queryParams.sort) {
+        console.log(mode, queryParams.sort);
+        setSearchParams((curState) => {
+          const updatedState = { ...curState, sort: mode };
+          return updatedState;
+        });
+      }
+    },
+    [filteredProducts, queryParams.sort]
+  );
+
+  const reverseHandler = useCallback(
+    (mode) => {
+      setSortedProducts((curState) => {
+        const updatedState = [...curState];
+        return updatedState.reverse();
+      });
+      if (mode !== queryParams.order) {
+        setSearchParams((curState) => {
+          const updatedState = { ...curState, order: mode };
+          return updatedState;
+        });
+      }
+    },
+    [queryParams.order]
+  );
+
+  const changePageHandler = (page) => {
+    setListPage(page);
+    setSearchParams((curState) => {
+      const updatedState = { ...curState, page };
+      return updatedState;
     });
   };
-  const changePageHandler = (page) => setListPage(page);
 
   useEffect(
     () => dispatch(fetchSubcategoryProds(subcategory)),
     [dispatch, subcategory]
   );
+
+  useEffect(() => {
+    if (
+      JSON.stringify(queryParams) !== '{}' &&
+      JSON.stringify(searchParams) === '{}'
+    ) {
+      let params = [];
+      for (const key in queryParams) {
+        if (key === 'page') {
+          changePageHandler(+queryParams.page);
+          continue;
+        }
+        if (key === 'sort') {
+          setSearchParams((curState) => {
+            const updatedState = { ...curState, sort: queryParams[key] };
+            return updatedState;
+          });
+          continue;
+        }
+        if (key === 'order') {
+          setSearchParams((curState) => {
+            const updatedState = { ...curState, order: queryParams[key] };
+            return updatedState;
+          });
+          continue;
+        }
+        const param = { paramName: key, paramValue: queryParams[key] };
+        params.push(param);
+      }
+
+      dispatch(filtersActions.setFilters(params));
+    } else {
+      let search = '?';
+      for (const key in searchParams) {
+        if (key !== 'filters') {
+          search += `${key}=${searchParams[key]}&`;
+        } else {
+          for (let i = 0; i < searchParams.filters.length; i++) {
+            const item = searchParams.filters[i];
+            search += `${item.paramName}=${item.paramValue}&`;
+          }
+        }
+      }
+      search = search.substring(0, search.length - 1);
+      history.push({ search });
+    }
+  }, [searchParams, history, queryParams, dispatch, reverseHandler]);
+
+  useEffect(() => {
+    if (filtersParams.length === 0) {
+      setSearchParams((curState) => {
+        const updatedState = { ...curState };
+        delete updatedState.filters;
+        return updatedState;
+      });
+    } else {
+      setSearchParams((curState) => {
+        const updatedState = {
+          ...curState,
+          filters: filtersParams,
+          page: 1,
+          order: 'asc',
+          sort: 'default',
+        };
+        return updatedState;
+      });
+      setListPage(1);
+    }
+  }, [filtersParams]);
 
   useEffect(() => {
     if (checkedFilters.length === 0) {
@@ -72,27 +170,49 @@ const ProductsListFull = () => {
     let allFittingProds = [];
     for (const filterItem of checkedFilters) {
       let fittingProdsPerFilter = [];
-      const arrayBeFiltered =
+      const prodsBeFiltered =
         allFittingProds.length === 0 ? products : allFittingProds;
-      for (let i = 0; i < arrayBeFiltered.length; i++) {
-        const concatFittingProds = fittingProdsPerFilter.concat(
-          arrayBeFiltered.filter(
-            (item) => item[filterItem.filterName] === filterItem.values[i]
-          )
-        );
-        fittingProdsPerFilter = concatFittingProds;
+
+      if (filterItem.filterName === 'price') {
+        const [min, max] = filterItem.values[0].split('-');
+        const filteredByPrice = prodsBeFiltered.filter((item) => {
+          const productPrice = item.price
+            ? item.price
+            : item.size[beansWeight].price;
+          return (productPrice >= min) & (productPrice <= max);
+        });
+        fittingProdsPerFilter = filteredByPrice;
+      } else {
+        for (let i = 0; i < filterItem.values.length; i++) {
+          const concatFittingProds = fittingProdsPerFilter.concat(
+            prodsBeFiltered.filter(
+              (item) => item[filterItem.filterName] === filterItem.values[i]
+            )
+          );
+          fittingProdsPerFilter = concatFittingProds;
+        }
       }
       allFittingProds = fittingProdsPerFilter;
     }
     setFilteredProducts(allFittingProds);
-  }, [products, checkedFilters, subcategory]);
+    // setSearchParams((curState) => {
+    //   const updatedState = { ...curState, order: 'asc' };
+    //   return updatedState;
+    // });
+  }, [products, checkedFilters, subcategory, beansWeight]);
 
   useEffect(() => setSortedProducts([...filteredProducts]), [filteredProducts]);
 
-  useEffect(
-    () => dispatch(filtersActions.clearFilters()),
-    [subcategory, dispatch]
-  );
+  useEffect(() => {
+    if (search === '') {
+      dispatch(filtersActions.clearFilters());
+      setSearchParams((curState) => {
+        const updatedState = { ...curState, page: 1 };
+        delete updatedState.filters;
+        return updatedState;
+      });
+    }
+  }, [search, dispatch]);
 
   const pagesList = [];
   for (let i = 0; i < pages; i++) {
@@ -139,16 +259,20 @@ const ProductsListFull = () => {
     <Section className="page-with-aside">
       <FiltersBar
         products={products}
-        filteredProds={filteredProducts}
+        // filteredProds={filteredProducts}
         loading={isLoading}
-        priceFilter={filterByPrice}
         beansWeight={beansWeight}
         getBeansWeight={getBeansWeightHandler}
       />
       {isLoading && <Loader />}
       {!isLoading && (
         <div className={styles.productsListContent}>
-          <SortingBar sort={sortHandler} reverse={reverseHandler} />
+          <SortingBar
+            sort={sortHandler}
+            reverse={reverseHandler}
+            sortParam={queryParams.sort}
+            orderParam={queryParams.order}
+          />
           {sortedProducts.length === 0 ? (
             <Card className={styles.noProds}>
               <h3> Unfortunately, there is no products for your request.</h3>
@@ -157,11 +281,11 @@ const ProductsListFull = () => {
           ) : (
             <>
               <ul className={styles.productsList}>{productsList}</ul>
-              {sortedProducts.length > 6 && (
+              {/* {sortedProducts.length > 6 && (
                 <div className={styles.btnWrapper}>
                   <Button>Show More</Button>
                 </div>
-              )}
+              )} */}
               <ul className={styles.pagesList}>{pagesList} </ul>
             </>
           )}
