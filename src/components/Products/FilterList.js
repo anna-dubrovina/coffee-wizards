@@ -1,7 +1,6 @@
 import FilterItem from './FilterItem';
 import Card from '../UI/Card';
 import styles from './FilterList.module.scss';
-import { useSelector } from 'react-redux';
 
 const getFilterList = (list, property) => {
   let propertyList = [];

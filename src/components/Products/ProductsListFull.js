@@ -54,7 +54,6 @@ const ProductsListFull = () => {
     (sort, mode) => {
       setSortedProducts([...sort(filteredProducts)]);
       if (mode !== queryParams.sort) {
-        console.log(mode, queryParams.sort);
         setSearchParams((curState) => {
           const updatedState = { ...curState, sort: mode };
           return updatedState;
@@ -95,6 +94,12 @@ const ProductsListFull = () => {
 
   useEffect(() => {
     if (
+      JSON.stringify(queryParams) === '{}' &&
+      JSON.stringify(searchParams) === '{}'
+    ) {
+      return;
+    }
+    if (
       JSON.stringify(queryParams) !== '{}' &&
       JSON.stringify(searchParams) === '{}'
     ) {
@@ -121,7 +126,6 @@ const ProductsListFull = () => {
         const param = { paramName: key, paramValue: queryParams[key] };
         params.push(param);
       }
-
       dispatch(filtersActions.setFilters(params));
     } else {
       let search = '?';
@@ -138,7 +142,7 @@ const ProductsListFull = () => {
       search = search.substring(0, search.length - 1);
       history.push({ search });
     }
-  }, [searchParams, history, queryParams, dispatch, reverseHandler]);
+  }, [searchParams, history, queryParams, dispatch]);
 
   useEffect(() => {
     if (filtersParams.length === 0) {
@@ -172,7 +176,6 @@ const ProductsListFull = () => {
       let fittingProdsPerFilter = [];
       const prodsBeFiltered =
         allFittingProds.length === 0 ? products : allFittingProds;
-
       if (filterItem.filterName === 'price') {
         const [min, max] = filterItem.values[0].split('-');
         const filteredByPrice = prodsBeFiltered.filter((item) => {
@@ -185,20 +188,20 @@ const ProductsListFull = () => {
       } else {
         for (let i = 0; i < filterItem.values.length; i++) {
           const concatFittingProds = fittingProdsPerFilter.concat(
-            prodsBeFiltered.filter(
-              (item) => item[filterItem.filterName] === filterItem.values[i]
-            )
+            prodsBeFiltered.filter((item) => {
+              let value = isNaN(item[filterItem.filterName])
+                ? filterItem.values[i]
+                : +filterItem.values[i];
+              return item[filterItem.filterName] === value;
+            })
           );
+
           fittingProdsPerFilter = concatFittingProds;
         }
       }
       allFittingProds = fittingProdsPerFilter;
     }
     setFilteredProducts(allFittingProds);
-    // setSearchParams((curState) => {
-    //   const updatedState = { ...curState, order: 'asc' };
-    //   return updatedState;
-    // });
   }, [products, checkedFilters, subcategory, beansWeight]);
 
   useEffect(() => setSortedProducts([...filteredProducts]), [filteredProducts]);
@@ -207,7 +210,7 @@ const ProductsListFull = () => {
     if (search === '') {
       dispatch(filtersActions.clearFilters());
       setSearchParams((curState) => {
-        const updatedState = { ...curState, page: 1 };
+        const updatedState = { ...curState };
         delete updatedState.filters;
         return updatedState;
       });
@@ -259,7 +262,6 @@ const ProductsListFull = () => {
     <Section className="page-with-aside">
       <FiltersBar
         products={products}
-        // filteredProds={filteredProducts}
         loading={isLoading}
         beansWeight={beansWeight}
         getBeansWeight={getBeansWeightHandler}

@@ -24,7 +24,8 @@ const FilterItem = (props) => {
     checkedFilters.forEach((item) => {
       for (let i = 0; i < item.values.length; i++) {
         if (
-          item.values[i] === props.filterValue &&
+          (item.values[i] === props.filterValue ||
+            +item.values[i] === props.filterValue) &&
           item.filterName === props.filterName
         ) {
           setIsChecked(true);
@@ -32,7 +33,7 @@ const FilterItem = (props) => {
       }
     });
     checkedFilters.length === 0 && setIsChecked(false);
-  }, [checkedFilters, props.filterValue]);
+  }, [checkedFilters, props.filterValue, props.filterName]);
 
   return (
     <li onClick={toggleFilterHandler.bind(null, props.filterValue)}>
